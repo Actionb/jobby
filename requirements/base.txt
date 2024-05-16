@@ -1,3 +1,4 @@
+## direct dependencies
 requests==2.31.0
 Django==5.0.6
 ## The following requirements were added by pip freeze:
