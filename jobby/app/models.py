@@ -24,7 +24,7 @@ class SucheModel(models.Model):
     berufsfeld = models.CharField(max_length=100, blank=True, null=True)
     arbeitgeber = models.CharField(max_length=100, blank=True, null=True)
     published_since = models.PositiveSmallIntegerField(blank=True, null=True)
-    zeitarbeit = models.NullBooleanField(blank=True, null=True)
+    zeitarbeit = models.BooleanField(blank=True, null=True)
     # TODO: null=True on IntegerField a problem?
     angebot_art = models.IntegerField(choices=AngebotsChoices, blank=True, null=True)
     befristung = models.IntegerField(choices=BefristungChoices, blank=True, null=True)
