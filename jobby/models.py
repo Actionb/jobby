@@ -23,10 +23,10 @@ class SucheModel(models.Model):
     wo = models.CharField(max_length=100)  # TODO: required?
     berufsfeld = models.CharField(max_length=100, blank=True, null=True)
     arbeitgeber = models.CharField(max_length=100, blank=True, null=True)
-    published_since = models.PositiveSmallIntegerField(blank=True, null=True)
+    veroeffentlichtseit = models.PositiveSmallIntegerField(blank=True, null=True)
     zeitarbeit = models.BooleanField(blank=True, null=True)
     # TODO: null=True on IntegerField a problem?
-    angebot_art = models.IntegerField(choices=AngebotsChoices, blank=True, null=True)
+    angebotsart = models.IntegerField(choices=AngebotsChoices, blank=True, null=True)
     befristung = models.IntegerField(choices=BefristungChoices, blank=True, null=True)
     arbeitszeit = models.CharField(max_length=3, choices=ArbeitszeitChoices, blank=True, null=True)
     behinderung = models.BooleanField(default=False)
