@@ -34,5 +34,5 @@ class SucheModel(models.Model):
     umfeld = models.PositiveSmallIntegerField(blank=True, null=True)
 
     # Query specific options
-    page = models.PositiveSmallIntegerField()
-    size = models.PositiveSmallIntegerField()
+    page = models.PositiveSmallIntegerField(blank=True, null=True)
+    size = models.PositiveSmallIntegerField(blank=True, null=True)

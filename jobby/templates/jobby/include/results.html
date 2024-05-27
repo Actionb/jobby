@@ -1,0 +1,8 @@
+{% if results %}
+    <h2>Ergebnisse:</h2>
+    <ul>
+        {% for result in results %}
+            <li>{{ result.titel }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}

@@ -1,0 +1,10 @@
+{% extends "jobby/base.html" %}
+
+{% block content %}
+<form method="GET">
+    {{ form.as_div }}
+    <button type="submit" name="suche">Suchen</button>
+</form>
+<hr>
+{% include "jobby/include/results.html" %}
+{% endblock content %}
