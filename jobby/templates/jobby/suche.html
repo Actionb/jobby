@@ -1,9 +1,10 @@
 {% extends "jobby/base.html" %}
+{% load django_bootstrap5 %}
 
 {% block content %}
 <form method="GET">
-    {{ form.as_div }}
-    <button type="submit" name="suche">Suchen</button>
+    {% bootstrap_form form %}
+    <button class="btn btn-success" type="submit" name="suche">Suchen</button>
 </form>
 <hr>
 {% include "jobby/include/results.html" %}
