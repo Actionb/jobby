@@ -1,9 +1,7 @@
 from unittest.mock import Mock
 
 import pytest
-from bs4 import BeautifulSoup
 from django import forms
-from django.template.loader import render_to_string
 
 
 @pytest.fixture
@@ -34,18 +32,8 @@ def template_name():
 
 
 @pytest.fixture
-def rendered_template(template_name, context):
-    """Render the template with the given context."""
-    return render_to_string(template_name, context)
-
-
-@pytest.fixture
-def soup(rendered_template):
-    return BeautifulSoup(rendered_template, "html.parser")
-
-
-@pytest.fixture
 def rendered_results(soup):
+    """Return the rendered result items."""
     return soup.find_all(class_="result-item")
 
 
