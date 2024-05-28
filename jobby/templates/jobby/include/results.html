@@ -1,8 +1,8 @@
 {% if results %}
     <h2>Ergebnisse:</h2>
-    <ul>
+    <ul id="searchResults">
         {% for result in results %}
-            <li>{{ result.titel }}</li>
+            <li class="result-item">{{ result.titel }}</li>
         {% endfor %}
     </ul>
 {% else %}
