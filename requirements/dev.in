@@ -3,3 +3,9 @@ pytest
 black
 ruff
 pre-commit
+coverage
+pytest-cov
+pytest-django
+pytest-xdist
+factory-boy
+beautifulsoup4

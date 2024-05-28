@@ -18,3 +18,5 @@ files of the other group.
 
 This means that you can add as many dependencies of the same group as you wish, but you should 
 call the group's respective lock command before adding dependencies to the other group.
+
+Then you can run `pip install -r requirements.txt` (or `requirements/dev.txt` for dev dependencies).  

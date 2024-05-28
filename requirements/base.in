@@ -1,3 +1,4 @@
 ## direct dependencies
 requests
 Django
+django-bootstrap5
