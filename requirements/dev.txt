@@ -3,6 +3,7 @@ pytest==8.2.0
 black==24.4.2
 ruff==0.4.4
 pre-commit==3.7.1
+beautifulsoup4==4.12.3
 cfgv==3.4.0
 click==8.1.7
 coverage==7.5.3
@@ -25,4 +26,5 @@ pytest-xdist==3.6.1
 python-dateutil==2.9.0.post0
 PyYAML==6.0.1
 six==1.16.0
+soupsieve==2.5
 virtualenv==20.26.2
