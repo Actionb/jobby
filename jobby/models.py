@@ -1,5 +1,7 @@
 from django.db import models
 
+CHARFIELD_MAX = 256
+
 
 class SucheModel(models.Model):
     class AngebotsChoices(models.IntegerChoices):
@@ -19,10 +21,10 @@ class SucheModel(models.Model):
         HOME_OFFICE = "ho", "Heim-/Telearbeit"
         MINIJOB = "mj", "Minijob"
 
-    was = models.CharField(max_length=100)
-    wo = models.CharField(max_length=100)  # TODO: required?
-    berufsfeld = models.CharField(max_length=100, blank=True, null=True)
-    arbeitgeber = models.CharField(max_length=100, blank=True, null=True)
+    was = models.CharField(max_length=CHARFIELD_MAX)
+    wo = models.CharField(max_length=CHARFIELD_MAX)  # TODO: required?
+    berufsfeld = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True)
+    arbeitgeber = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True)
     veroeffentlichtseit = models.PositiveSmallIntegerField(verbose_name="Veröffentlicht seit", blank=True, null=True)
     zeitarbeit = models.BooleanField(blank=True, null=True)
     # TODO: null=True on IntegerField a problem?
