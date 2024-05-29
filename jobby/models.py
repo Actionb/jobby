@@ -42,3 +42,53 @@ class SucheModel(models.Model):
     class Meta:
         verbose_name = "Such-Parameter"
         verbose_name_plural = "Such-Parameter"
+
+
+class Stellenangebot(models.Model):
+    class BewerbungChoices(models.TextChoices):
+        NICHT_BEWORBEN = "nicht beworben"
+        GEPLANT = "geplant"
+        BEWORBEN = "beworben"
+        ABGELEHNT = "abgelehnt"
+        ANGENOMMEN = "angenommen"
+        NICHT_GEPLANT = "---"
+
+    titel = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Titel")
+    refnr = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Referenz-Nummer")
+    beruf = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True, verbose_name="Beruf")
+    # TODO: arbeitgeber could be a relation?
+    arbeitgeber = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True, verbose_name="Arbeitgeber")
+    eintrittsdatum = models.DateField(blank=True, null=True, verbose_name="Eintrittsdatum")
+    veroeffentlicht = models.DateField(blank=True, null=True, verbose_name="Veröffentlicht am")
+
+    bewerbungsstatus = models.CharField(
+        max_length=CHARFIELD_MAX,
+        choices=BewerbungChoices,
+        default=BewerbungChoices.NICHT_GEPLANT,
+        verbose_name="Bewerbungsstatus",
+    )
+    notizen = models.TextField(verbose_name="Notizen")
+
+    class Meta:
+        verbose_name = "Stellenangebot"
+        verbose_name_plural = "Stellenangebote"
+
+
+class StellenangebotURLs(models.Model):
+    url = models.URLField()
+    angebot = models.ForeignKey("jobby.Stellenangebot", on_delete=models.CASCADE, related_name="urls")
+
+    class Meta:
+        verbose_name = "URL"
+        verbose_name_plural = "URLs"
+
+
+class StellenangebotKontakt(models.Model):
+    class TypChoices(models.TextChoices):
+        EMAIL = "E-Mail"
+        TELEFON = "Telefon"
+        ANSCHRIFT = "Anschrift"
+
+    kontakt_typ = models.CharField(max_length=CHARFIELD_MAX, choices=TypChoices, verbose_name="Art")
+    kontakt_daten = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Daten")
+    angebot = models.ForeignKey("jobby.Stellenangebot", on_delete=models.CASCADE, related_name="kontakte")
