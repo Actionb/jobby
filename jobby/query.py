@@ -2,10 +2,50 @@ import dataclasses
 
 import requests
 
+from jobby.models import Stellenangebot
 
+
+# noinspection SpellCheckingInspection
 @dataclasses.dataclass
-class Result:
+class SearchResult:
     titel: str
+    refnr: str
+    beruf: str = ""
+    arbeitgeber: str = ""
+    arbeitsort: dict = dataclasses.field(default_factory=dict)
+    eintrittsdatum: str = ""
+    aktuelleVeroeffentlichungsdatum: str = ""
+    modifikationsTimestamp: str = ""
+    kundennummerHash: str = ""  # TODO: this field does not exist on Stellenangebot model
+    externeUrl: str = ""  # TODO: this field does not exist on Stellenangebot model
+
+    @property
+    def arbeitsort_string(self):
+        arbeitsort = self.arbeitsort.get("ort", "")
+        plz = self.arbeitsort.get("plz", "")
+        region = self.arbeitsort.get("region", "")
+        if arbeitsort and plz:
+            arbeitsort = f"{arbeitsort}, {plz}"
+        if region:
+            if arbeitsort:
+                arbeitsort = f"{arbeitsort} ({region})"
+            else:
+                arbeitsort = region
+        return arbeitsort.strip()
+
+    @property
+    def stellenangebot(self):
+        """Return a Stellenangebot instance for this search result."""
+        return Stellenangebot(
+            titel=self.titel,
+            refnr=self.refnr,
+            beruf=self.beruf,
+            arbeitgeber=self.arbeitgeber,
+            arbeitsort=self.arbeitsort_string,
+            eintrittsdatum=self.eintrittsdatum,
+            veroeffentlicht=self.aktuelleVeroeffentlichungsdatum,
+            modified=self.modifikationsTimestamp,
+        )
 
 
 def get_jwt():
@@ -78,17 +118,47 @@ def _search(**params):
     return response
 
 
-def query(**kwargs):
+def get_angebote(**params):
     try:
-        response = _search(**{k: v for k, v in kwargs.items() if v is not None})
-        if response.status_code == 200:
-            results = response.json()
-            if results.get("maxErgebnisse", 0):
-                return [Result(r["titel"]) for r in results["stellenangebote"]]
-            else:
-                return []
-        else:
-            return [Result(f"Bad response: {response.status_code}")]
+        response = _search(**{k: v for k, v in params.items() if v is not None})
     except Exception:
         # TODO: error handling
         raise
+    if response.status_code == 200:
+        data = response.json()
+        if not data.get("maxErgebnisse", 0):
+            return []
+
+        # Parse each search result, and collect the ref numbers for database
+        # lookups.
+        refs = set()
+        angebote = []
+        for r in data["stellenangebote"]:
+            angebot = SearchResult(**r)
+            refs.add(angebot.refnr)
+            angebote.append(angebot)
+
+        # Create the list of Stellenangebot instances.
+        # Use saved Stellenangebot instances whenever possible. Update
+        # saved instances if the data has changed.
+        results = []
+        # TODO: extract existing into a separate method for easier testing
+        existing = Stellenangebot.objects.filter(refnr__in=refs)
+        for angebot in angebote:
+            if angebot.refnr in existing.values_list("refnr", flat=True):
+                stellenangebot = existing.get(refnr=angebot.refnr)
+                update_dict = {}
+                for k, v in dataclasses.asdict(angebot).items():
+                    # FIXME: angebot.fields do not match the Stellenangebot model fields
+                    if getattr(stellenangebot, k) != v:
+                        update_dict[k] = v
+                        setattr(stellenangebot, k, v)
+                if update_dict:
+                    existing.filter(refnr=angebot.refnr).update(**update_dict)
+            else:
+                stellenangebot = angebot.stellenangebot
+            results.append(stellenangebot)
+        return results
+    else:
+        # TODO: handle a bad response
+        return []

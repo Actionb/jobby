@@ -2,7 +2,7 @@ from django import forms
 from django.views.generic import FormView
 
 from jobby.models import SucheModel
-from jobby.query import query
+from jobby.query import get_angebote
 
 
 class SucheView(FormView):
@@ -21,5 +21,5 @@ class SucheView(FormView):
 
     def form_valid(self, form):
         ctx = self.get_context_data(form=form)
-        ctx["results"] = query(**form.cleaned_data)
+        ctx["results"] = get_angebote(**form.cleaned_data)
         return self.render_to_response(ctx)

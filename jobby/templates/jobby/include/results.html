@@ -2,7 +2,11 @@
     <h2>Ergebnisse:</h2>
     <ul id="searchResults">
         {% for result in results %}
-            <li class="result-item">{{ result.titel }}</li>
+            <li class="result-item border rounded mb-3 p-3">
+                <p><span class="fw-bold">Titel:</span> {{ result.titel }}</p>
+                <p><span class="fw-bold">Beruf:</span> {{ result.beruf }}</p>
+                <p><span class="fw-bold">Arbeitsort:</span> {{ result.arbeitsort }}</p>
+            </li>
         {% endfor %}
     </ul>
 {% else %}
