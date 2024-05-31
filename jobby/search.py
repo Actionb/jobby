@@ -3,7 +3,7 @@ import requests
 from jobby.models import Stellenangebot, _update_stellenangebot
 
 
-def get_jwt():
+def get_jwt():  # pragma: no cover
     """Fetch the jwt token object."""
     headers = {
         "User-Agent": "Jobsuche/2.9.2 (de.arbeitsagentur.jobboerse; build:1077; iOS 15.1.0) Alamofire/5.4.4",
@@ -28,7 +28,7 @@ def get_jwt():
     return response.json()["access_token"]
 
 
-def _search(**params):
+def _search(**params):  # pragma: no cover
     """
     Search for jobs.
 
