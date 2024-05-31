@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 import pytest
 import requests
 from jobby.models import Stellenangebot
-from jobby.query import get_angebote
+from jobby.query import search
 
 from tests.factories import StellenangebotFactory
 
@@ -64,38 +64,38 @@ def search_mock(response_mock):
         yield m
 
 
-def test_get_angebote(search_mock):
-    angebote = get_angebote()
+def test_search(search_mock):
+    angebote = search()
     assert len(angebote) == 1
     assert isinstance(angebote[0], Stellenangebot)
     assert angebote[0].titel == "Software Entwickler"
 
 
 @pytest.mark.parametrize("response_status_code", [requests.codes["bad_request"]])
-def test_get_angebote_bad_request(search_mock, response_status_code):
+def test_search_bad_request(search_mock, response_status_code):
     # TODO: test against an actual sentinel value for bad requests?
-    assert get_angebote() == []
+    assert search() == []
 
 
 @pytest.mark.parametrize("search_results", [[]])
-def test_get_angebote_no_results(search_mock, search_results):
-    assert get_angebote() == []
+def test_search_no_results(search_mock, search_results):
+    assert search() == []
 
 
-def test_get_angebote_search_exception(search_mock):
+def test_search_search_exception(search_mock):
     # TODO: implement error handling and test it here
     search_mock.side_effect = Exception()
     with pytest.raises(Exception):
-        get_angebote()
+        search()
 
 
-def test_get_angebote_filters_none_values(search_mock):
+def test_search_filters_none_values(search_mock):
     """
-    Assert that get_angebote removes and None values from the search parameters
+    Assert that search removes and None values from the search parameters
     before passing them to _search.
     """
     params = {"None": None, "foo": "bar", "bool": False, "number": 0}
-    get_angebote(**params)
+    search(**params)
     search_mock.assert_called_with(**{"foo": "bar", "bool": False, "number": 0})
 
 
@@ -118,12 +118,12 @@ def test_checks_for_existing(search_mock, stellenangebot, refnr, search_result):
     filter_mock.return_value.values_list.return_value = []
     with patch.object(Stellenangebot, "objects") as queryset_mock:
         queryset_mock.filter = filter_mock
-        get_angebote()
+        search()
         filter_mock.assert_called_with(refnr__in={refnr})
 
 
 def test_updates_existing(search_mock, stellenangebot):
-    get_angebote()
+    search()
     stellenangebot.refresh_from_db()
     assert stellenangebot.titel == "Software Entwickler"
     assert stellenangebot.beruf == "Informatiker"

@@ -118,7 +118,7 @@ def _search(**params):
     return response
 
 
-def get_angebote(**params):
+def search(**params):
     try:
         response = _search(**{k: v for k, v in params.items() if v is not None})
     except Exception:
