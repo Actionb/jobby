@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 import pytest
 import requests
 from jobby.models import Stellenangebot
-from jobby.search import search
+from jobby.search import _parse_arbeitsort, _process_results, search
 
 from tests.factories import StellenangebotFactory
 
@@ -124,3 +124,42 @@ def test_updates_existing(search_mock, stellenangebot):
     stellenangebot.refresh_from_db()
     assert stellenangebot.titel == "Software Entwickler"
     assert stellenangebot.beruf == "Informatiker"
+
+
+@pytest.mark.parametrize(
+    "ort_data, expected",
+    [
+        ({"ort": "Dortmund"}, "Dortmund"),
+        # TODO: enable these tests once _parse_arbeitsort has been improved:
+        # ({"ort": "Dortmund", "plz": "44263"}, "Dortmund, 44263"),
+        # ({"ort": "Dortmund", "plz": "44263", "region": "NRW"}, "Dortmund, 44263 (NRW)"),  # noqa
+    ],
+)
+def test_parse_arbeitsort(ort_data, expected):
+    assert _parse_arbeitsort(ort_data) == expected
+
+
+def test_process_results(refnr):
+    search_result = {
+        "titel": "Software Developer",
+        "refnr": refnr,
+        "beruf": "Informatiker",
+        "arbeitgeber": "IHK Dortmund",
+        "arbeitsort": {"ort": "Dortmund", "plz": "44263", "region": "NRW"},
+        "eintrittsdatum": "2024-07-01",
+        "aktuelleVeroeffentlichungsdatum": "2024-05-30",
+        "modifikationsTimestamp": "2024-05-22T09:00:15.099",
+    }
+    with patch("jobby.search._parse_arbeitsort", new=Mock(return_value="mocked")) as arbeitsort_mock:
+        results = _process_results([search_result])
+        assert len(results) == 1
+        result = results[0]
+        assert isinstance(result, Stellenangebot)
+        assert result.titel == search_result["titel"]
+        assert result.refnr == search_result["refnr"]
+        assert result.beruf == search_result["beruf"]
+        assert result.arbeitgeber == search_result["arbeitgeber"]
+        arbeitsort_mock.assert_called_with(search_result["arbeitsort"])
+        assert result.eintrittsdatum == search_result["eintrittsdatum"]
+        assert result.veroeffentlicht == search_result["aktuelleVeroeffentlichungsdatum"]
+        assert result.modified == search_result["modifikationsTimestamp"]

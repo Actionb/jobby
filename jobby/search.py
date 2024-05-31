@@ -118,6 +118,39 @@ def _search(**params):
     return response
 
 
+def _parse_arbeitsort(arbeitsort_dict):
+    """
+    Return a string for the 'arbeitsort' field from the given data from a
+    search result.
+    """
+    # TODO: include data like PLZ or distance into the string
+    try:
+        return arbeitsort_dict["ort"]
+    except KeyError:
+        return ""
+
+
+def _process_results(results):
+    """
+    Walk through the dictionaries of the search results and return them as
+    Stellenangebot instances.
+    """
+    processed = []
+    for result in results:
+        instance = Stellenangebot(
+            titel=result.get("titel", ""),
+            refnr=result.get("refnr", ""),
+            beruf=result.get("beruf", ""),
+            arbeitgeber=result.get("arbeitgeber", ""),
+            arbeitsort=_parse_arbeitsort(result.get("arbeitsort", {})),
+            eintrittsdatum=result.get("eintrittsdatum", ""),
+            veroeffentlicht=result.get("aktuelleVeroeffentlichungsdatum", ""),
+            modified=result.get("modifikationsTimestamp", ""),
+        )
+        processed.append(instance)
+    return processed
+
+
 def _get_existing(refs):
     return Stellenangebot.objects.filter(refnr__in=refs)
 
