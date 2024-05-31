@@ -114,12 +114,9 @@ def stellenangebot(refnr):
 
 
 def test_checks_for_existing(search_mock, stellenangebot, refnr, search_result):
-    filter_mock = Mock()
-    filter_mock.return_value.values_list.return_value = []
-    with patch.object(Stellenangebot, "objects") as queryset_mock:
-        queryset_mock.filter = filter_mock
+    with patch("jobby.search._get_existing") as existing_mock:
         search()
-        filter_mock.assert_called_with(refnr__in={refnr})
+    existing_mock.assert_called_with({refnr})
 
 
 def test_updates_existing(search_mock, stellenangebot):

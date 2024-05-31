@@ -118,6 +118,10 @@ def _search(**params):
     return response
 
 
+def _get_existing(refs):
+    return Stellenangebot.objects.filter(refnr__in=refs)
+
+
 def search(**params):
     try:
         response = _search(**{k: v for k, v in params.items() if v is not None})
@@ -142,8 +146,7 @@ def search(**params):
         # Use saved Stellenangebot instances whenever possible. Update
         # saved instances if the data has changed.
         results = []
-        # TODO: extract existing into a separate method for easier testing
-        existing = Stellenangebot.objects.filter(refnr__in=refs)
+        existing = _get_existing(refs)
         for angebot in angebote:
             if angebot.refnr in existing.values_list("refnr", flat=True):
                 stellenangebot = existing.get(refnr=angebot.refnr)
