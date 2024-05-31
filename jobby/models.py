@@ -3,6 +3,24 @@ from django.db import models
 CHARFIELD_MAX = 256
 
 
+def _update_stellenangebot(existing, other):
+    """Update the existing Stellenangebot object with data from the other."""
+    if existing.refnr != other.refnr:
+        # Not the same Stellenangebot.
+        return False
+
+    update_dict = {}
+    for field in existing._meta.get_fields():
+        if not field.concrete or not hasattr(other, field.name) or field.primary_key:  # pragma: no cover
+            continue
+        if getattr(existing, field.name) != getattr(other, field.name):
+            update_dict[field.name] = getattr(other, field.name)
+    if update_dict:
+        Stellenangebot.objects.filter(refnr=existing.refnr).update(**update_dict)
+        return True
+    return False
+
+
 class SucheModel(models.Model):
     class AngebotsChoices(models.IntegerChoices):
         ARBEIT = 1, "Arbeit"
