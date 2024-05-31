@@ -14,7 +14,7 @@ def form():
 def results():
     """Return the template context item for the search results."""
     return [
-        Mock(titel="Software Tester", beruf="Informatiker", arbeitsort="Dortmund"),
+        Mock(titel="Software Tester", arbeitsort="Dortmund", arbeitgeber="IHK Dortmund", eintrittsdatum="2024-05-31"),
     ]
 
 
@@ -47,8 +47,8 @@ def test_search_no_results_no_ergebnisse(rendered_template, results):
     assert "Keine Angebote gefunden!" in rendered_template
 
 
-def test_results_rendering(rendered_results):
-    paragraphs = rendered_results[0].find_all("p")
-    assert str(paragraphs[0]) == """<p><span class="fw-bold">Titel:</span> Software Tester</p>"""
-    assert str(paragraphs[1]) == """<p><span class="fw-bold">Beruf:</span> Informatiker</p>"""
-    assert str(paragraphs[2]) == """<p><span class="fw-bold">Arbeitsort:</span> Dortmund</p>"""
+def test_results_rendering(results, rendered_results):
+    assert rendered_results[0].h3.string == results[0].titel
+    assert rendered_results[0].find("span", class_="arbeitsort").string == results[0].arbeitsort
+    assert rendered_results[0].find("span", class_="arbeitgeber").string == results[0].arbeitgeber
+    assert rendered_results[0].find("span", class_="eintrittsdatum").string == results[0].eintrittsdatum
