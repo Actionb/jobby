@@ -5,14 +5,7 @@ import requests
 from jobby.models import Stellenangebot
 from jobby.search import _parse_arbeitsort, _process_results, search
 
-from tests.factories import StellenangebotFactory
-
 pytestmark = [pytest.mark.django_db]
-
-
-@pytest.fixture
-def refnr():
-    return "789-456-1230"
 
 
 @pytest.fixture
@@ -99,20 +92,6 @@ def test_search_filters_none_values(search_mock):
     search_mock.assert_called_with(**{"foo": "bar", "bool": False, "number": 0})
 
 
-@pytest.fixture
-def stellenangebot(refnr):
-    return StellenangebotFactory(
-        titel="Software Developer",
-        refnr=refnr,
-        beruf="Informatiker",
-        arbeitgeber="IHK Dortmund",
-        arbeitsort={"ort": "Dortmund", "plz": "44263", "region": "NRW"},
-        eintrittsdatum="2024-07-01",
-        veroeffentlicht="2024-05-30",
-        modified="2024-05-22T09:00:15.099",
-    )
-
-
 def test_checks_for_existing(search_mock, stellenangebot, refnr, search_result):
     with patch("jobby.search._get_existing") as existing_mock:
         search()
@@ -139,10 +118,10 @@ def test_parse_arbeitsort(ort_data, expected):
     assert _parse_arbeitsort(ort_data) == expected
 
 
-def test_process_results(refnr):
+def test_process_results():
     search_result = {
         "titel": "Software Developer",
-        "refnr": refnr,
+        "refnr": "789-456-0123",
         "beruf": "Informatiker",
         "arbeitgeber": "IHK Dortmund",
         "arbeitsort": {"ort": "Dortmund", "plz": "44263", "region": "NRW"},
