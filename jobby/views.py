@@ -2,7 +2,7 @@ from django import forms
 from django.views.generic import FormView
 
 from jobby.models import SucheModel
-from jobby.query import search
+from jobby.search import search
 
 
 class SucheView(FormView):

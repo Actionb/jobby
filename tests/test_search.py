@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 import pytest
 import requests
 from jobby.models import Stellenangebot
-from jobby.query import search
+from jobby.search import search
 
 from tests.factories import StellenangebotFactory
 
@@ -59,7 +59,7 @@ def response_mock(response_status_code, response_data):
 
 @pytest.fixture
 def search_mock(response_mock):
-    with patch("jobby.query._search") as m:
+    with patch("jobby.search._search") as m:
         m.return_value = response_mock
         yield m
 
