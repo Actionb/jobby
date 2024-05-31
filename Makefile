@@ -25,3 +25,7 @@ reformat:
 lint:
 	ruff check . --no-fix
 	black . --check
+
+.PHONY: test
+test:
+	pytest --cov --cov-branch --cov-report=term tests/
