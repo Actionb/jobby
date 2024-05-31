@@ -90,6 +90,7 @@ def _process_results(results):
     Walk through the dictionaries of the search results and return them as
     Stellenangebot instances.
     """
+    # TODO: include "externeUrl" data that is present on some results
     processed = []
     for result in results:
         instance = Stellenangebot(
@@ -98,6 +99,7 @@ def _process_results(results):
             beruf=result.get("beruf", ""),
             arbeitgeber=result.get("arbeitgeber", ""),
             arbeitsort=_parse_arbeitsort(result.get("arbeitsort", {})),
+            # TODO: parse into date and datetime:
             eintrittsdatum=result.get("eintrittsdatum", ""),
             veroeffentlicht=result.get("aktuelleVeroeffentlichungsdatum", ""),
             modified=result.get("modifikationsTimestamp", ""),

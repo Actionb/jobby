@@ -81,6 +81,7 @@ class Stellenangebot(models.Model):
     eintrittsdatum = models.DateField(blank=True, null=True, verbose_name="Eintrittsdatum")
     veroeffentlicht = models.DateField(blank=True, null=True, verbose_name="Veröffentlicht am")
     modified = models.DateTimeField(blank=True, null=True)
+    # TODO: add externe_url field (in addition to StellenangebotURLs)?
 
     bewerbungsstatus = models.CharField(
         max_length=CHARFIELD_MAX,
