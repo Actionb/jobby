@@ -1,51 +1,6 @@
-import dataclasses
-
 import requests
 
 from jobby.models import Stellenangebot, _update_stellenangebot
-
-
-# noinspection SpellCheckingInspection
-@dataclasses.dataclass
-class SearchResult:
-    titel: str
-    refnr: str
-    beruf: str = ""
-    arbeitgeber: str = ""
-    arbeitsort: dict = dataclasses.field(default_factory=dict)
-    eintrittsdatum: str = ""
-    aktuelleVeroeffentlichungsdatum: str = ""
-    modifikationsTimestamp: str = ""
-    kundennummerHash: str = ""  # TODO: this field does not exist on Stellenangebot model
-    externeUrl: str = ""  # TODO: this field does not exist on Stellenangebot model
-
-    @property
-    def arbeitsort_string(self):
-        arbeitsort = self.arbeitsort.get("ort", "")
-        plz = self.arbeitsort.get("plz", "")
-        region = self.arbeitsort.get("region", "")
-        if arbeitsort and plz:
-            arbeitsort = f"{arbeitsort}, {plz}"
-        if region:
-            if arbeitsort:
-                arbeitsort = f"{arbeitsort} ({region})"
-            else:
-                arbeitsort = region
-        return arbeitsort.strip()
-
-    @property
-    def stellenangebot(self):
-        """Return a Stellenangebot instance for this search result."""
-        return Stellenangebot(
-            titel=self.titel,
-            refnr=self.refnr,
-            beruf=self.beruf,
-            arbeitgeber=self.arbeitgeber,
-            arbeitsort=self.arbeitsort_string,
-            eintrittsdatum=self.eintrittsdatum,
-            veroeffentlicht=self.aktuelleVeroeffentlichungsdatum,
-            modified=self.modifikationsTimestamp,
-        )
 
 
 def get_jwt():
