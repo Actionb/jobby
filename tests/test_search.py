@@ -99,10 +99,9 @@ def test_checks_for_existing(search_mock, stellenangebot, refnr, search_result):
 
 
 def test_updates_existing(search_mock, stellenangebot):
-    search()
-    stellenangebot.refresh_from_db()
-    assert stellenangebot.titel == "Software Entwickler"
-    assert stellenangebot.beruf == "Informatiker"
+    with patch("jobby.search._update_stellenangebot") as update_mock:
+        search()
+        update_mock.assert_called()
 
 
 @pytest.mark.parametrize(

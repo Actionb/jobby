@@ -2,7 +2,7 @@ import dataclasses
 
 import requests
 
-from jobby.models import Stellenangebot
+from jobby.models import Stellenangebot, _update_stellenangebot
 
 
 # noinspection SpellCheckingInspection
@@ -168,12 +168,8 @@ def search(**params):
 
         # Parse each search result, and collect the ref numbers for database
         # lookups.
-        refs = set()
-        angebote = []
-        for r in data["stellenangebote"]:
-            angebot = SearchResult(**r)
-            refs.add(angebot.refnr)
-            angebote.append(angebot)
+        angebote = _process_results(data["stellenangebote"])
+        refs = set(s.refnr for s in angebote)
 
         # Create the list of Stellenangebot instances.
         # Use saved Stellenangebot instances whenever possible. Update
@@ -183,16 +179,9 @@ def search(**params):
         for angebot in angebote:
             if angebot.refnr in existing.values_list("refnr", flat=True):
                 stellenangebot = existing.get(refnr=angebot.refnr)
-                update_dict = {}
-                for k, v in dataclasses.asdict(angebot).items():
-                    # FIXME: angebot.fields do not match the Stellenangebot model fields
-                    if getattr(stellenangebot, k) != v:
-                        update_dict[k] = v
-                        setattr(stellenangebot, k, v)
-                if update_dict:
-                    existing.filter(refnr=angebot.refnr).update(**update_dict)
+                _update_stellenangebot(stellenangebot, angebot)
             else:
-                stellenangebot = angebot.stellenangebot
+                stellenangebot = angebot
             results.append(stellenangebot)
         return results
     else:
