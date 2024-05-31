@@ -35,4 +35,4 @@ def test_update_stellenangebot_identical(stellenangebot, django_assert_num_queri
 def test_update_stellenangebot_different_refnr(stellenangebot, other, django_assert_num_queries):
     other.refnr = "1"
     with django_assert_num_queries(0):
-        assert not _update_stellenangebot(stellenangebot, stellenangebot)
+        assert not _update_stellenangebot(stellenangebot, other)
