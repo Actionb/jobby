@@ -32,7 +32,7 @@ def _search(**params):
     """
     Search for jobs.
 
-    Prams can be found here: https://jobsuche.api.bund.dev/
+    Params can be found here: https://jobsuche.api.bund.dev/
     """
     # just for testing:
     default_params = (
