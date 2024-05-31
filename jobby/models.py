@@ -45,6 +45,7 @@ class SucheModel(models.Model):
 
 
 class Stellenangebot(models.Model):
+    # TODO: set editable = False on all fields?
     class BewerbungChoices(models.TextChoices):
         NICHT_BEWORBEN = "nicht beworben"
         GEPLANT = "geplant"
@@ -58,8 +59,10 @@ class Stellenangebot(models.Model):
     beruf = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True, verbose_name="Beruf")
     # TODO: arbeitgeber could be a relation?
     arbeitgeber = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True, verbose_name="Arbeitgeber")
+    arbeitsort = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True)
     eintrittsdatum = models.DateField(blank=True, null=True, verbose_name="Eintrittsdatum")
     veroeffentlicht = models.DateField(blank=True, null=True, verbose_name="Veröffentlicht am")
+    modified = models.DateTimeField(blank=True, null=True)
 
     bewerbungsstatus = models.CharField(
         max_length=CHARFIELD_MAX,
