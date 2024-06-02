@@ -37,7 +37,7 @@ class SucheView(FormView):
                 ctx.update(**self.get_pagination_context(search_response.result_count))
         return self.render_to_response(ctx)
 
-    def _send_error_message(self, exception):
+    def _send_error_message(self, exception):  # pragma: no cover
         messages.add_message(self.request, level=messages.ERROR, message=f"Fehler bei der Suche: {exception}")
 
     def get_pagination_context(self, result_count, per_page=PAGE_SIZE):

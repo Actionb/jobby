@@ -6,8 +6,22 @@ from jobby.views import PAGE_VAR, SucheView
 
 
 @pytest.fixture
-def search_mock():
+def search_results():
+    return list(range(1, 11))
+
+
+@pytest.fixture
+def search_response_mock(search_results):
+    return Mock(
+        results=search_results,
+        result_count=len(search_results),
+    )
+
+
+@pytest.fixture
+def search_mock(search_response_mock):
     with patch("jobby.views.search") as m:
+        m.return_value = search_response_mock
         yield m
 
 
@@ -25,10 +39,78 @@ class TestSucheView:
     view_class = SucheView
 
     @pytest.fixture
+    def context_data(self):
+        return {}
+
+    @pytest.fixture(autouse=True)
+    def get_context_data_mock(self, view, context_data):
+        with patch.object(view, "get_context_data") as m:
+            m.return_value = context_data
+            yield m
+
+    @pytest.fixture(autouse=True)
+    def render_mock(self, view):
+        with patch.object(view, "render_to_response") as m:
+            yield m
+
+    @pytest.fixture
+    def form_is_valid(self):
+        return True
+
+    @pytest.fixture(autouse=True)
+    def form_class_mock(self, view, form_is_valid):
+        with patch.object(view, "form_class") as m:
+            m.return_value.is_valid.return_value = form_is_valid
+            yield m
+
+    @pytest.fixture
     def view(self, http_request):
         view = self.view_class()
         view.setup(http_request)
         return view
+
+    @pytest.mark.parametrize("request_data", [{"suche": ""}])
+    @pytest.mark.parametrize("form_is_valid", [True])
+    def test_get_form_valid(self, view, http_request, request_data, form_is_valid):
+        with patch.object(view, "form_valid") as form_valid_mock:
+            view.get(http_request)
+
+        form_valid_mock.assert_called()
+
+    @pytest.mark.parametrize("request_data", [{"suche": ""}])
+    @pytest.mark.parametrize("form_is_valid", [False])
+    def test_get_form_invalid(self, view, http_request, request_data, form_is_valid):
+        with patch.object(view, "form_invalid") as form_invalid_mock:
+            view.get(http_request)
+
+        form_invalid_mock.assert_called()
+
+    @pytest.mark.parametrize("request_data", [{}])
+    def test_get_calls_super_if_suche_not_in_request_data(self, view, http_request, request_data):
+        with patch("jobby.views.super") as super_mock:
+            view.get(http_request)
+
+        super_mock.assert_called()
+
+    def test_form_valid(self, view, search_mock, form_mock, render_mock, search_results):
+        with patch.object(view, "get_pagination_context") as pagination_context_mock:
+            pagination_context_mock.return_value = {}
+            view.form_valid(form_mock)
+
+        render_mock.assert_called()
+        args, _kwargs = render_mock.call_args
+        ctx = args[0]
+        assert ctx["results"] == search_results
+        assert ctx["result_count"] == len(search_results)
+        pagination_context_mock.assert_called_with(len(search_results))
+
+    @pytest.mark.parametrize("search_results", [[]])
+    def test_form_valid_no_results(self, view, search_mock, form_mock, search_results):
+        with patch.object(view, "get_pagination_context") as pagination_context_mock:
+            pagination_context_mock.return_value = {}
+            view.form_valid(form_mock)
+
+        pagination_context_mock.assert_not_called()
 
     def test_user_message_on_exception(self, view, search_mock, form_mock):
         search_mock.side_effect = Exception("A test exception has occurred.")
