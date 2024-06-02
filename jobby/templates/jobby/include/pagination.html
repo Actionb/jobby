@@ -1,0 +1,18 @@
+{% load jobby %}
+{% if pagination_required %}
+<div class="pagination-container">
+    <nav aria-label="Search results pages" class="d-flex align-items-center">
+        <ul class="pagination mb-0">
+            {% for i in page_range %}
+            {% if i == current_page %}
+            <li class="page-item"><a class="page-link disabled" href="#">{{i}}</a></li>
+            {% elif i == "…" %}
+            <li class="page-item"><span class="page-link disabled">…</span></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="{% paginator_url i %}">{{i}}</a></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+</div>
+{% endif %}
