@@ -2,6 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 from django import forms
+from django.core.paginator import Paginator
 
 
 @pytest.fixture
@@ -19,9 +20,16 @@ def results():
 
 
 @pytest.fixture
-def context(form, results):
+def context(http_request, form, results):
     """Return the context for a template."""
-    return {"form": form, "results": results}
+    return {
+        "request": http_request,
+        "form": form,
+        "results": results,
+        "current_page": 2,
+        "page_range": [1, 2, Paginator.ELLIPSIS, 5],
+        "pagination_required": True,
+    }
 
 
 @pytest.fixture
@@ -52,3 +60,14 @@ def test_results_rendering(results, rendered_results):
     assert rendered_results[0].find("span", class_="arbeitsort").string == results[0].arbeitsort
     assert rendered_results[0].find("span", class_="arbeitgeber").string == results[0].arbeitgeber
     assert rendered_results[0].find("span", class_="eintrittsdatum").string == results[0].eintrittsdatum
+
+
+def test_pagination(soup):
+    pagination_container = soup.find("div", class_="pagination-container")
+    assert pagination_container
+    page_items = pagination_container.find_all("li")
+    assert len(page_items) == 4
+    assert str(page_items[0]) == """<li class="page-item"><a class="page-link" href="?page=1">1</a></li>"""
+    assert str(page_items[1]) == """<li class="page-item"><a class="page-link disabled" href="#">2</a></li>"""
+    assert str(page_items[2]) == """<li class="page-item"><span class="page-link disabled">…</span></li>"""
+    assert str(page_items[3]) == """<li class="page-item"><a class="page-link" href="?page=5">5</a></li>"""
