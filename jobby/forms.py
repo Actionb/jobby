@@ -1,9 +1,13 @@
 from django import forms
 
-from jobby.app import models as _models
+from jobby.models import SucheModel
 
 
 class SucheForm(forms.ModelForm):
     class Meta:
-        model = _models.SucheModel
-        fields = ["was", "wo", ""]
+        model = SucheModel
+        fields = forms.ALL_FIELDS
+        widgets = {
+            "page": forms.HiddenInput,
+            "size": forms.HiddenInput,
+        }

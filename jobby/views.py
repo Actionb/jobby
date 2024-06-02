@@ -1,9 +1,8 @@
-from django import forms
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.views.generic import FormView
 
-from jobby.models import SucheModel
+from jobby.forms import SucheForm
 from jobby.search import search
 
 PAGE_VAR = "page"
@@ -11,7 +10,7 @@ PAGE_SIZE = 100
 
 
 class SucheView(FormView):
-    form_class = forms.modelform_factory(SucheModel, fields=forms.ALL_FIELDS)
+    form_class = SucheForm
     template_name = "jobby/suche.html"
 
     def get(self, request, *args, **kwargs):
