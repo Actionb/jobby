@@ -20,15 +20,23 @@ def results():
 
 
 @pytest.fixture
-def context(http_request, form, results):
+def results_context(results):
+    return {"results": results}
+
+
+@pytest.fixture
+def pagination_context():
+    return {}
+
+
+@pytest.fixture
+def context(http_request, form, results_context, pagination_context):
     """Return the context for a template."""
     return {
         "request": http_request,
         "form": form,
-        "results": results,
-        "current_page": 2,
-        "page_range": [1, 2, Paginator.ELLIPSIS, 5],
-        "pagination_required": True,
+        **results_context,
+        **pagination_context,
     }
 
 
@@ -44,13 +52,12 @@ def rendered_results(soup):
     return soup.find_all(class_="result-item")
 
 
-@pytest.mark.parametrize("results", [[Mock()]])
-def test_search_with_results_has_ergebnisse(rendered_template, results):
+def test_search_with_results_has_ergebnisse(rendered_template):
     assert "Ergebnisse" in rendered_template
 
 
-@pytest.mark.parametrize("results", [[]])
-def test_search_no_results_no_ergebnisse(rendered_template, results):
+@pytest.mark.parametrize("results_context", [{"results": []}])
+def test_search_no_results_no_ergebnisse(rendered_template, results_context):
     assert "Ergebnisse" not in rendered_template
     assert "Keine Angebote gefunden!" in rendered_template
 
@@ -62,7 +69,11 @@ def test_results_rendering(results, rendered_results):
     assert rendered_results[0].find("span", class_="eintrittsdatum").string == results[0].eintrittsdatum
 
 
-def test_pagination(soup):
+@pytest.mark.parametrize(
+    "pagination_context",
+    [{"current_page": 2, "page_range": [1, 2, Paginator.ELLIPSIS, 5], "pagination_required": True}],
+)
+def test_pagination(soup, pagination_context):
     pagination_container = soup.find("div", class_="pagination-container")
     assert pagination_container
     page_items = pagination_container.find_all("li")
