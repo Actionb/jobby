@@ -1,5 +1,6 @@
 from urllib.parse import parse_qs, urlparse
 
+# noinspection PyPackageRequirements
 import pytest
 from jobby.templatetags.jobby import paginator_url
 from jobby.views import PAGE_VAR

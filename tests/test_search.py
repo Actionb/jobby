@@ -1,5 +1,6 @@
 from unittest.mock import Mock, patch
 
+# noinspection PyPackageRequirements
 import pytest
 import requests
 from jobby.models import Stellenangebot

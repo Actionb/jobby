@@ -1,3 +1,4 @@
+# noinspection PyPackageRequirements
 import factory
 from jobby.models import Stellenangebot
 

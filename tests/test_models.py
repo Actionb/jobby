@@ -1,3 +1,4 @@
+# noinspection PyPackageRequirements
 import pytest
 from jobby.models import _update_stellenangebot
 

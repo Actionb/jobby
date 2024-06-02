@@ -1,5 +1,6 @@
 from unittest.mock import Mock, patch
 
+# noinspection PyPackageRequirements
 import pytest
 from django.core.paginator import Paginator
 from jobby.views import PAGE_VAR, SucheView

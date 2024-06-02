@@ -1,5 +1,6 @@
 from unittest.mock import Mock
 
+# noinspection PyPackageRequirements
 import pytest
 from django import forms
 from django.core.paginator import Paginator
