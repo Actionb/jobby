@@ -95,6 +95,9 @@ class Stellenangebot(models.Model):
         verbose_name = "Stellenangebot"
         verbose_name_plural = "Stellenangebote"
 
+    def __str__(self):
+        return self.titel
+
 
 class StellenangebotURLs(models.Model):
     url = models.URLField()
