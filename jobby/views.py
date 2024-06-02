@@ -28,6 +28,7 @@ class SucheView(FormView):
             self._send_error_message(e)
         else:
             ctx["results"] = search_response.results
+            ctx["result_count"] = search_response.result_count
         return self.render_to_response(ctx)
 
     def _send_error_message(self, exception):
