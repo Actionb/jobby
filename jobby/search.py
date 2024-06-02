@@ -73,62 +73,43 @@ def _search(**params):  # pragma: no cover
     return response
 
 
-def _parse_arbeitsort(arbeitsort_dict):
-    """
-    Return a string for the 'arbeitsort' field from the given data from a
-    search result.
-    """
-    # TODO: include data like PLZ or distance into the string
-    try:
-        return arbeitsort_dict["ort"]
-    except KeyError:
-        return ""
-
-
-def _process_results(results):
-    """
-    Walk through the dictionaries of the search results and return them as
-    Stellenangebot instances.
-    """
-    # TODO: include "externeUrl" data that is present on some results
-    processed = []
-    for result in results:
-        instance = Stellenangebot(
-            titel=result.get("titel", ""),
-            refnr=result.get("refnr", ""),
-            beruf=result.get("beruf", ""),
-            arbeitgeber=result.get("arbeitgeber", ""),
-            arbeitsort=_parse_arbeitsort(result.get("arbeitsort", {})),
-            # TODO: parse into date and datetime:
-            eintrittsdatum=result.get("eintrittsdatum", ""),
-            veroeffentlicht=result.get("aktuelleVeroeffentlichungsdatum", ""),
-            modified=result.get("modifikationsTimestamp", ""),
-        )
-        processed.append(instance)
-    return processed
-
-
-def _get_existing(refs):
-    return Stellenangebot.objects.filter(refnr__in=refs)
-
-
 def search(**params):
     response = _search(**{k: v for k, v in params.items() if v is not None})
-    if response.status_code == 200:
-        data = response.json()
-        if not data.get("maxErgebnisse", 0):
+    return SearchResponse(response)
+
+
+class SearchResponse:
+
+    def __init__(self, response):
+        self.response = response
+        self.data = response.json()
+
+    @property
+    def status_code(self):  # pragma: no cover
+        return self.response.status_code
+
+    @property
+    def results(self):  # pragma: no cover
+        return self._get_results(self.data)
+
+    @property
+    def result_count(self):  # pragma: no cover
+        return self._get_total_result_count(self.data)
+
+    def _get_results(self, data):
+        if self._get_total_result_count(data) < 1:
             return []
 
         # Parse each search result, and collect the ref numbers for database
         # lookups.
-        angebote = _process_results(data["stellenangebote"])
+        angebote = self._process_results(data["stellenangebote"])
         refs = set(s.refnr for s in angebote)
 
         # Create the list of Stellenangebot instances.
         # Use saved Stellenangebot instances whenever possible. Update
         # saved instances if the data has changed.
         results = []
-        existing = _get_existing(refs)
+        existing = self._get_existing(refs)
         for angebot in angebote:
             if angebot.refnr in existing.values_list("refnr", flat=True):
                 stellenangebot = existing.get(refnr=angebot.refnr)
@@ -137,6 +118,45 @@ def search(**params):
                 stellenangebot = angebot
             results.append(stellenangebot)
         return results
-    else:
-        # TODO: handle a bad response
-        return []
+
+    def _process_results(self, results):
+        """
+        Walk through the dictionaries of search results and return them as
+        Stellenangebot instances.
+        """
+        # TODO: include "externeUrl" data that is present on some results
+        processed = []
+        for result in results:
+            instance = Stellenangebot(
+                titel=result.get("titel", ""),
+                refnr=result.get("refnr", ""),
+                beruf=result.get("beruf", ""),
+                arbeitgeber=result.get("arbeitgeber", ""),
+                arbeitsort=self._parse_arbeitsort(result.get("arbeitsort", {})),
+                # TODO: parse into date and datetime:
+                eintrittsdatum=result.get("eintrittsdatum", ""),
+                veroeffentlicht=result.get("aktuelleVeroeffentlichungsdatum", ""),
+                modified=result.get("modifikationsTimestamp", ""),
+            )
+            processed.append(instance)
+        return processed
+
+    @staticmethod
+    def _parse_arbeitsort(arbeitsort_dict):
+        """
+        Return a string for the 'arbeitsort' field from the given data from a
+        search result.
+        """
+        # TODO: include data like PLZ or distance into the string
+        try:
+            return arbeitsort_dict["ort"]
+        except KeyError:
+            return ""
+
+    @staticmethod
+    def _get_existing(refs):
+        return Stellenangebot.objects.filter(refnr__in=refs)
+
+    @staticmethod
+    def _get_total_result_count(data):
+        return data.get("maxErgebnisse", 0)
