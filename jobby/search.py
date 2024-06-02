@@ -1,3 +1,5 @@
+from functools import cached_property
+
 import requests
 
 from jobby.models import Stellenangebot, _update_stellenangebot
@@ -88,7 +90,7 @@ class SearchResponse:
     def status_code(self):  # pragma: no cover
         return self.response.status_code
 
-    @property
+    @cached_property
     def results(self):  # pragma: no cover
         return self._get_results(self.data)
 
