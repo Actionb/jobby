@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="source" pattern="(file[jobby]:tests//*||file[jobby]:jobby//*||file[jobby]:project//*)&amp;&amp;!file[jobby]:jobby/static//*&amp;&amp;!file[jobby]:jobby/templates//*" />
+</component>
