@@ -33,7 +33,8 @@ class SucheView(FormView):
             results = search_response.results
             ctx["results"] = results
             ctx["result_count"] = search_response.result_count
-            ctx.update(**self.get_pagination_context(search_response.result_count))
+            if search_response.result_count:
+                ctx.update(**self.get_pagination_context(search_response.result_count))
         return self.render_to_response(ctx)
 
     def _send_error_message(self, exception):
