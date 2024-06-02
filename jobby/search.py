@@ -36,21 +36,7 @@ def _search(**params):  # pragma: no cover
 
     Params can be found here: https://jobsuche.api.bund.dev/
     """
-    # just for testing:
-    default_params = (
-        ("angebotsart", "1"),
-        ("page", "1"),
-        ("pav", "false"),
-        ("size", "100"),
-        ("umkreis", "25"),
-        ("was", params.get("was", "Software")),
-        ("wo", params.get("wo", "Dortmund")),
-    )
-
-    # FIXME: a request using these params does not return results, although
-    #  the params contain the same data as the default_params
-
-    # # TODO: set defaults on model
+    # TODO: set defaults on model
     params.setdefault("page", "1")
     params.setdefault("size", "100")
     params.setdefault("umkreis", "25")
@@ -58,6 +44,11 @@ def _search(**params):  # pragma: no cover
     params.setdefault("pav", "false")
     # TODO: is this angebotsart required?
     params.setdefault("angebotsart", "1")
+
+    # FIXME: queries that include these parameters never return results, so
+    #  ignore them for now:
+    params.pop("behinderung", None)
+    params.pop("corona", None)
 
     headers = {
         "User-Agent": "Jobsuche/2.9.2 (de.arbeitsagentur.jobboerse; build:1077; iOS 15.1.0) Alamofire/5.4.4",
@@ -69,7 +60,7 @@ def _search(**params):  # pragma: no cover
     response = requests.get(
         "https://rest.arbeitsagentur.de/jobboerse/jobsuche-service/pc/v4/app/jobs",
         headers=headers,
-        params=default_params,
+        params=params,
         verify=False,
     )
     return response
