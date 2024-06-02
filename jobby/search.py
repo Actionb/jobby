@@ -113,11 +113,7 @@ def _get_existing(refs):
 
 
 def search(**params):
-    try:
-        response = _search(**{k: v for k, v in params.items() if v is not None})
-    except Exception:
-        # TODO: error handling
-        raise
+    response = _search(**{k: v for k, v in params.items() if v is not None})
     if response.status_code == 200:
         data = response.json()
         if not data.get("maxErgebnisse", 0):

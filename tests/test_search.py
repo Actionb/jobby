@@ -75,13 +75,6 @@ def test_search_no_results(search_mock, search_results):
     assert search() == []
 
 
-def test_search_search_exception(search_mock):
-    # TODO: implement error handling and test it here
-    search_mock.side_effect = Exception()
-    with pytest.raises(Exception):
-        search()
-
-
 def test_search_filters_none_values(search_mock):
     """
     Assert that search removes and None values from the search parameters

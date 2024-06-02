@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib import messages
 from django.views.generic import FormView
 
 from jobby.models import SucheModel
@@ -21,5 +22,11 @@ class SucheView(FormView):
 
     def form_valid(self, form):
         ctx = self.get_context_data(form=form)
-        ctx["results"] = search(**form.cleaned_data)
+        try:
+            ctx["results"] = search(**form.cleaned_data)
+        except Exception as e:
+            self._send_error_message(e)
         return self.render_to_response(ctx)
+
+    def _send_error_message(self, exception):
+        messages.add_message(self.request, level=messages.ERROR, message=f"Fehler bei der Suche: {exception}")
