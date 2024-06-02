@@ -23,9 +23,11 @@ class SucheView(FormView):
     def form_valid(self, form):
         ctx = self.get_context_data(form=form)
         try:
-            ctx["results"] = search(**form.cleaned_data)
+            search_response = search(**form.cleaned_data)
         except Exception as e:
             self._send_error_message(e)
+        else:
+            ctx["results"] = search_response.results
         return self.render_to_response(ctx)
 
     def _send_error_message(self, exception):
