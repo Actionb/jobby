@@ -1,6 +1,7 @@
 from functools import cached_property
 
 import requests
+from django.conf import settings
 
 from jobby.models import Stellenangebot, _update_stellenangebot
 
@@ -20,13 +21,15 @@ def get_jwt():  # pragma: no cover
         "grant_type": "client_credentials",
     }
 
-    response = requests.post(
-        "https://rest.arbeitsagentur.de/oauth/gettoken_cc",
-        headers=headers,
-        data=data,
-        verify=False,
-    )
-
+    kwargs = {
+        "url": "https://rest.arbeitsagentur.de/oauth/gettoken_cc",
+        "headers": headers,
+        "data": data,
+    }
+    if settings.DEBUG:
+        # Do not verify certificates during development:
+        kwargs["verify"] = False
+    response = requests.post(**kwargs)
     return response.json()["access_token"]
 
 
@@ -57,13 +60,15 @@ def _search(**params):  # pragma: no cover
         "Connection": "keep-alive",
     }
 
-    response = requests.get(
-        "https://rest.arbeitsagentur.de/jobboerse/jobsuche-service/pc/v4/app/jobs",
-        headers=headers,
-        params=params,
-        verify=False,
-    )
-    return response
+    kwargs = {
+        "url": "https://rest.arbeitsagentur.de/jobboerse/jobsuche-service/pc/v4/app/jobs",
+        "headers": headers,
+        "params": params,
+    }
+    if settings.DEBUG:
+        # Do not verify certificates during development:
+        kwargs["verify"] = False
+    return requests.get(**kwargs)
 
 
 def search(**params):
