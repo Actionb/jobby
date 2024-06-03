@@ -1,6 +1,9 @@
+from datetime import datetime
+
 # noinspection PyPackageRequirements
 import pytest
 from django.test import RequestFactory
+from django.utils.timezone import make_aware
 
 from tests.factories import StellenangebotFactory
 
@@ -11,7 +14,12 @@ def refnr():
 
 
 @pytest.fixture
-def stellenangebot(refnr):
+def modified():
+    return make_aware(datetime.fromisoformat("2024-05-22T09:00:15.099"))
+
+
+@pytest.fixture
+def stellenangebot(refnr, modified):
     return StellenangebotFactory(
         titel="Software Developer",
         refnr=refnr,
@@ -20,7 +28,7 @@ def stellenangebot(refnr):
         arbeitsort="Dortmund",
         eintrittsdatum="2024-07-01",
         veroeffentlicht="2024-05-30",
-        modified="2024-05-22T09:00:15.099",
+        modified=modified,
     )
 
 

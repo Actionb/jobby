@@ -1,3 +1,5 @@
+from zoneinfo import ZoneInfo
+
 # noinspection PyPackageRequirements
 import factory
 from jobby.models import Stellenangebot
@@ -11,7 +13,7 @@ class AngebotFactory(factory.Factory):
     arbeitsort = factory.Faker("city")
     eintrittsdatum = factory.Faker("date")
     aktuelleVeroeffentlichungsdatum = factory.Faker("date")
-    modifikationsTimestamp = factory.Faker("date_time", locale="de_DE")
+    modifikationsTimestamp = factory.Faker("date_time", locale="de_DE", tzinfo=ZoneInfo(key="Europe/Berlin"))
 
 
 class StellenangebotFactory(factory.django.DjangoModelFactory):
@@ -25,4 +27,4 @@ class StellenangebotFactory(factory.django.DjangoModelFactory):
     arbeitsort = factory.Faker("city")
     eintrittsdatum = factory.Faker("date")
     veroeffentlicht = factory.Faker("date")
-    modified = factory.Faker("date_time", locale="de_DE")
+    modified = factory.Faker("date_time", locale="de_DE", tzinfo=ZoneInfo(key="Europe/Berlin"))

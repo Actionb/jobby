@@ -1,5 +1,8 @@
+from datetime import datetime
+
 # noinspection PyPackageRequirements
 import pytest
+from django.utils.timezone import make_aware
 from jobby.models import _update_stellenangebot
 
 from tests.factories import StellenangebotFactory
@@ -17,7 +20,7 @@ def other(refnr):
         arbeitsort="Dortmund",
         eintrittsdatum="2024-07-01",
         veroeffentlicht="2024-05-30",
-        modified="2024-05-22T09:00:15.099",
+        modified=make_aware(datetime.fromisoformat("2024-05-22T09:00:15.099")),
     )
 
 
