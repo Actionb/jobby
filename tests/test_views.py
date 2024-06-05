@@ -1,10 +1,12 @@
+import json
 from unittest.mock import Mock, patch
 
 # noinspection PyPackageRequirements
 import pytest
 from django.core.paginator import Paginator
 from django.db.models import QuerySet
-from jobby.views import PAGE_VAR, SucheView, WatchlistView
+from jobby.models import Stellenangebot
+from jobby.views import PAGE_VAR, SucheView, WatchlistView, watchlist_toggle
 
 from tests.factories import StellenangebotFactory
 
@@ -215,3 +217,37 @@ class TestWatchlistView:
         super_mock.return_value.get_context_data.return_value = {}
         ctx = view.get_context_data()
         assert "watchlist_names" in ctx
+
+
+@pytest.mark.usefixtures("watchlist")
+class TestWatchlistToggle:
+
+    @pytest.fixture
+    def request_data(self, stellenangebot, watchlist_name):
+        return {"refnr": stellenangebot.refnr, "watchlist_name": watchlist_name}
+
+    def test_watchlist_toggle_not_on_watchlist(self, post_request, watchlist, stellenangebot):
+        response = watchlist_toggle(post_request)
+        assert response.status_code == 200
+        assert json.loads(response.content) == {"on_watchlist": True}
+        assert watchlist.items.filter(stellenangebot=stellenangebot).exists()
+
+    def test_watchlist_toggle_already_on_watchlist(self, post_request, watchlist, watchlist_item, stellenangebot):
+        response = watchlist_toggle(post_request)
+        assert response.status_code == 200
+        assert json.loads(response.content) == {"on_watchlist": False}
+        assert not watchlist.items.filter(stellenangebot=stellenangebot).exists()
+
+    @pytest.mark.parametrize("stellenangebot", [StellenangebotFactory.build()])
+    def test_watchlist_toggle_new_angebot(self, post_request, watchlist, stellenangebot):
+        response = watchlist_toggle(post_request)
+        assert response.status_code == 200
+        assert json.loads(response.content) == {"on_watchlist": True}
+        assert Stellenangebot.objects.filter(refnr=stellenangebot.refnr).exists()
+        saved_angebot = Stellenangebot.objects.get(refnr=stellenangebot.refnr)
+        assert watchlist.items.filter(stellenangebot=saved_angebot).exists()
+
+    @pytest.mark.parametrize("request_data", [{}])
+    def test_watchlist_toggle_no_refnr(self, post_request, request_data):
+        response = watchlist_toggle(post_request)
+        assert response.status_code == 400

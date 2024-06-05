@@ -69,6 +69,11 @@ def http_request(rf, request_data):  # TODO: rename to get_request?
 
 
 @pytest.fixture
+def post_request(rf, request_data):
+    return rf.post("", data=request_data)
+
+
+@pytest.fixture
 def view(view_class, http_request):
     view = view_class()
     view.setup(http_request)

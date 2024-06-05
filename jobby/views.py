@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.views.generic import FormView, ListView
 from django.views.generic.base import ContextMixin
 
 from jobby.forms import SucheForm
-from jobby.models import Watchlist, WatchlistItem
+from jobby.models import Stellenangebot, Watchlist, WatchlistItem
 from jobby.search import search
 
 PAGE_VAR = "page"
@@ -102,3 +103,29 @@ class WatchlistView(BaseMixin, ListView):
         ctx["current_watchlist"] = current_watchlist_name
         ctx["watchlist_names"] = self.get_watchlist_names().exclude(name=current_watchlist_name)
         return ctx
+
+
+def watchlist_toggle(request):
+    """
+    Add an object to the watchlist, or remove an object if it already exists on
+    the watchlist.
+    """
+    try:
+        refnr = request.POST["refnr"]
+    except KeyError:
+        return HttpResponseBadRequest()
+
+    watchlist_name = request.POST.get("watchlist_name", "default")
+    watchlist, _created = Watchlist.objects.get_or_create(name=watchlist_name)
+    try:
+        obj = Stellenangebot.objects.get(refnr=refnr)
+    except Stellenangebot.DoesNotExist:  # noqa
+        obj = Stellenangebot.objects.create(titel="Woops, add a titel!", refnr=refnr)
+
+    if watchlist.on_watchlist(obj):
+        watchlist.remove_watchlist_item(obj)
+        on_watchlist = False
+    else:
+        watchlist.add_watchlist_item(obj)
+        on_watchlist = True
+    return JsonResponse({"on_watchlist": on_watchlist})
