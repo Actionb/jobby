@@ -125,6 +125,7 @@ class SearchResponse:
         """
         # TODO: include "externeUrl" data that is present on some results
         processed = []
+        # TODO: use SearchResultForm here?
         for result in results:
             instance = Stellenangebot(
                 titel=result.get("titel", ""),
