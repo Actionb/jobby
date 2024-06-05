@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.views.generic import FormView, ListView
+from django.views.generic.base import ContextMixin
 
 from jobby.forms import SucheForm
 from jobby.models import Watchlist
@@ -10,7 +11,16 @@ PAGE_VAR = "page"
 PAGE_SIZE = 100
 
 
-class SucheView(FormView):
+class BaseMixin(ContextMixin):
+    site_title = ""
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["site_title"] = self.site_title
+        return ctx
+
+
+class SucheView(BaseMixin, FormView):
     form_class = SucheForm
     template_name = "jobby/suche.html"
 
