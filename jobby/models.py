@@ -124,7 +124,7 @@ class StellenangebotKontakt(models.Model):
 
 
 class Watchlist(models.Model):
-    name = models.CharField(max_length=CHARFIELD_MAX, default="default")
+    name = models.CharField(max_length=CHARFIELD_MAX, default="default")  # TODO: make unique?
 
     def on_watchlist(self, stellenangebot):
         return self.items.filter(stellenangebot=stellenangebot).exists()
