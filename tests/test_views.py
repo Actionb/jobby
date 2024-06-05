@@ -224,7 +224,7 @@ class TestWatchlistToggle:
 
     @pytest.fixture
     def request_data(self, stellenangebot, watchlist_name):
-        return {"refnr": stellenangebot.refnr, "watchlist_name": watchlist_name}
+        return {"titel": stellenangebot.titel, "refnr": stellenangebot.refnr, "watchlist_name": watchlist_name}
 
     def test_watchlist_toggle_not_on_watchlist(self, post_request, watchlist, stellenangebot):
         response = watchlist_toggle(post_request)
@@ -249,5 +249,16 @@ class TestWatchlistToggle:
 
     @pytest.mark.parametrize("request_data", [{}])
     def test_watchlist_toggle_no_refnr(self, post_request, request_data):
+        response = watchlist_toggle(post_request)
+        assert response.status_code == 400
+
+    @pytest.fixture
+    def search_result_form_mock(self):
+        with patch("jobby.views.SearchResultForm") as m:
+            yield m
+
+    @pytest.mark.parametrize("stellenangebot", [StellenangebotFactory.build()])
+    def test_watchlist_toggle_new_angebot_form_invalid(self, post_request, search_result_form_mock, stellenangebot):
+        search_result_form_mock.return_value.is_valid.return_value = False
         response = watchlist_toggle(post_request)
         assert response.status_code == 400

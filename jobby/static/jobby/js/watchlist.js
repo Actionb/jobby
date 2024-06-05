@@ -22,14 +22,13 @@
     }
   
     function getRequest (btn) {
-      const form = new FormData()
-      form.append('refnr', btn.dataset.objectRefnr)
+      const form = btn.querySelector('form')
       return new Request(btn.dataset.url, {
         method: 'POST',
         headers: {
           'X-CSRFToken': getCSRFToken()
         },
-        body: form,
+        body: new FormData(form),
         mode: 'same-origin'
       })
     }

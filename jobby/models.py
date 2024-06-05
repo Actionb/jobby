@@ -102,6 +102,11 @@ class Stellenangebot(models.Model):
     def __str__(self):
         return self.titel
 
+    def as_search_result_form(self):
+        from jobby.forms import SearchResultForm
+
+        return SearchResultForm(instance=self)
+
 
 class StellenangebotURLs(models.Model):
     url = models.URLField()
