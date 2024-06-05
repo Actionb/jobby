@@ -2,7 +2,6 @@ from datetime import datetime
 
 # noinspection PyPackageRequirements
 import pytest
-from django.test import RequestFactory
 from django.utils.timezone import make_aware
 
 from tests.factories import StellenangebotFactory
@@ -38,5 +37,5 @@ def request_data():
 
 
 @pytest.fixture
-def http_request(request_data):
-    return RequestFactory().get("", data=request_data)
+def http_request(rf, request_data):  # TODO: rename to get_request?
+    return rf.get("", data=request_data)
