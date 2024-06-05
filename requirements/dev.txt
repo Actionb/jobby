@@ -9,6 +9,7 @@ pytest-django==4.8.0
 pytest-xdist==3.6.1
 factory-boy==3.3.0
 beautifulsoup4==4.12.3
+django-debug-toolbar==4.4.2
 cfgv==3.4.0
 click==8.1.7
 distlib==0.3.8
