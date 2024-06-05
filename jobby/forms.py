@@ -1,6 +1,6 @@
 from django import forms
 
-from jobby.models import SucheModel
+from jobby.models import Stellenangebot, SucheModel
 
 
 class SucheForm(forms.ModelForm):
@@ -11,3 +11,9 @@ class SucheForm(forms.ModelForm):
             "page": forms.HiddenInput,
             "size": forms.HiddenInput,
         }
+
+
+class SearchResultForm(forms.ModelForm):
+    class Meta:
+        model = Stellenangebot
+        exclude = ["bewerbungsstatus", "notizen"]
