@@ -1,5 +1,9 @@
 {% extends "jobby/base.html" %}
-{% load django_bootstrap5 %}
+{% load static django_bootstrap5 %}
+
+{% block extrahead %}
+    <script src="{% static 'jobby/js/watchlist.js' %}"></script>
+{% endblock extrahead %}
 
 {% block content %}
 <div class="d-flex">

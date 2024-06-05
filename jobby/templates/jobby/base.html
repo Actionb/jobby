@@ -9,6 +9,8 @@
     <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css">
     <script src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
     <script src="{% static 'jobby/js/mode_switch.js' %}"></script>
+    {% block extrahead %}
+    {% endblock extrahead %}
 </head>
 <body class="container">
 <nav class="navbar border-bottom mb-3 d-flex">
