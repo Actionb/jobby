@@ -15,9 +15,8 @@ def form():
 @pytest.fixture
 def results():
     """Return the template context item for the search results."""
-    return [
-        Mock(titel="Software Tester", arbeitsort="Dortmund", arbeitgeber="IHK Dortmund", eintrittsdatum="2024-05-31"),
-    ]
+    item = Mock(titel="Software Tester", arbeitsort="Dortmund", arbeitgeber="IHK Dortmund", eintrittsdatum="2024-05-31")
+    return [(item, True)]
 
 
 @pytest.fixture
@@ -64,10 +63,11 @@ def test_search_no_results_no_ergebnisse(rendered_template, results_context):
 
 
 def test_results_rendering(results, rendered_results):
-    assert rendered_results[0].h3.string == results[0].titel
-    assert rendered_results[0].find("span", class_="arbeitsort").string == results[0].arbeitsort
-    assert rendered_results[0].find("span", class_="arbeitgeber").string == results[0].arbeitgeber
-    assert rendered_results[0].find("span", class_="eintrittsdatum").string == results[0].eintrittsdatum
+    result, on_watchlist = results[0]
+    assert rendered_results[0].h3.string == result.titel
+    assert rendered_results[0].find("span", class_="arbeitsort").string == result.arbeitsort
+    assert rendered_results[0].find("span", class_="arbeitgeber").string == result.arbeitgeber
+    assert rendered_results[0].find("span", class_="eintrittsdatum").string == result.eintrittsdatum
 
 
 @pytest.mark.parametrize(

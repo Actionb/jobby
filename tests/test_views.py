@@ -6,6 +6,8 @@ from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from jobby.views import PAGE_VAR, SucheView, WatchlistView
 
+from tests.factories import StellenangebotFactory
+
 pytestmark = [pytest.mark.django_db]
 
 
@@ -99,16 +101,15 @@ class TestSucheView:
 
         super_mock.assert_called()
 
-    def test_form_valid(self, view, search_mock, form_mock, render_mock, search_results):
+    def test_form_valid(self, view, search_mock, form_mock, render_mock, search_results, search_response_mock):
         with patch.object(view, "get_pagination_context") as pagination_context_mock:
-            pagination_context_mock.return_value = {}
-            view.form_valid(form_mock)
+            with patch.object(view, "get_results_context") as results_context_mock:
+                results_context_mock.return_value = {}
+                pagination_context_mock.return_value = {}
+                view.form_valid(form_mock)
 
         render_mock.assert_called()
-        args, _kwargs = render_mock.call_args
-        ctx = args[0]
-        assert ctx["results"] == search_results
-        assert ctx["result_count"] == len(search_results)
+        results_context_mock.assert_called_with(search_response_mock)
         pagination_context_mock.assert_called_with(len(search_results))
 
     @pytest.mark.parametrize("search_results", [[]])
@@ -124,6 +125,38 @@ class TestSucheView:
         with patch.object(view, "_send_error_message") as send_message_mock:
             view.form_valid(form_mock)
             send_message_mock.assert_called()
+
+    def test_get_watchlist_item_ids(self, view, watchlist_item, stellenangebot):
+        assert view._get_watchlist_item_ids(results=[stellenangebot]) == {stellenangebot.pk}
+
+    def test_get_watchlist_item_ids_filter(self, view, stellenangebot):
+        """
+        Assert that _get_watchlist_item_ids filters only with saved model
+        instances.
+        """
+        with patch("jobby.views.WatchlistItem") as watchlist_item_mock:
+            filter_mock = Mock()
+            filter_mock.return_value.values_list.return_value = [stellenangebot.pk]
+            watchlist_item_mock.objects.filter = filter_mock
+            view._get_watchlist_item_ids(results=[stellenangebot, StellenangebotFactory.build()])
+            filter_mock.assert_called_with(stellenangebot__in=[stellenangebot])
+
+    def test_get_watchlist_item_ids_no_results(self, view):
+        with patch("jobby.views.WatchlistItem") as watchlist_item_mock:
+            none_mock = Mock()
+            none_mock.return_value.values_list.return_value = []
+            watchlist_item_mock.objects.none = none_mock
+            view._get_watchlist_item_ids(results=[])
+            none_mock.assert_called()
+
+    def test_get_results_context(self, view, search_response_mock, stellenangebot):
+        new = StellenangebotFactory.build()
+        search_response_mock.results = [stellenangebot, new]
+        search_response_mock.result_count = 2
+        with patch.object(view, "_get_watchlist_item_ids", new=Mock(return_value={stellenangebot.pk})):
+            ctx = view.get_results_context(search_response_mock)
+        assert ctx["results"] == [(stellenangebot, True), (new, False)]
+        assert ctx["result_count"] == 2
 
     @pytest.mark.parametrize("request_data", [{PAGE_VAR: "2"}])
     def test_get_pagination_context(self, view, request_data):

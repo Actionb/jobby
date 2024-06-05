@@ -4,7 +4,7 @@ from django.views.generic import FormView, ListView
 from django.views.generic.base import ContextMixin
 
 from jobby.forms import SucheForm
-from jobby.models import Watchlist
+from jobby.models import Watchlist, WatchlistItem
 from jobby.search import search
 
 PAGE_VAR = "page"
@@ -41,15 +41,29 @@ class SucheView(BaseMixin, FormView):
         except Exception as e:
             self._send_error_message(e)
         else:
-            results = search_response.results
-            ctx["results"] = results
-            ctx["result_count"] = search_response.result_count
+            ctx.update(self.get_results_context(search_response))
             if search_response.result_count:
-                ctx.update(**self.get_pagination_context(search_response.result_count))
+                ctx.update(self.get_pagination_context(search_response.result_count))
         return self.render_to_response(ctx)
 
     def _send_error_message(self, exception):  # pragma: no cover
         messages.add_message(self.request, level=messages.ERROR, message=f"Fehler bei der Suche: {exception}")
+
+    def _get_watchlist_item_ids(self, results):
+        if results:
+            saved_results = [r for r in results if r.pk]
+            queryset = WatchlistItem.objects.filter(stellenangebot__in=saved_results)
+        else:
+            queryset = WatchlistItem.objects.none()
+        return set(queryset.values_list("pk", flat=True))
+
+    def get_results_context(self, search_response):
+        results = search_response.results
+        watchlist_item_ids = self._get_watchlist_item_ids(results)
+        return {
+            "results": [(result, result.pk in watchlist_item_ids) for result in results],
+            "result_count": search_response.result_count,
+        }
 
     def get_pagination_context(self, result_count, per_page=PAGE_SIZE):
         paginator = Paginator(range(1, result_count + 1), per_page=per_page)

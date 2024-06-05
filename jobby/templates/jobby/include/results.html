@@ -1,13 +1,13 @@
 {% if results %}
 <h2>{{ result_count }} Ergebnisse:</h2>
 <ul id="searchResults" style="max-height: 80vh;" class="overflow-auto">
-    {% for result in results %}
+    {% for result, on_watchlist in results %}
     {# TODO: make this a form so that we can use the form directly in AJAX requests to 'add_to_watchlist'? #}
     <li class="result-item list-unstyled border rounded mb-3 p-3">
         <div class="header d-flex justify-content-between">
             <h3 class="fs-5 my-auto">{{ result.titel }}</h3>
             <div class="result-buttons">
-                <button class="bookmark btn {% if result.id %}btn-success{% else %}btn-outline-secondary{% endif %}">Merken</button>
+                <button class="watchlist-toggle-btn btn {% if on_watchlist %}btn-success{% else %}btn-outline-secondary{% endif %}" data-url="{{ watchlist_toggle_url }}" data-object-id="{{ result.refnr }}">Merken</button>
             </div>
         </div>
         <div class="d-flex gap-4">
