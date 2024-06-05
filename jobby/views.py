@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpResponseBadRequest, JsonResponse
+from django.urls import reverse
 from django.views.generic import FormView, ListView
 from django.views.generic.base import ContextMixin
 
@@ -22,6 +23,7 @@ class BaseMixin(ContextMixin):
 
 
 class SucheView(BaseMixin, FormView):
+    site_title = "Suche"
     form_class = SucheForm
     template_name = "jobby/suche.html"
 
@@ -45,6 +47,7 @@ class SucheView(BaseMixin, FormView):
             ctx.update(self.get_results_context(search_response))
             if search_response.result_count:
                 ctx.update(self.get_pagination_context(search_response.result_count))
+            ctx["watchlist_toggle_url"] = reverse("watchlist_toggle")
         return self.render_to_response(ctx)
 
     def _send_error_message(self, exception):  # pragma: no cover
@@ -85,7 +88,7 @@ class WatchlistView(BaseMixin, ListView):
     template_name = "jobby/watchlist.html"
 
     def current_watchlist_name(self, request):
-        return request.GET["watchlist_name"]
+        return request.GET.get("watchlist_name", "default")
 
     def get_watchlist(self, request):
         return Watchlist.objects.get(name=self.current_watchlist_name(request))
