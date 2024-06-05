@@ -108,8 +108,9 @@ class SearchResponse:
         # saved instances if the data has changed.
         results = []
         existing = self._get_existing(refs)
+        existing_refs = set(existing.values_list("refnr", flat=True))
         for angebot in angebote:
-            if angebot.refnr in existing.values_list("refnr", flat=True):
+            if angebot.refnr in existing_refs:
                 stellenangebot = existing.get(refnr=angebot.refnr)
                 _update_stellenangebot(stellenangebot, angebot)
             else:
