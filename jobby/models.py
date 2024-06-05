@@ -13,6 +13,9 @@ def _update_stellenangebot(existing, other):
     for field in existing._meta.get_fields():
         if not field.concrete or not hasattr(other, field.name) or field.primary_key:  # pragma: no cover
             continue
+        # TODO: do not overwrite values on existing with default values on other
+        #  (ignore default values on other?)
+        # TODO: how to handle empty values on other?
         if getattr(existing, field.name) != getattr(other, field.name):
             update_dict[field.name] = getattr(other, field.name)
     if update_dict:
@@ -82,6 +85,7 @@ class Stellenangebot(models.Model):
     veroeffentlicht = models.DateField(blank=True, null=True, verbose_name="Veröffentlicht am")
     modified = models.DateTimeField(blank=True, null=True)
     # TODO: add externe_url field (in addition to StellenangebotURLs)?
+    # TODO: add full text from the corresponding arbeitsagentur page
 
     bewerbungsstatus = models.CharField(
         max_length=CHARFIELD_MAX,
