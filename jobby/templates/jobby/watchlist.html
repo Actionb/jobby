@@ -2,21 +2,37 @@
 
 {% block content %}
 {% block watchlist_search_form %}
-{# TODO: add watchlist select #}
-{# TODO: add search bar to search the results #}
+<form method="GET" class="d-flex">
+    <div class="col form-floating me-2">
+        <select class="form-select" id="watchlistSelect" name="watchlist_name">
+            <option selected>{{ current_watchlist }}</option>
+            {% for watchlist_name in watchlist_names %}
+            <option value="{{ watchlist_name }}">{{ watchlist_name }}</option>
+            {% endfor %}
+        </select>
+        <label for="watchlistSelect">Merkliste auswählen</label>
+    </div>
+    <div class="col form-floating">
+        <input type="text" class="form-control" id="searchInput" name="q" placeholder="Textsuche...">
+        <label for="searchInput">Suchen</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Suche</button>
+</form>
 {% endblock watchlist_search_form %}
 
 {% block watchlist_items %}
 <table>
     <thead>
-        <tr class="table-primary">
-            <th scope="col" class="sticky-top z-999">Stellenangebot</th>
-        </tr>
+    <tr class="table-primary">
+        <th scope="col" class="sticky-top z-999">Stellenangebot</th>
+    </tr>
     </thead>
     <tbody>
-        {% for stellenangebot in stellenangebot_list %}
-        <tr><td>{{ stellenangebot }}</td></tr>
-        {% endfor %}
+    {% for stellenangebot in stellenangebot_list %}
+    <tr>
+        <td>{{ stellenangebot }}</td>
+    </tr>
+    {% endfor %}
     </tbody>
 </table>
 {% endblock watchlist_items %}

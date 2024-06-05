@@ -39,6 +39,12 @@ def form_mock(cleaned_data):
     return Mock(cleaned_data=cleaned_data)
 
 
+@pytest.fixture
+def super_mock():
+    with patch("jobby.views.super") as m:
+        yield m
+
+
 class TestSucheView:
 
     @pytest.fixture
@@ -142,6 +148,20 @@ class TestWatchlistView:
     def request_data(self, watchlist_name):
         return {"watchlist_name": watchlist_name}
 
+    @pytest.fixture
+    def current_mock(self, view):
+        with patch.object(view, "current_watchlist_name") as m:
+            yield m
+
+    @pytest.fixture
+    def watchlist_names_mock(self, view):
+        with patch.object(view, "get_watchlist_names") as m:
+            yield m
+
+    @pytest.mark.parametrize("request_data", [{"watchlist_name": "foo"}])
+    def test_current_watchlist_name(self, view, http_request, request_data):
+        assert view.current_watchlist_name(http_request) == "foo"
+
     def test_get_watchlist(self, view, http_request, watchlist):
         assert view.get_watchlist(http_request) == watchlist
 
@@ -149,3 +169,16 @@ class TestWatchlistView:
         queryset = view.get_queryset()
         assert isinstance(queryset, QuerySet)
         assert stellenangebot in queryset
+
+    def test_get_watchlist_names(self, view, watchlist, watchlist_name):
+        assert list(view.get_watchlist_names()) == [watchlist_name]
+
+    def test_get_context_data_contains_current_watchlist(self, view, super_mock, current_mock, watchlist_names_mock):
+        super_mock.return_value.get_context_data.return_value = {}
+        ctx = view.get_context_data()
+        assert "current_watchlist" in ctx
+
+    def test_get_context_data_contains_watchlist_names(self, view, super_mock, current_mock, watchlist_names_mock):
+        super_mock.return_value.get_context_data.return_value = {}
+        ctx = view.get_context_data()
+        assert "watchlist_names" in ctx

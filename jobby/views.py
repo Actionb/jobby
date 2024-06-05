@@ -65,12 +65,26 @@ class SucheView(BaseMixin, FormView):
         }
 
 
-class WatchlistView(ListView):
-
+class WatchlistView(BaseMixin, ListView):
+    site_title = "Merkliste"
     template_name = "jobby/watchlist.html"
 
+    def current_watchlist_name(self, request):
+        return request.GET["watchlist_name"]
+
     def get_watchlist(self, request):
-        return Watchlist.objects.get(name=request.GET["watchlist_name"])
+        return Watchlist.objects.get(name=self.current_watchlist_name(request))
 
     def get_queryset(self):
+        # TODO: implement text search
         return self.get_watchlist(self.request).get_stellenangebote()
+
+    def get_watchlist_names(self):
+        return Watchlist.objects.values_list("name", flat=True)
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        current_watchlist_name = self.current_watchlist_name(self.request)
+        ctx["current_watchlist"] = current_watchlist_name
+        ctx["watchlist_names"] = self.get_watchlist_names().exclude(name=current_watchlist_name)
+        return ctx
