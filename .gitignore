@@ -238,5 +238,6 @@ fabric.properties
 
 .idea/jobby.iml
 .idea/misc.xml
+.idea/vcs.xml
 
 node_modules/
