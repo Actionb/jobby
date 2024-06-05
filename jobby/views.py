@@ -1,8 +1,9 @@
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 
 from jobby.forms import SucheForm
+from jobby.models import Watchlist
 from jobby.search import search
 
 PAGE_VAR = "page"
@@ -52,3 +53,14 @@ class SucheView(FormView):
             "page_range": list(paginator.get_elided_page_range(page_number)),
             "pagination_required": result_count > per_page,
         }
+
+
+class WatchlistView(ListView):
+
+    template_name = "jobby/watchlist.html"
+
+    def get_watchlist(self, request):
+        return Watchlist.objects.get(name=request.GET["watchlist_name"])
+
+    def get_queryset(self):
+        return self.get_watchlist(self.request).get_stellenangebote()

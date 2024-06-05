@@ -3,7 +3,10 @@ from unittest.mock import Mock, patch
 # noinspection PyPackageRequirements
 import pytest
 from django.core.paginator import Paginator
-from jobby.views import PAGE_VAR, SucheView
+from django.db.models import QuerySet
+from jobby.views import PAGE_VAR, SucheView, WatchlistView
+
+pytestmark = [pytest.mark.django_db]
 
 
 @pytest.fixture
@@ -37,7 +40,10 @@ def form_mock(cleaned_data):
 
 
 class TestSucheView:
-    view_class = SucheView
+
+    @pytest.fixture
+    def view_class(self):
+        return SucheView
 
     @pytest.fixture
     def context_data(self):
@@ -63,12 +69,6 @@ class TestSucheView:
         with patch.object(view, "form_class") as m:
             m.return_value.is_valid.return_value = form_is_valid
             yield m
-
-    @pytest.fixture
-    def view(self, http_request):
-        view = self.view_class()
-        view.setup(http_request)
-        return view
 
     @pytest.mark.parametrize("request_data", [{"suche": ""}])
     @pytest.mark.parametrize("form_is_valid", [True])
@@ -130,3 +130,22 @@ class TestSucheView:
     def test_get_pagination_context_invalid_page(self, view, request_data):
         ctx = view.get_pagination_context(result_count=1)
         assert ctx["current_page"] == 1
+
+
+class TestWatchlistView:
+
+    @pytest.fixture
+    def view_class(self):
+        return WatchlistView
+
+    @pytest.fixture
+    def request_data(self, watchlist_name):
+        return {"watchlist_name": watchlist_name}
+
+    def test_get_watchlist(self, view, http_request, watchlist):
+        assert view.get_watchlist(http_request) == watchlist
+
+    def test_get_queryset(self, view, watchlist, watchlist_item, stellenangebot):
+        queryset = view.get_queryset()
+        assert isinstance(queryset, QuerySet)
+        assert stellenangebot in queryset

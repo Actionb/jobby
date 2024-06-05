@@ -121,3 +121,41 @@ class StellenangebotKontakt(models.Model):
     kontakt_typ = models.CharField(max_length=CHARFIELD_MAX, choices=TypChoices, verbose_name="Art")
     kontakt_daten = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Daten")
     angebot = models.ForeignKey("jobby.Stellenangebot", on_delete=models.CASCADE, related_name="kontakte")
+
+
+class Watchlist(models.Model):
+    name = models.CharField(max_length=CHARFIELD_MAX, default="default")
+
+    def on_watchlist(self, stellenangebot):
+        return self.items.filter(stellenangebot=stellenangebot).exists()
+
+    def add_watchlist_item(self, stellenangebot):
+        if self.on_watchlist(stellenangebot):
+            return False
+        self.items.create(stellenangebot=stellenangebot)
+        return True
+
+    def remove_watchlist_item(self, stellenangebot):
+        WatchlistItem.objects.filter(watchlist=self, stellenangebot=stellenangebot).delete()
+
+    def get_stellenangebote(self):
+        return Stellenangebot.objects.filter(id__in=self.items.values_list("stellenangebot_id", flat=True))
+
+    class Meta:
+        verbose_name = "Merkliste"
+        verbose_name_plural = "Merklisten"
+
+    def __str__(self):  # pragma: no cover
+        return self.name
+
+
+class WatchlistItem(models.Model):
+    watchlist = models.ForeignKey("jobby.Watchlist", on_delete=models.CASCADE, related_name="items")
+    stellenangebot = models.ForeignKey("jobby.Stellenangebot", on_delete=models.CASCADE, related_name="watchlist_items")
+
+    class Meta:
+        verbose_name = "Gemerktes Stellenangebot"
+        verbose_name_plural = "Gemerkte Stellenangebote"
+
+    def __str__(self):  # pragma: no cover
+        return f"{self.stellenangebot} ({self.watchlist.name})"

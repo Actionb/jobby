@@ -4,7 +4,11 @@ from datetime import datetime
 import pytest
 from django.utils.timezone import make_aware
 
-from tests.factories import StellenangebotFactory
+from tests.factories import StellenangebotFactory, WatchlistFactory, WatchlistItemFactory
+
+################################################################################
+# MODELS
+################################################################################
 
 
 @pytest.fixture
@@ -32,6 +36,29 @@ def stellenangebot(refnr, modified):
 
 
 @pytest.fixture
+def watchlist_name():
+    """Return the name for the test watchlist."""
+    return "test_watchlist"
+
+
+@pytest.fixture
+def watchlist(watchlist_name):
+    """Return the watchlist test instance."""
+    return WatchlistFactory(name=watchlist_name)
+
+
+@pytest.fixture
+def watchlist_item(watchlist, stellenangebot):
+    """Return a watchlist item for the watchlist test instance."""
+    return WatchlistItemFactory(watchlist=watchlist, stellenangebot=stellenangebot)
+
+
+################################################################################
+# REQUESTS & VIEWS
+################################################################################
+
+
+@pytest.fixture
 def request_data():
     return {}
 
@@ -39,3 +66,10 @@ def request_data():
 @pytest.fixture
 def http_request(rf, request_data):  # TODO: rename to get_request?
     return rf.get("", data=request_data)
+
+
+@pytest.fixture
+def view(view_class, http_request):
+    view = view_class()
+    view.setup(http_request)
+    return view

@@ -1,0 +1,24 @@
+{% extends "jobby/base.html" %}
+
+{% block content %}
+{% block watchlist_search_form %}
+{# TODO: add watchlist select #}
+{# TODO: add search bar to search the results #}
+{% endblock watchlist_search_form %}
+
+{% block watchlist_items %}
+<table>
+    <thead>
+        <tr class="table-primary">
+            <th scope="col" class="sticky-top z-999">Stellenangebot</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stellenangebot in stellenangebot_list %}
+        <tr><td>{{ stellenangebot }}</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock watchlist_items %}
+
+{% endblock content %}

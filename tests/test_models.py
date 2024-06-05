@@ -40,3 +40,24 @@ def test_update_stellenangebot_different_refnr(stellenangebot, other, django_ass
     other.refnr = "1"
     with django_assert_num_queries(0):
         assert not _update_stellenangebot(stellenangebot, other)
+
+
+class TestWatchlist:
+
+    def test_add_watchlist_item(self, watchlist, stellenangebot):
+        added = watchlist.add_watchlist_item(stellenangebot)
+        assert added
+        assert watchlist.items.filter(stellenangebot=stellenangebot).exists()
+
+    def test_add_watchlist_item_already_on_watchlist(self, watchlist, watchlist_item, stellenangebot):
+        added = watchlist.add_watchlist_item(stellenangebot)
+        assert not added
+        assert watchlist.items.filter(stellenangebot=stellenangebot).exists()
+
+    def test_remove_watchlist_item(self, watchlist, watchlist_item, stellenangebot):
+        watchlist.remove_watchlist_item(stellenangebot)
+        assert not watchlist.items.filter(stellenangebot=stellenangebot).exists()
+
+    def test_get_stellenangebote(self, watchlist, watchlist_item, stellenangebot, django_assert_num_queries):
+        with django_assert_num_queries(1):
+            assert stellenangebot in watchlist.get_stellenangebote()

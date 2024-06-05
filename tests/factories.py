@@ -2,7 +2,7 @@ from zoneinfo import ZoneInfo
 
 # noinspection PyPackageRequirements
 import factory
-from jobby.models import Stellenangebot
+from jobby.models import Stellenangebot, Watchlist, WatchlistItem
 
 
 class AngebotFactory(factory.Factory):
@@ -28,3 +28,13 @@ class StellenangebotFactory(factory.django.DjangoModelFactory):
     eintrittsdatum = factory.Faker("date")
     veroeffentlicht = factory.Faker("date")
     modified = factory.Faker("date_time", locale="de_DE", tzinfo=ZoneInfo(key="Europe/Berlin"))
+
+
+class WatchlistFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Watchlist
+
+
+class WatchlistItemFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = WatchlistItem
