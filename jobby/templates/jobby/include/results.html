@@ -1,7 +1,8 @@
 {% if results %}
 <h2>{{ result_count }} Ergebnisse:</h2>
-<ul id="searchResults">
+<ul id="searchResults" style="max-height: 80vh;" class="overflow-auto">
     {% for result in results %}
+    {# TODO: make this a form so that we can use the form directly in AJAX requests to 'add_to_watchlist'? #}
     <li class="result-item list-unstyled border rounded mb-3 p-3">
         <div class="header d-flex justify-content-between">
             <h3 class="fs-5 my-auto">{{ result.titel }}</h3>
