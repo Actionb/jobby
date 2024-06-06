@@ -1,3 +1,4 @@
+from datetime import datetime
 from unittest.mock import Mock, PropertyMock, patch
 
 # noinspection PyPackageRequirements
@@ -122,18 +123,21 @@ class TestSearchResponse:
             "modifikationsTimestamp": "2024-05-22T09:00:15.099",
         }
         with patch.object(search_response, "_parse_arbeitsort", new=Mock(return_value="mocked")) as arbeitsort_mock:
-            results = search_response._process_results([search_result])
-            assert len(results) == 1
-            result = results[0]
-            assert isinstance(result, Stellenangebot)
-            assert result.titel == search_result["titel"]
-            assert result.refnr == search_result["refnr"]
-            assert result.beruf == search_result["beruf"]
-            assert result.arbeitgeber == search_result["arbeitgeber"]
-            arbeitsort_mock.assert_called_with(search_result["arbeitsort"])
-            assert result.eintrittsdatum == search_result["eintrittsdatum"]
-            assert result.veroeffentlicht == search_result["aktuelleVeroeffentlichungsdatum"]
-            assert result.modified == search_result["modifikationsTimestamp"]
+            with patch.object(search_response, "_make_aware", new=Mock(return_value="2024-06-06")) as make_aware_mock:
+                results = search_response._process_results([search_result])
+                assert len(results) == 1
+                result = results[0]
+                assert isinstance(result, Stellenangebot)
+                assert result.titel == search_result["titel"]
+                assert result.refnr == search_result["refnr"]
+                assert result.beruf == search_result["beruf"]
+                assert result.arbeitgeber == search_result["arbeitgeber"]
+                assert result.arbeitsort == "mocked"
+                arbeitsort_mock.assert_called_with(search_result["arbeitsort"])
+                assert result.eintrittsdatum == search_result["eintrittsdatum"]
+                assert result.veroeffentlicht == search_result["aktuelleVeroeffentlichungsdatum"]
+                assert result.modified == "2024-06-06"
+                make_aware_mock.assert_called_with(search_result["modifikationsTimestamp"])
 
     @pytest.mark.parametrize(
         "ort_data, expected",
@@ -146,3 +150,11 @@ class TestSearchResponse:
     )
     def test_parse_arbeitsort(self, search_response, ort_data, expected):
         assert search_response._parse_arbeitsort(ort_data) == expected
+
+    def test_make_aware(self, search_response):
+        dt = search_response._make_aware("2024-05-22T09:00:15.099")
+        assert isinstance(dt, datetime)
+        assert dt.tzinfo is not None
+
+    def test_make_aware_invalid_datetime(self, search_response):
+        assert search_response._make_aware("") == ""

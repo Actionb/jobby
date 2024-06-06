@@ -1,7 +1,9 @@
+from datetime import datetime
 from functools import cached_property
 
 import requests
 from django.conf import settings
+from django.utils.timezone import make_aware
 
 from jobby.models import Stellenangebot, _update_stellenangebot
 
@@ -142,7 +144,7 @@ class SearchResponse:
                 # TODO: parse into date and datetime:
                 eintrittsdatum=result.get("eintrittsdatum", ""),
                 veroeffentlicht=result.get("aktuelleVeroeffentlichungsdatum", ""),
-                modified=result.get("modifikationsTimestamp", ""),
+                modified=self._make_aware(result.get("modifikationsTimestamp", "")),
             )
             processed.append(instance)
         return processed
@@ -157,6 +159,14 @@ class SearchResponse:
         try:
             return arbeitsort_dict["ort"]
         except KeyError:
+            return ""
+
+    @staticmethod
+    def _make_aware(datetime_string):
+        """Return a timezone-aware datetime instance from the given string."""
+        try:
+            return make_aware(datetime.fromisoformat(datetime_string))
+        except ValueError:
             return ""
 
     @staticmethod
