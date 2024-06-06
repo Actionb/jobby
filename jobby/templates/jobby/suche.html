@@ -3,11 +3,13 @@
 
 {% block extrahead %}
     <script src="{% static 'jobby/js/watchlist.js' %}"></script>
+    <script src="{% static 'jobby/js/remove_empty_fields.js' %}"></script>
 {% endblock extrahead %}
 
 {% block content %}
 <div class="d-flex">
     <div class="col-4">
+        <form class="search-form" method="GET">
         <form method="GET">
             {% bootstrap_field form.was layout="floating" %}
             {% bootstrap_field form.wo layout="floating" %}
@@ -16,7 +18,7 @@
                 {% bootstrap_form form layout="floating" exclude="was,wo,umfeld" %}
             </div>
             <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#extraSearchFields">weitere Suchoptionen</button>
-            <button class="btn btn-success" name="suche" type="submit">Suchen</button>
+            <input class="btn btn-success" name="suche" type="submit" value="Suchen">
         </form>
     </div>
     <div class="col-8">
