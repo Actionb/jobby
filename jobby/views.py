@@ -142,7 +142,7 @@ def watchlist_toggle(request):
 class StellenangebotView(BaseMixin, UpdateView):
     model = Stellenangebot
     form_class = StellenangebotForm
-    template_name = "angebot.html"
+    template_name = "jobby/angebot.html"
     pk_url_kwarg = "id"
 
     def __init__(self, *args, **kwargs):
