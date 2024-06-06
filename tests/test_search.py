@@ -1,4 +1,4 @@
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, PropertyMock, patch
 
 # noinspection PyPackageRequirements
 import pytest
@@ -85,9 +85,20 @@ class TestSearchResponse:
         assert isinstance(results[0], Stellenangebot)
         assert results[0].titel == "Software Entwickler"
 
+    def test_has_results(self, search_response):
+        assert search_response.has_results
+
     @pytest.mark.parametrize("search_results", [[]])
-    def test_get_results_no_results(self, search_response, search_results):
-        assert search_response._get_results(search_response.data) == []
+    def test_has_results_no_results(self, search_response, search_results):
+        assert not search_response.has_results
+
+    @pytest.mark.parametrize("response_data", [{"maxErgebnisse": 1}])
+    def test_has_results_no_stellenangebote(self, search_response, response_data):
+        assert not search_response.has_results
+
+    def test_get_results_no_results(self, search_response):
+        with patch("jobby.search.SearchResponse.has_results", new=PropertyMock(return_value=False)):
+            assert search_response._get_results(search_response.data) == []
 
     def test_get_results_checks_for_existing(self, search_response, refnr):
         with patch.object(search_response, "_get_existing") as existing_mock:

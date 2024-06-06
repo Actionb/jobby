@@ -94,8 +94,14 @@ class SearchResponse:
     def result_count(self):  # pragma: no cover
         return self._get_total_result_count(self.data)
 
+    @property
+    def has_results(self):
+        # FIXME: some queries return responses without "stellenangebote" data
+        #  (f.ex. Angebotsart=Ausbildung)
+        return self._get_total_result_count(self.data) > 0 and "stellenangebote" in self.data
+
     def _get_results(self, data):
-        if self._get_total_result_count(data) < 1:
+        if not self.has_results:
             return []
 
         # Parse each search result, and collect the ref numbers for database

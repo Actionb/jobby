@@ -45,7 +45,7 @@ class SucheView(BaseMixin, FormView):
             self._send_error_message(e)
         else:
             ctx.update(self.get_results_context(search_response))
-            if search_response.result_count:
+            if search_response.has_results and search_response.result_count:
                 ctx.update(self.get_pagination_context(search_response.result_count))
             ctx["watchlist_toggle_url"] = reverse("watchlist_toggle")
         return self.render_to_response(ctx)
