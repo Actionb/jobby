@@ -75,8 +75,8 @@ class SucheModel(models.Model):
     angebotsart = models.IntegerField(choices=AngebotsChoices, blank=True, null=True)
     befristung = models.IntegerField(choices=BefristungChoices, blank=True, null=True)
     arbeitszeit = models.CharField(max_length=3, choices=ArbeitszeitChoices, blank=True, null=True)
-    behinderung = models.BooleanField(default=False)
-    corona = models.BooleanField(default=False)  # TODO: might be out-dated
+    behinderung = models.BooleanField(blank=True, null=True)
+    corona = models.BooleanField(blank=True, null=True)
     umfeld = models.PositiveSmallIntegerField(blank=True, null=True)
 
     # Query specific options
