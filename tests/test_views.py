@@ -5,6 +5,8 @@ from unittest.mock import Mock, patch
 import pytest
 from django.core.paginator import Paginator
 from django.db.models import QuerySet
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from jobby.models import Stellenangebot
 from jobby.views import PAGE_VAR, StellenangebotView, SucheView, WatchlistView, watchlist_toggle
 
@@ -296,3 +298,44 @@ class TestStellenangebotView:
     def test_get_initial_edit(self, view, view_extra_context, super_mock, request_data):
         super_mock.return_value.get_initial.return_value = {"foo": "bar"}
         assert view.get_initial() == {"foo": "bar"}
+
+    @pytest.fixture
+    def super_get_mock(self, view, super_mock):
+        def get(*_args, **_kwargs):
+            view.object = None
+            return response_mock
+
+        response_mock = Mock()
+        super_mock.return_value.get = Mock(side_effect=get)
+        return response_mock
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}])
+    def test_get_add_refnr_exists(self, view, http_request, stellenangebot, super_get_mock, view_extra_context):
+        """
+        Assert that get returns a redirect to an edit page if a Stellenangebot
+        with the given refnr exists.
+        """
+        http_request.GET = {"refnr": stellenangebot.refnr}
+        response = view.get(http_request)
+        assert isinstance(response, HttpResponseRedirect)
+        assert response.url == reverse("stellenangebot_edit", kwargs={"id": stellenangebot.pk})
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}])
+    def test_get_add_refnr_does_not_exist(self, view, http_request, super_get_mock, view_extra_context):
+        """
+        Assert that get returns the response from super().get() if no
+        Stellenangebot instance with the given refnr exists.
+        """
+        http_request.GET = {"refnr": "1234"}
+        response = view.get(http_request)
+        assert response == super_get_mock
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}])
+    def test_get_add_no_refnr(self, view, http_request, super_get_mock, view_extra_context):
+        """
+        Assert that get returns the response from super().get() if the request
+        data does not contain a refnr.
+        """
+        http_request.GET = {}
+        response = view.get(http_request)
+        assert response == super_get_mock

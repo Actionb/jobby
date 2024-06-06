@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpResponseBadRequest, JsonResponse
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, ListView, UpdateView
 from django.views.generic.base import ContextMixin
@@ -148,6 +149,22 @@ class StellenangebotView(BaseMixin, UpdateView):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.add = self.extra_context["add"]
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        # Check if this is an add view for a refnr for which a Stellenangebot
+        # instance already exists. If that is the case, redirect to the
+        # instance's edit page.
+        # (this can happen when bookmarking a Stellenangebot on the results page
+        # and then clicking on the link to the add view next to it)
+        refnr = request.GET.get("refnr", None)
+        if self.object is None and self.add and refnr:
+            try:
+                obj = Stellenangebot.objects.get(refnr=refnr)
+                return redirect(reverse("stellenangebot_edit", kwargs={"id": obj.pk}))
+            except Stellenangebot.DoesNotExist:  # noqa
+                pass
+        return response
 
     def get_object(self, queryset=None):
         if not self.add:
