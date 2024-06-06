@@ -2,6 +2,9 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
+{% if arge_link %}
+    <a href="{{ arge_link }}" target="_blank">Zum Angebot auf arbeitsagentur.de</a>
+{% endif %}
 <form method="POST">
     {% csrf_token %}
     {% bootstrap_form_errors form %}

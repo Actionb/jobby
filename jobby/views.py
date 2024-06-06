@@ -185,3 +185,16 @@ class StellenangebotView(BaseMixin, UpdateView):
             return self.request.GET.get("titel", "Stellenangebot")
         else:
             return self.object.titel or "Stellenangebot"
+
+    def get_arge_link(self):
+        if self.add:
+            refnr = self.request.GET.get("refnr", None)
+        else:
+            refnr = self.object.refnr
+        if refnr:
+            return f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}"
+
+    def get_context_data(self, **kwargs):  # pragma: no cover
+        ctx = super().get_context_data(**kwargs)
+        ctx["arge_link"] = self.get_arge_link()
+        return ctx

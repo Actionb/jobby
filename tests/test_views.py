@@ -339,3 +339,24 @@ class TestStellenangebotView:
         http_request.GET = {}
         response = view.get(http_request)
         assert response == super_get_mock
+
+    @pytest.mark.parametrize("request_data", [{"refnr": "1234"}])
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}])
+    def test_get_arge_link_request_has_refnr(self, view, view_extra_context, request_data):
+        assert view.get_arge_link()
+
+    @pytest.mark.parametrize("request_data", [{}])
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}])
+    def test_get_arge_link_request_does_not_have_refnr(self, view, view_extra_context, request_data):
+        assert not view.get_arge_link()
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": False}])
+    def test_get_arge_link_edit(self, view, view_extra_context, stellenangebot):
+        view.object = stellenangebot
+        assert view.get_arge_link()
+
+    @pytest.mark.parametrize("refnr", [""])
+    @pytest.mark.parametrize("view_extra_context", [{"add": False}])
+    def test_get_arge_link_edit_no_refnr(self, view, view_extra_context, stellenangebot, refnr):
+        view.object = stellenangebot
+        assert not view.get_arge_link()
