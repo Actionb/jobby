@@ -10,12 +10,13 @@
 <div class="d-flex">
     <div class="col-4">
         <form class="search-form" method="GET">
-        <form method="GET">
-            {% bootstrap_field form.was layout="floating" %}
-            {% bootstrap_field form.wo layout="floating" %}
-            {% bootstrap_field form.umfeld layout="floating" %}
-            <div class="collapse" id="extraSearchFields">
-                {% bootstrap_form form layout="floating" exclude="was,wo,umfeld" %}
+            {% for field in form.shown_fields %}
+                {% bootstrap_field field layout="floating" %}
+            {% endfor %}
+            <div class="collapse{% if show_collapsed_fields %} show{% endif %}" id="extraSearchFields">
+                {% for field in form.collapsed_fields %}
+                    {% bootstrap_field field layout="floating" %}
+                {% endfor %}
             </div>
             <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#extraSearchFields">weitere Suchoptionen</button>
             <input class="btn btn-success" name="suche" type="submit" value="Suchen">

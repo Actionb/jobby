@@ -1,3 +1,5 @@
+from functools import cached_property
+
 from django import forms
 
 from jobby.models import Stellenangebot, SucheModel
@@ -16,6 +18,26 @@ class SucheForm(forms.ModelForm):
             "zeitarbeit": null_boolean_select,
             "behinderung": null_boolean_select,
         }
+
+    @cached_property
+    def shown_fields(self):
+        """
+        Return the fields that should be shown (i.e. not rendered as collapsed).
+
+        The fields ``was``, ``wo``, and ``umfeld`` should always be shown.
+        Fields that have a non-emtpy value should also be shown.
+        """
+        always_shown = ("was", "wo", "umfeld")
+        fields = []
+        for bound_field in self:
+            if bound_field.name in always_shown or bound_field.value() not in bound_field.field.empty_values:
+                fields.append(bound_field)
+        return fields
+
+    @cached_property
+    def collapsed_fields(self):
+        """Return the fields that should be rendered as collapsed."""
+        return [bound_field for bound_field in self if bound_field not in self.shown_fields]
 
 
 class SearchResultForm(forms.ModelForm):
