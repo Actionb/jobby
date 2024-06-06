@@ -1,5 +1,7 @@
 from django.db import models
 from django.forms import model_to_dict
+from django.urls import reverse
+from django.utils.http import urlencode
 
 CHARFIELD_MAX = 256
 
@@ -127,6 +129,13 @@ class Stellenangebot(models.Model):
         from jobby.forms import SearchResultForm
 
         return SearchResultForm(instance=self)
+
+    def as_url(self):
+        if self.pk:
+            return reverse("stellenangebot_edit", kwargs={"id": self.pk})
+        else:
+            # noinspection PyTypeChecker
+            return f"{reverse('stellenangebot_add')}?{urlencode(_as_dict(self))}"
 
 
 class StellenangebotURLs(models.Model):

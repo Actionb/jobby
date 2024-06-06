@@ -1,8 +1,10 @@
 from datetime import datetime
+from unittest.mock import Mock, patch
 
 # noinspection PyPackageRequirements
 import pytest
 from django.db import models
+from django.urls import path
 from django.utils.timezone import make_aware
 from jobby.models import _as_dict, _update_stellenangebot
 
@@ -65,6 +67,24 @@ def test_as_dict_ignores_default_values():
     instance = AsDictTestModel(name="test", empty="not empty")
     expected = {"name": "test", "empty": "not empty"}
     assert _as_dict(instance, default=False) == expected
+
+
+urlpatterns = [
+    path("foo/<int:id>", lambda r: None, name="stellenangebot_edit"),
+    path("foo/", lambda r: None, name="stellenangebot_add"),
+]
+
+
+@pytest.mark.urls(__name__)
+class TestStellenangebot:
+
+    def test_as_url_saved_instance(self, stellenangebot):
+        assert stellenangebot.as_url() == f"/foo/{stellenangebot.pk}"
+
+    def test_as_url_unsaved_instance(self):
+        stellenangebot = StellenangebotFactory.build()
+        with patch("jobby.models._as_dict", new=Mock(return_value={"titel": "foo", "refnr": 1234})):
+            assert stellenangebot.as_url() == "/foo/?titel=foo&refnr=1234"
 
 
 class TestWatchlist:
