@@ -7,7 +7,7 @@
     {% for result, on_watchlist in results %}
     <li class="result-item list-unstyled border rounded mb-3 p-3">
         <div class="header d-flex justify-content-between">
-            <h3 class="fs-5 my-auto"><a href="{{ result.as_url }}">{{ result.titel }}</a></h3>
+            <h3 class="fs-5 my-auto"><a href="{{ result.as_url }}">{{ result.titel|default:result.beruf }}</a></h3>
             <div class="result-buttons">
                 <button class="watchlist-toggle-btn btn {% if on_watchlist %}btn-success{% else %}btn-outline-secondary{% endif %}" data-url="{{ watchlist_toggle_url }}" data-object-refnr="{{ result.refnr }}">
                     Merken
