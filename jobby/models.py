@@ -99,7 +99,7 @@ class Stellenangebot(models.Model):
         NICHT_GEPLANT = "---"
 
     titel = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Titel")
-    refnr = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Referenz-Nummer")
+    refnr = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Referenz-Nummer", unique=True)
     beruf = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True, verbose_name="Beruf")
     # TODO: arbeitgeber could be a relation?
     arbeitgeber = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True, verbose_name="Arbeitgeber")
