@@ -54,17 +54,17 @@ class SucheView(BaseMixin, FormView):
     def _send_error_message(self, exception):  # pragma: no cover
         messages.add_message(self.request, level=messages.ERROR, message=f"Fehler bei der Suche: {exception}")
 
-    def _get_watchlist_item_ids(self, results):
+    def _get_watchlisted_ids(self, results):
         if results:
             saved_results = [r for r in results if r.pk]
             queryset = WatchlistItem.objects.filter(stellenangebot__in=saved_results)
         else:
             queryset = WatchlistItem.objects.none()
-        return set(queryset.values_list("pk", flat=True))
+        return set(queryset.values_list("stellenangebot_id", flat=True))
 
     def get_results_context(self, search_response):
         results = search_response.results
-        watchlist_item_ids = self._get_watchlist_item_ids(results)
+        watchlist_item_ids = self._get_watchlisted_ids(results)
         return {
             "results": [(result, result.pk in watchlist_item_ids) for result in results],
             "result_count": search_response.result_count,

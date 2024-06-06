@@ -130,34 +130,34 @@ class TestSucheView:
             view.form_valid(form_mock)
             send_message_mock.assert_called()
 
-    def test_get_watchlist_item_ids(self, view, watchlist_item, stellenangebot):
-        assert view._get_watchlist_item_ids(results=[stellenangebot]) == {stellenangebot.pk}
+    def test_get_watchlisted_ids(self, view, watchlist_item, stellenangebot):
+        assert view._get_watchlisted_ids(results=[stellenangebot]) == {stellenangebot.pk}
 
-    def test_get_watchlist_item_ids_filter(self, view, stellenangebot):
+    def test_get_watchlisted_ids_filter(self, view, stellenangebot):
         """
-        Assert that _get_watchlist_item_ids filters only with saved model
+        Assert that _get_watchlisted_ids filters only with saved model
         instances.
         """
         with patch("jobby.views.WatchlistItem") as watchlist_item_mock:
             filter_mock = Mock()
             filter_mock.return_value.values_list.return_value = [stellenangebot.pk]
             watchlist_item_mock.objects.filter = filter_mock
-            view._get_watchlist_item_ids(results=[stellenangebot, StellenangebotFactory.build()])
+            view._get_watchlisted_ids(results=[stellenangebot, StellenangebotFactory.build()])
             filter_mock.assert_called_with(stellenangebot__in=[stellenangebot])
 
-    def test_get_watchlist_item_ids_no_results(self, view):
+    def test_get_watchlisted_ids_no_results(self, view):
         with patch("jobby.views.WatchlistItem") as watchlist_item_mock:
             none_mock = Mock()
             none_mock.return_value.values_list.return_value = []
             watchlist_item_mock.objects.none = none_mock
-            view._get_watchlist_item_ids(results=[])
+            view._get_watchlisted_ids(results=[])
             none_mock.assert_called()
 
     def test_get_results_context(self, view, search_response_mock, stellenangebot):
         new = StellenangebotFactory.build()
         search_response_mock.results = [stellenangebot, new]
         search_response_mock.result_count = 2
-        with patch.object(view, "_get_watchlist_item_ids", new=Mock(return_value={stellenangebot.pk})):
+        with patch.object(view, "_get_watchlisted_ids", new=Mock(return_value={stellenangebot.pk})):
             ctx = view.get_results_context(search_response_mock)
         assert ctx["results"] == [(stellenangebot, True), (new, False)]
         assert ctx["result_count"] == 2
