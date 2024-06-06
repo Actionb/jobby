@@ -231,20 +231,20 @@ class TestWatchlistToggle:
     def test_watchlist_toggle_not_on_watchlist(self, post_request, watchlist, stellenangebot):
         response = watchlist_toggle(post_request)
         assert response.status_code == 200
-        assert json.loads(response.content) == {"on_watchlist": True}
+        assert json.loads(response.content)["on_watchlist"]
         assert watchlist.items.filter(stellenangebot=stellenangebot).exists()
 
     def test_watchlist_toggle_already_on_watchlist(self, post_request, watchlist, watchlist_item, stellenangebot):
         response = watchlist_toggle(post_request)
         assert response.status_code == 200
-        assert json.loads(response.content) == {"on_watchlist": False}
+        assert not json.loads(response.content)["on_watchlist"]
         assert not watchlist.items.filter(stellenangebot=stellenangebot).exists()
 
     @pytest.mark.parametrize("stellenangebot", [StellenangebotFactory.build()])
     def test_watchlist_toggle_new_angebot(self, post_request, watchlist, stellenangebot):
         response = watchlist_toggle(post_request)
         assert response.status_code == 200
-        assert json.loads(response.content) == {"on_watchlist": True}
+        assert json.loads(response.content)["on_watchlist"]
         assert Stellenangebot.objects.filter(refnr=stellenangebot.refnr).exists()
         saved_angebot = Stellenangebot.objects.get(refnr=stellenangebot.refnr)
         assert watchlist.items.filter(stellenangebot=saved_angebot).exists()

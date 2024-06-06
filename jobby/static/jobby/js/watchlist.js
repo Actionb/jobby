@@ -55,6 +55,8 @@
                 btn.classList.remove('text-success')
                 btn.classList.remove('on-watchlist')
               }
+              const link = btn.closest(".result-header").querySelector("a.result-link")
+              if (link && data.link_url) link.href = data.link_url
             })
             .catch((error) => console.log(`Error when toggling watchlist: ${error}`))
         })

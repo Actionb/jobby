@@ -137,7 +137,7 @@ def watchlist_toggle(request):
     else:
         watchlist.add_watchlist_item(obj)
         on_watchlist = True
-    return JsonResponse({"on_watchlist": on_watchlist})
+    return JsonResponse({"on_watchlist": on_watchlist, "link_url": obj.as_url()})
 
 
 class StellenangebotView(BaseMixin, UpdateView):
