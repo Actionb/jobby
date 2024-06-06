@@ -17,3 +17,9 @@ class SearchResultForm(forms.ModelForm):
     class Meta:
         model = Stellenangebot
         exclude = ["bewerbungsstatus", "notizen"]
+
+
+class StellenangebotForm(forms.ModelForm):
+    class Meta:
+        model = Stellenangebot
+        fields = forms.ALL_FIELDS
