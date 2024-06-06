@@ -9,7 +9,13 @@
 <div class="d-flex">
     <div class="col-4">
         <form method="GET">
-            {% bootstrap_form form %}
+            {% bootstrap_field form.was layout="floating" %}
+            {% bootstrap_field form.wo layout="floating" %}
+            {% bootstrap_field form.umfeld layout="floating" %}
+            <div class="collapse" id="extraSearchFields">
+                {% bootstrap_form form layout="floating" exclude="was,wo,umfeld" %}
+            </div>
+            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#extraSearchFields">weitere Suchoptionen</button>
             <button class="btn btn-success" name="suche" type="submit">Suchen</button>
         </form>
     </div>
