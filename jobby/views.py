@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.urls import reverse
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, UpdateView
 from django.views.generic.base import ContextMixin
 
 from jobby.forms import SearchResultForm, SucheForm
@@ -137,3 +137,14 @@ def watchlist_toggle(request):
         watchlist.add_watchlist_item(obj)
         on_watchlist = True
     return JsonResponse({"on_watchlist": on_watchlist})
+
+
+class StellenangebotView(UpdateView):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.add = self.extra_context["add"]
+
+    def get_object(self, queryset=None):
+        if not self.add:
+            return super().get_object(queryset)
