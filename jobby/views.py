@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views.generic import FormView, ListView, UpdateView
 from django.views.generic.base import ContextMixin
 
-from jobby.forms import SearchResultForm, SucheForm
+from jobby.forms import SearchResultForm, StellenangebotForm, SucheForm
 from jobby.models import Stellenangebot, Watchlist, WatchlistItem
 from jobby.search import search
 
@@ -140,6 +140,10 @@ def watchlist_toggle(request):
 
 
 class StellenangebotView(UpdateView):
+    model = Stellenangebot
+    form_class = StellenangebotForm
+    template_name = "angebot.html"
+    pk_url_kwarg = "id"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -148,3 +152,12 @@ class StellenangebotView(UpdateView):
     def get_object(self, queryset=None):
         if not self.add:
             return super().get_object(queryset)
+
+    def get_initial(self):
+        initial = super().get_initial()
+        if self.add:
+            initial.update(self.request.GET.dict())
+        return initial
+
+    def get_success_url(self):  # pragma: no cover
+        return reverse("stellenangebot_edit", kwargs={"id": self.object.pk})

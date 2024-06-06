@@ -6,7 +6,7 @@ import pytest
 from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from jobby.models import Stellenangebot
-from jobby.views import PAGE_VAR, SucheView, WatchlistView, watchlist_toggle
+from jobby.views import PAGE_VAR, StellenangebotView, SucheView, WatchlistView, watchlist_toggle
 
 from tests.factories import StellenangebotFactory
 
@@ -262,3 +262,37 @@ class TestWatchlistToggle:
         search_result_form_mock.return_value.is_valid.return_value = False
         response = watchlist_toggle(post_request)
         assert response.status_code == 400
+
+
+class TestStellenangebotView:
+
+    @pytest.fixture
+    def view_class(self):
+        return StellenangebotView
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}])
+    def test_get_object_add(self, view, view_extra_context):
+        assert view.get_object() is None
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": False}])
+    def test_get_object_edit(self, view, view_extra_context, super_mock):
+        get_object_mock = Mock()
+        super_mock.return_value.get_object = get_object_mock
+        view.get_object()
+        get_object_mock.assert_called()
+
+    @pytest.mark.parametrize("request_data", [{"titel": "foo"}])
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}])
+    def test_get_initial_add(self, view, view_extra_context, super_mock, request_data):
+        """
+        Assert that get_initial includes the request's data if the view is an
+        'add' view.
+        """
+        super_mock.return_value.get_initial.return_value = {"foo": "bar"}
+        assert view.get_initial() == {"foo": "bar", **request_data}
+
+    @pytest.mark.parametrize("request_data", [{"titel": "foo"}])
+    @pytest.mark.parametrize("view_extra_context", [{"add": False}])
+    def test_get_initial_edit(self, view, view_extra_context, super_mock, request_data):
+        super_mock.return_value.get_initial.return_value = {"foo": "bar"}
+        assert view.get_initial() == {"foo": "bar"}

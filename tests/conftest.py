@@ -74,7 +74,12 @@ def post_request(rf, request_data):
 
 
 @pytest.fixture
-def view(view_class, http_request):
-    view = view_class()
+def view_extra_context():
+    return {}
+
+
+@pytest.fixture
+def view(view_class, http_request, view_extra_context):
+    view = view_class(extra_context=view_extra_context)
     view.setup(http_request)
     return view
