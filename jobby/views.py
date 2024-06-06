@@ -139,7 +139,7 @@ def watchlist_toggle(request):
     return JsonResponse({"on_watchlist": on_watchlist})
 
 
-class StellenangebotView(UpdateView):
+class StellenangebotView(BaseMixin, UpdateView):
     model = Stellenangebot
     form_class = StellenangebotForm
     template_name = "angebot.html"
@@ -161,3 +161,10 @@ class StellenangebotView(UpdateView):
 
     def get_success_url(self):  # pragma: no cover
         return reverse("stellenangebot_edit", kwargs={"id": self.object.pk})
+
+    @property
+    def site_title(self):
+        if self.add:
+            return self.request.GET.get("titel", "Stellenangebot")
+        else:
+            return self.object.titel or "Stellenangebot"
