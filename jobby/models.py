@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import model_to_dict
 
 CHARFIELD_MAX = 256
 
@@ -22,6 +23,26 @@ def _update_stellenangebot(existing, other):
         Stellenangebot.objects.filter(refnr=existing.refnr).update(**update_dict)
         return True
     return False
+
+
+def _as_dict(instance, empty=False, default=False):
+    """
+    Return the model instance as a dictionary.
+
+    :param instance: the model instance
+    :param empty: whether to include values that are considered empty
+    :param default: whether to include default values
+    :return: dictionary of model field name to field data
+    """
+    r = {}
+    for field_name, value in model_to_dict(instance).items():
+        model_field = instance._meta.get_field(field_name)
+        if not empty and value in model_field.empty_values:
+            continue
+        if not default and value == model_field.default:
+            continue
+        r[field_name] = value
+    return r
 
 
 class SucheModel(models.Model):

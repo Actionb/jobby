@@ -2,8 +2,9 @@ from datetime import datetime
 
 # noinspection PyPackageRequirements
 import pytest
+from django.db import models
 from django.utils.timezone import make_aware
-from jobby.models import _update_stellenangebot
+from jobby.models import _as_dict, _update_stellenangebot
 
 from tests.factories import StellenangebotFactory
 
@@ -40,6 +41,30 @@ def test_update_stellenangebot_different_refnr(stellenangebot, other, django_ass
     other.refnr = "1"
     with django_assert_num_queries(0):
         assert not _update_stellenangebot(stellenangebot, other)
+
+
+class AsDictTestModel(models.Model):
+    name = models.CharField(max_length=10)
+    empty = models.CharField(max_length=10, blank=True, null=True)
+    default = models.CharField(max_length=10, default="default")
+
+
+def test_as_dict():
+    instance = AsDictTestModel(name="test")
+    expected = {"id": None, "name": "test", "empty": None, "default": "default"}
+    assert _as_dict(instance, empty=True, default=True) == expected
+
+
+def test_as_dict_ignores_empty_values():
+    instance = AsDictTestModel(name="test", default="not default")
+    expected = {"name": "test", "default": "not default"}
+    assert _as_dict(instance, empty=False) == expected
+
+
+def test_as_dict_ignores_default_values():
+    instance = AsDictTestModel(name="test", empty="not empty")
+    expected = {"name": "test", "empty": "not empty"}
+    assert _as_dict(instance, default=False) == expected
 
 
 class TestWatchlist:
