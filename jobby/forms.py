@@ -1,6 +1,7 @@
 from functools import cached_property
 
 from django import forms
+from django.db.models import QuerySet
 
 from jobby.models import Stellenangebot, SucheModel
 
@@ -55,3 +56,27 @@ class StellenangebotForm(forms.ModelForm):
             "veroeffentlicht": forms.HiddenInput(),
             "modified": forms.HiddenInput(),
         }
+
+
+class WatchlistSearchForm(forms.Form):
+    # TODO: add watchlist select once multiple watchlists are supported
+    titel__icontains = forms.CharField(required=False, label="Titel")
+    bewerbungsstatus = forms.ChoiceField(choices=Stellenangebot.BewerbungChoices, required=False)
+
+    def get_filter_params(self, cleaned_data):
+        """Return the search form's data as queryset filter parameters."""
+        params = {}
+        for field_name, value in cleaned_data.items():
+            formfield = self.fields[field_name]
+            if (
+                isinstance(formfield, forms.BooleanField)
+                and not isinstance(formfield, forms.NullBooleanField)
+                and not value
+            ):
+                # value is False on a simple BooleanField; don't include it.
+                continue
+            elif value in formfield.empty_values or isinstance(value, QuerySet) and not value.exists():
+                # Don't want empty values as filter parameters!
+                continue
+            params[field_name] = value
+        return params
