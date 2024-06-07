@@ -8,6 +8,13 @@
         <a href="{{ arge_link }}" target="_blank">Zum Angebot auf arbeitsagentur.de</a>
     {% endif %}
 </div>
+{% block angebot_details %}
+{% for field in form %}
+    {% if field.is_hidden %}
+        <p><span class="fw-bold">{{ field.label }}: </span>{{ field.value }}</p>
+    {% endif %}
+{% endfor %}
+{% endblock angebot_details %}
 <form method="POST">
     {% csrf_token %}
     {% bootstrap_form_errors form %}
