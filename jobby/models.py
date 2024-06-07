@@ -120,6 +120,8 @@ class Stellenangebot(models.Model):
         choices=BewerbungChoices,
         default=BewerbungChoices.NICHT_GEPLANT,
         verbose_name="Bewerbungsstatus",
+        blank=True,
+        null=True,
     )
     notizen = models.TextField(verbose_name="Notizen", blank=True, null=True)
 
