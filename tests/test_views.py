@@ -210,16 +210,6 @@ class TestWatchlistView:
     def test_get_watchlist_names(self, view, watchlist, watchlist_name):
         assert list(view.get_watchlist_names()) == [watchlist_name]
 
-    def test_get_context_data_contains_current_watchlist(self, view, super_mock, current_mock, watchlist_names_mock):
-        super_mock.return_value.get_context_data.return_value = {}
-        ctx = view.get_context_data()
-        assert "current_watchlist" in ctx
-
-    def test_get_context_data_contains_watchlist_names(self, view, super_mock, current_mock, watchlist_names_mock):
-        super_mock.return_value.get_context_data.return_value = {}
-        ctx = view.get_context_data()
-        assert "watchlist_names" in ctx
-
 
 @pytest.mark.usefixtures("watchlist")
 class TestWatchlistToggle:

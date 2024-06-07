@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.generic import FormView, ListView, UpdateView
 from django.views.generic.base import ContextMixin
 
-from jobby.forms import StellenangebotForm, SucheForm
+from jobby.forms import StellenangebotForm, SucheForm, WatchlistSearchForm
 from jobby.models import Stellenangebot, Watchlist, WatchlistItem
 from jobby.search import search
 
@@ -96,16 +96,19 @@ class WatchlistView(BaseMixin, ListView):
 
     def get_queryset(self):
         # TODO: implement text search
-        return self.get_watchlist(self.request).get_stellenangebote()
+        queryset = self.get_watchlist(self.request).get_stellenangebote()
+        search_form = WatchlistSearchForm(data=self.request.GET.dict())
+        if search_form.is_valid():
+            filters = search_form.get_filter_params(search_form.cleaned_data)
+            queryset = queryset.filter(**filters)
+        return queryset
 
     def get_watchlist_names(self):
         return Watchlist.objects.values_list("name", flat=True)
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        current_watchlist_name = self.current_watchlist_name(self.request)
-        ctx["current_watchlist"] = current_watchlist_name
-        ctx["watchlist_names"] = self.get_watchlist_names().exclude(name=current_watchlist_name)
+        ctx["search_form"] = WatchlistSearchForm(data=self.request.GET.dict())
         return ctx
 
 

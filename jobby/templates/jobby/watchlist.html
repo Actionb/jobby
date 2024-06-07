@@ -1,40 +1,44 @@
 {% extends "jobby/base.html" %}
+{% load django_bootstrap5 %}
 
 {% block content %}
 {% block watchlist_search_form %}
-<form method="GET" class="d-flex">
-    <div class="col form-floating me-2">
-        <select class="form-select" id="watchlistSelect" name="watchlist_name">
-            <option selected>{{ current_watchlist }}</option>
-            {% for watchlist_name in watchlist_names %}
-            <option value="{{ watchlist_name }}">{{ watchlist_name }}</option>
-            {% endfor %}
-        </select>
-        <label for="watchlistSelect">Merkliste auswählen</label>
+<form method="GET" class="mb-3" style="max-width: 300px;">
+    {% bootstrap_form search_form layout="floating" %}
+    <div class="d-flex gap-3">
+        <button type="submit" class="btn btn-primary">Suche</button>
+        <a class="btn btn-secondary" href="{% url 'watchlist' %}">Alle anzeigen</a>
     </div>
-    <div class="col form-floating">
-        <input type="text" class="form-control" id="searchInput" name="q" placeholder="Textsuche...">
-        <label for="searchInput">Suchen</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Suche</button>
 </form>
 {% endblock watchlist_search_form %}
 
 {% block watchlist_items %}
-<table>
+{% if stellenangebot_list %}
+<table class="table table-hover">
     <thead>
     <tr class="table-primary">
         <th scope="col" class="sticky-top z-999">Stellenangebot</th>
+        <th scope="col" class="sticky-top z-999">Arbeitsort</th>
+        <th scope="col" class="sticky-top z-999">Arbeitgeber</th>
+        <th scope="col" class="sticky-top z-999">Eintrittsdatum</th>
+        <th scope="col" class="sticky-top z-999">Bewerbung</th>
     </tr>
     </thead>
     <tbody>
     {% for stellenangebot in stellenangebot_list %}
     <tr>
-        <td>{{ stellenangebot }}</td>
+        <td><a href="{{ stellenangebot.as_url }}">{{ stellenangebot }}</a></td>
+        <td>{{ stellenangebot.arbeitsort }}</td>
+        <td>{{ stellenangebot.arbeitgeber }}</td>
+        <td>{{ stellenangebot.eintrittsdatum }}</td>
+        <td>{{ stellenangebot.bewerbungsstatus }}</td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
+{% else %}
+    <p>Keine Ergebnisse</p>
+{% endif %}
 {% endblock watchlist_items %}
 
 {% endblock content %}
