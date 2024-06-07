@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.generic import FormView, ListView, UpdateView
 from django.views.generic.base import ContextMixin
 
-from jobby.forms import SearchResultForm, StellenangebotForm, SucheForm
+from jobby.forms import StellenangebotForm, SucheForm
 from jobby.models import Stellenangebot, Watchlist, WatchlistItem
 from jobby.search import search
 
@@ -125,7 +125,7 @@ def watchlist_toggle(request):
         obj = Stellenangebot.objects.get(refnr=refnr)
     except Stellenangebot.DoesNotExist:  # noqa
         # Create a new Stellenangebot instance from the POST data:
-        form = SearchResultForm(data=request.POST)
+        form = StellenangebotForm(data=request.POST)
         if form.is_valid():
             obj = form.save()
         else:

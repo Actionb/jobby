@@ -133,9 +133,9 @@ class Stellenangebot(models.Model):
         return self.titel
 
     def as_search_result_form(self):
-        from jobby.forms import SearchResultForm
+        from jobby.forms import StellenangebotForm
 
-        return SearchResultForm(instance=self)
+        return StellenangebotForm(instance=self)
 
     def as_url(self):
         if self.pk:

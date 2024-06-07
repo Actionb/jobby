@@ -256,7 +256,7 @@ class TestWatchlistToggle:
 
     @pytest.fixture
     def search_result_form_mock(self):
-        with patch("jobby.views.SearchResultForm") as m:
+        with patch("jobby.views.StellenangebotForm") as m:
             yield m
 
     @pytest.mark.parametrize("stellenangebot", [StellenangebotFactory.build()])

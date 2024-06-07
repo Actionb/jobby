@@ -40,13 +40,18 @@ class SucheForm(forms.ModelForm):
         return [bound_field for bound_field in self if bound_field not in self.shown_fields]
 
 
-class SearchResultForm(forms.ModelForm):
-    class Meta:
-        model = Stellenangebot
-        exclude = ["bewerbungsstatus", "notizen"]
-
-
 class StellenangebotForm(forms.ModelForm):
     class Meta:
         model = Stellenangebot
         fields = forms.ALL_FIELDS
+        widgets = {
+            # The user should not need to edit the values for these fields:
+            "titel": forms.HiddenInput(),
+            "refnr": forms.HiddenInput(),
+            "beruf": forms.HiddenInput(),
+            "arbeitgeber": forms.HiddenInput(),
+            "arbeitsort": forms.HiddenInput(),
+            "eintrittsdatum": forms.HiddenInput(),
+            "veroeffentlicht": forms.HiddenInput(),
+            "modified": forms.HiddenInput(),
+        }
