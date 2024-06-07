@@ -96,7 +96,8 @@ class Stellenangebot(models.Model):
         BEWORBEN = "beworben"
         ABGELEHNT = "abgelehnt"
         ANGENOMMEN = "angenommen"
-        NICHT_GEPLANT = "---"
+        NICHT_GEPLANT = "nicht geplant"
+        __empty__ = "---"
 
     titel = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Titel")
     refnr = models.CharField(
