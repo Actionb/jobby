@@ -18,11 +18,13 @@ def refnr():
 
 @pytest.fixture
 def modified():
+    """Return the value for the ``modified`` field of the Stellenangebot model."""
     return make_aware(datetime.fromisoformat("2024-05-22T09:00:15.099"))
 
 
 @pytest.fixture
 def stellenangebot(refnr, modified):
+    """Create a Stellenangebot instance."""
     return StellenangebotFactory(
         titel="Software Developer",
         refnr=refnr,
@@ -49,7 +51,7 @@ def watchlist(watchlist_name):
 
 @pytest.fixture
 def watchlist_item(watchlist, stellenangebot):
-    """Return a watchlist item for the watchlist test instance."""
+    """Create and return a watchlist item for the watchlist test instance."""
     return WatchlistItemFactory(watchlist=watchlist, stellenangebot=stellenangebot)
 
 
@@ -60,26 +62,31 @@ def watchlist_item(watchlist, stellenangebot):
 
 @pytest.fixture
 def request_data():
+    """The data for a http request."""
     return {}
 
 
 @pytest.fixture
 def http_request(rf, request_data):  # TODO: rename to get_request?
+    """Return a GET request."""
     return rf.get("", data=request_data)
 
 
 @pytest.fixture
 def post_request(rf, request_data):
+    """Return a POST request."""
     return rf.post("", data=request_data)
 
 
 @pytest.fixture
 def view_extra_context():
+    """Extra context for view instantiation."""
     return {}
 
 
 @pytest.fixture
 def view(view_class, http_request, view_extra_context):
+    """Instantiate the given view class with the request and context."""
     view = view_class(extra_context=view_extra_context)
     view.setup(http_request)
     return view

@@ -22,6 +22,10 @@ class TestSucheForm:
 
     @pytest.mark.parametrize("form_data", [{"was": "foo", "wo": "Dortmund", "arbeitgeber": "bar"}])
     def test_shown_fields(self, form, form_data):
+        """
+        Assert that ``shown_fields`` includes the 'always_shown' fields as well
+        as any field with data.
+        """
         assert len(form.shown_fields) == 4
         assert form["was"] in form.shown_fields
         assert form["wo"] in form.shown_fields
@@ -29,5 +33,9 @@ class TestSucheForm:
         assert form["arbeitgeber"] in form.shown_fields
 
     def test_collapsed_fields(self, form):
+        """
+        Assert that ``collapsed_fields`` excludes fields returned by
+        ``shown_fields``.
+        """
         with patch("jobby.forms.SucheForm.shown_fields", new=PropertyMock(return_value=[form["arbeitgeber"]])):
             assert form["arbeitgeber"] not in form.collapsed_fields
