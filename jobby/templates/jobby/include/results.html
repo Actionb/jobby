@@ -12,9 +12,7 @@
                 <button class="watchlist-toggle-btn btn {% if on_watchlist %}btn-success{% else %}btn-outline-secondary{% endif %}" data-url="{{ watchlist_toggle_url }}" data-object-refnr="{{ result.refnr }}">
                     Merken
                     <form class="visually-hidden">
-                        {% with result.as_search_result_form as search_result_form %}
-                        {{ search_result_form }}
-                        {% endwith %}
+                        {{ result.as_search_result_form }}
                     </form>
                 </button>
             </div>
