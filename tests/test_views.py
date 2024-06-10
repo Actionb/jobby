@@ -175,13 +175,11 @@ class TestSucheView:
             filter_mock.assert_called_with(stellenangebot__in=[stellenangebot])
 
     def test_get_watchlisted_ids_no_results(self, view):
-        # TODO: test that _get_watchlisted_ids returns an empty set here
-        with patch("jobby.views.WatchlistItem") as watchlist_item_mock:
-            none_mock = Mock()
-            none_mock.return_value.values_list.return_value = []
-            watchlist_item_mock.objects.none = none_mock
-            view._get_watchlisted_ids(results=[])
-            none_mock.assert_called()
+        """
+        Assert that ``_get_watchlisted_ids`` returns an empty set if there are
+        no results.
+        """
+        assert view._get_watchlisted_ids(results=[]) == set()
 
     def test_get_results_context(self, view, search_response_mock, stellenangebot):
         """Assert that ``get_results_context`` returns the expected data."""

@@ -56,11 +56,10 @@ class SucheView(BaseMixin, FormView):
 
     def _get_watchlisted_ids(self, results):
         if results:
-            saved_results = [r for r in results if r.pk]
-            queryset = WatchlistItem.objects.filter(stellenangebot__in=saved_results)
+            queryset = WatchlistItem.objects.filter(stellenangebot__in=[r for r in results if r.pk])
+            return set(queryset.values_list("stellenangebot_id", flat=True))
         else:
-            queryset = WatchlistItem.objects.none()
-        return set(queryset.values_list("stellenangebot_id", flat=True))
+            return set()
 
     def get_results_context(self, search_response):
         results = search_response.results
