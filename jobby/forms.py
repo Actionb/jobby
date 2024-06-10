@@ -25,10 +25,10 @@ class SucheForm(forms.ModelForm):
         """
         Return the fields that should be shown (i.e. not rendered as collapsed).
 
-        The fields ``was``, ``wo``, and ``umfeld`` should always be shown.
+        The fields ``was``, ``wo``, and ``umkreis`` should always be shown.
         Fields that have a non-emtpy value should also be shown.
         """
-        always_shown = ("was", "wo", "umfeld")
+        always_shown = ("was", "wo", "umkreis")
         fields = []
         for bound_field in self:
             if bound_field.name in always_shown or bound_field.value() not in bound_field.field.empty_values:

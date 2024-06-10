@@ -25,7 +25,7 @@ class TestSucheForm:
         assert len(form.shown_fields) == 4
         assert form["was"] in form.shown_fields
         assert form["wo"] in form.shown_fields
-        assert form["umfeld"] in form.shown_fields
+        assert form["umkreis"] in form.shown_fields
         assert form["arbeitgeber"] in form.shown_fields
 
     def test_collapsed_fields(self, form):

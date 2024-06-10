@@ -77,7 +77,7 @@ class SucheModel(models.Model):
     arbeitszeit = models.CharField(max_length=3, choices=ArbeitszeitChoices, blank=True, null=True)
     behinderung = models.BooleanField(blank=True, null=True)
     corona = models.BooleanField(blank=True, null=True)
-    umfeld = models.PositiveSmallIntegerField(blank=True, null=True)
+    umkreis = models.PositiveSmallIntegerField(blank=True, null=True)
 
     # Query specific options
     page = models.PositiveSmallIntegerField(blank=True, null=True)
