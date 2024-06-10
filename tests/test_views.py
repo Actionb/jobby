@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from jobby.models import Stellenangebot
+from jobby.models import Stellenangebot, Watchlist
 from jobby.views import PAGE_VAR, StellenangebotView, SucheView, WatchlistView, watchlist_toggle
 
 from tests.factories import StellenangebotFactory
@@ -209,6 +209,17 @@ class TestWatchlistView:
 
     def test_get_watchlist_names(self, view, watchlist, watchlist_name):
         assert list(view.get_watchlist_names()) == [watchlist_name]
+
+    def test_creates_watchlist_if_does_not_exist(self, view, client):
+        """
+        Assert that a watchlist with the requested name will be created if no
+        such watchlist exists.
+        """
+        assert Watchlist.objects.count() == 0
+        response = client.get(reverse("watchlist"), data={"watchlist_name": "foo"})
+        assert response.status_code == 200
+        assert Watchlist.objects.count() == 1
+        assert Watchlist.objects.filter(name="foo").exists()
 
 
 @pytest.mark.usefixtures("watchlist")

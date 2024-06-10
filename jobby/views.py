@@ -92,7 +92,8 @@ class WatchlistView(BaseMixin, ListView):
         return request.GET.get("watchlist_name", "default")
 
     def get_watchlist(self, request):
-        return Watchlist.objects.get(name=self.current_watchlist_name(request))
+        watchlist, _created = Watchlist.objects.get_or_create(name=self.current_watchlist_name(request))
+        return watchlist
 
     def get_queryset(self):
         # TODO: implement text search
