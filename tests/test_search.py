@@ -124,7 +124,7 @@ class TestSearchResponse:
         contain a 'stellenangebote' key.
         """
         # For some query parameters the API returns responses without the
-        # 'stellenangebote' key.
+        # 'stellenangebote' key. (this may have been a temporary API bug?)
         assert not search_response.has_results
 
     def test_get_results_no_results(self, search_response):
@@ -134,12 +134,6 @@ class TestSearchResponse:
         """
         with patch("jobby.search.SearchResponse.has_results", new=PropertyMock(return_value=False)):
             assert search_response._get_results(search_response.data) == []
-
-    def test_get_results_checks_for_existing(self, search_response, refnr):
-        # TODO: remove this test - it tests nothing
-        with patch.object(search_response, "_get_existing") as existing_mock:
-            search_response._get_results(search_response.data)
-        existing_mock.assert_called_with({refnr})
 
     def test_get_results_updates_existing(self, search_response, stellenangebot):
         """
