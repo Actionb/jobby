@@ -1,5 +1,10 @@
 {% extends "jobby/base.html" %}
-{% load django_bootstrap5 %}
+{% load static django_bootstrap5 %}
+
+
+{% block extrahead %}
+    <script src="{% static 'jobby/js/watchlist.js' %}"></script>
+{% endblock extrahead %}
 
 {% block content %}
 {% block watchlist_search_form %}
@@ -13,6 +18,7 @@
 {% endblock watchlist_search_form %}
 
 {% block watchlist_items %}
+<div class="watchlist-container">
 {% if stellenangebot_list %}
 <table class="table table-hover">
     <thead>
@@ -25,9 +31,9 @@
         <th scope="col" class="sticky-top z-999 text-center">Entfernen</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="watchlist-items-list">
     {% for stellenangebot in stellenangebot_list %}
-    <tr>
+    <tr class="watchlist-item">
         <td><a href="{{ stellenangebot.as_url }}">{{ stellenangebot }}</a></td>
         <td>{{ stellenangebot.arbeitsort }}</td>
         <td>{{ stellenangebot.arbeitgeber }}</td>
@@ -45,6 +51,7 @@
 {% else %}
     <p>Keine Ergebnisse</p>
 {% endif %}
+</div>
 {% endblock watchlist_items %}
 
 {% endblock content %}
