@@ -94,30 +94,30 @@ class TestSucheView:
 
     @pytest.mark.parametrize("request_data", [{"suche": ""}])
     @pytest.mark.parametrize("form_is_valid", [True])
-    def test_get_form_valid(self, view, http_request, request_data, form_is_valid):
+    def test_get_form_valid(self, view, get_request, request_data, form_is_valid):
         """Assert that get() calls ``form_valid`` if the form is valid."""
         with patch.object(view, "form_valid") as form_valid_mock:
-            view.get(http_request)
+            view.get(get_request)
 
         form_valid_mock.assert_called()
 
     @pytest.mark.parametrize("request_data", [{"suche": ""}])
     @pytest.mark.parametrize("form_is_valid", [False])
-    def test_get_form_invalid(self, view, http_request, request_data, form_is_valid):
+    def test_get_form_invalid(self, view, get_request, request_data, form_is_valid):
         """Assert that get() calls ``form_invalid`` if the form is invalid."""
         with patch.object(view, "form_invalid") as form_invalid_mock:
-            view.get(http_request)
+            view.get(get_request)
 
         form_invalid_mock.assert_called()
 
     @pytest.mark.parametrize("request_data", [{}])
-    def test_get_calls_super_if_suche_not_in_request_data(self, view, http_request, request_data):
+    def test_get_calls_super_if_suche_not_in_request_data(self, view, get_request, request_data):
         """
         Assert that get() calls the super method if the request data does not
         contain a ``suche`` key.
         """
         with patch("jobby.views.super") as super_mock:
-            view.get(http_request)
+            view.get(get_request)
 
         super_mock.assert_called()
 
@@ -233,13 +233,13 @@ class TestWatchlistView:
             yield m
 
     @pytest.mark.parametrize("request_data", [{"watchlist_name": "foo"}])
-    def test_current_watchlist_name(self, view, http_request, request_data):
+    def test_current_watchlist_name(self, view, get_request, request_data):
         """Assert that ``current_watchlist_name`` returns the expected data."""
-        assert view.current_watchlist_name(http_request) == "foo"
+        assert view.current_watchlist_name(get_request) == "foo"
 
-    def test_get_watchlist(self, view, http_request, watchlist):
+    def test_get_watchlist(self, view, get_request, watchlist):
         """Assert that ``get_watchlist`` returns the expected Watchlist instance."""
-        assert view.get_watchlist(http_request) == watchlist
+        assert view.get_watchlist(get_request) == watchlist
 
     def test_get_queryset(self, view, watchlist, watchlist_item, stellenangebot):
         """Assert that ``get_queryset`` returns the expected queryset."""
@@ -385,34 +385,34 @@ class TestStellenangebotView:
         return response_mock
 
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
-    def test_get_add_refnr_exists(self, view, http_request, stellenangebot, super_get_mock, view_extra_context):
+    def test_get_add_refnr_exists(self, view, get_request, stellenangebot, super_get_mock, view_extra_context):
         """
         Assert that ``get`` returns a redirect to an edit page if a
         Stellenangebot with the given refnr exists.
         """
-        http_request.GET = {"refnr": stellenangebot.refnr}
-        response = view.get(http_request)
+        get_request.GET = {"refnr": stellenangebot.refnr}
+        response = view.get(get_request)
         assert isinstance(response, HttpResponseRedirect)
         assert response.url == reverse("stellenangebot_edit", kwargs={"id": stellenangebot.pk})
 
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
-    def test_get_add_refnr_does_not_exist(self, view, http_request, super_get_mock, view_extra_context):
+    def test_get_add_refnr_does_not_exist(self, view, get_request, super_get_mock, view_extra_context):
         """
         Assert that ``get`` returns the response from super().get() if no
         Stellenangebot instance with the given refnr exists.
         """
-        http_request.GET = {"refnr": "1234"}
-        response = view.get(http_request)
+        get_request.GET = {"refnr": "1234"}
+        response = view.get(get_request)
         assert response == super_get_mock
 
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
-    def test_get_add_no_refnr(self, view, http_request, super_get_mock, view_extra_context):
+    def test_get_add_no_refnr(self, view, get_request, super_get_mock, view_extra_context):
         """
         Assert that ``get`` returns the response from super().get() if the
         request data does not contain a refnr.
         """
-        http_request.GET = {}
-        response = view.get(http_request)
+        get_request.GET = {}
+        response = view.get(get_request)
         assert response == super_get_mock
 
     @pytest.mark.parametrize("request_data", [{"refnr": "1234"}])

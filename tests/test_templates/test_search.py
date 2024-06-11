@@ -30,10 +30,10 @@ def pagination_context():
 
 
 @pytest.fixture
-def context(http_request, form, results_context, pagination_context):
+def context(get_request, form, results_context, pagination_context):
     """Return the context for a template."""
     return {
-        "request": http_request,
+        "request": get_request,
         "form": form,
         **results_context,
         **pagination_context,

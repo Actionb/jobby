@@ -67,7 +67,7 @@ def request_data():
 
 
 @pytest.fixture
-def http_request(rf, request_data):  # TODO: rename to get_request?
+def get_request(rf, request_data):
     """Return a GET request."""
     return rf.get("", data=request_data)
 
@@ -85,8 +85,8 @@ def view_extra_context():
 
 
 @pytest.fixture
-def view(view_class, http_request, view_extra_context):
+def view(view_class, get_request, view_extra_context):
     """Instantiate the given view class with the request and context."""
     view = view_class(extra_context=view_extra_context)
-    view.setup(http_request)
+    view.setup(get_request)
     return view
