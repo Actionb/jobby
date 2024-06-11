@@ -263,7 +263,7 @@ class TestWatchlistView:
         assert Watchlist.objects.filter(name="foo").exists()
 
 
-@pytest.mark.usefixtures("watchlist")
+@pytest.mark.usefixtures("watchlist", "ignore_csrf_protection")
 class TestWatchlistToggle:
 
     @pytest.fixture

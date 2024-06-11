@@ -90,3 +90,10 @@ def view(view_class, get_request, view_extra_context):
     view = view_class(extra_context=view_extra_context)
     view.setup(get_request)
     return view
+
+
+@pytest.fixture
+def ignore_csrf_protection(post_request):
+    """Disable CSRF checks on the given request."""
+    post_request.csrf_processing_done = True
+    return post_request

@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_protect
 from django.views.generic import FormView, ListView, UpdateView
 from django.views.generic.base import ContextMixin
 
@@ -178,6 +179,7 @@ class WatchlistView(BaseMixin, ListView):
         return ctx
 
 
+@csrf_protect
 def watchlist_toggle(request):
     """
     Add an object to the watchlist, or remove an object if it already exists on
