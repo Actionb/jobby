@@ -83,66 +83,6 @@ class SucheView(BaseMixin, FormView):
         }
 
 
-class WatchlistView(BaseMixin, ListView):
-    site_title = "Merkliste"
-    template_name = "jobby/watchlist.html"
-
-    def current_watchlist_name(self, request):
-        return request.GET.get("watchlist_name", "default")
-
-    def get_watchlist(self, request):
-        watchlist, _created = Watchlist.objects.get_or_create(name=self.current_watchlist_name(request))
-        return watchlist
-
-    def get_queryset(self):
-        # TODO: implement text search
-        queryset = self.get_watchlist(self.request).get_stellenangebote()
-        search_form = WatchlistSearchForm(data=self.request.GET.dict())
-        if search_form.is_valid():
-            filters = search_form.get_filter_params(search_form.cleaned_data)
-            queryset = queryset.filter(**filters)
-        return queryset
-
-    def get_watchlist_names(self):
-        return Watchlist.objects.values_list("name", flat=True)
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx["search_form"] = WatchlistSearchForm(data=self.request.GET.dict())
-        return ctx
-
-
-def watchlist_toggle(request):
-    """
-    Add an object to the watchlist, or remove an object if it already exists on
-    the watchlist.
-    """
-    try:
-        refnr = request.POST["refnr"]
-    except KeyError:
-        return HttpResponseBadRequest()
-
-    watchlist_name = request.POST.get("watchlist_name", "default")
-    watchlist, _created = Watchlist.objects.get_or_create(name=watchlist_name)
-    try:
-        obj = Stellenangebot.objects.get(refnr=refnr)
-    except Stellenangebot.DoesNotExist:  # noqa
-        # Create a new Stellenangebot instance from the POST data:
-        form = StellenangebotForm(data=request.POST)
-        if form.is_valid():
-            obj = form.save()
-        else:
-            return HttpResponseBadRequest()
-
-    if watchlist.on_watchlist(obj):
-        watchlist.remove_watchlist_item(obj)
-        on_watchlist = False
-    else:
-        watchlist.add_watchlist_item(obj)
-        on_watchlist = True
-    return JsonResponse({"on_watchlist": on_watchlist, "link_url": obj.as_url()})
-
-
 class StellenangebotView(BaseMixin, UpdateView):
     model = Stellenangebot
     form_class = StellenangebotForm
@@ -202,3 +142,68 @@ class StellenangebotView(BaseMixin, UpdateView):
         ctx = super().get_context_data(**kwargs)
         ctx["arge_link"] = self.get_arge_link()
         return ctx
+
+
+################################################################################
+# Watchlist
+################################################################################
+
+
+class WatchlistView(BaseMixin, ListView):
+    site_title = "Merkliste"
+    template_name = "jobby/watchlist.html"
+
+    def current_watchlist_name(self, request):
+        return request.GET.get("watchlist_name", "default")
+
+    def get_watchlist(self, request):
+        watchlist, _created = Watchlist.objects.get_or_create(name=self.current_watchlist_name(request))
+        return watchlist
+
+    def get_queryset(self):
+        # TODO: implement text search
+        queryset = self.get_watchlist(self.request).get_stellenangebote()
+        search_form = WatchlistSearchForm(data=self.request.GET.dict())
+        if search_form.is_valid():
+            filters = search_form.get_filter_params(search_form.cleaned_data)
+            queryset = queryset.filter(**filters)
+        return queryset
+
+    def get_watchlist_names(self):
+        return Watchlist.objects.values_list("name", flat=True)
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["search_form"] = WatchlistSearchForm(data=self.request.GET.dict())
+        return ctx
+
+
+def watchlist_toggle(request):
+    """
+    Add an object to the watchlist, or remove an object if it already exists on
+    the watchlist.
+    """
+    try:
+        refnr = request.POST["refnr"]
+    except KeyError:
+        return HttpResponseBadRequest()
+
+    watchlist_name = request.POST.get("watchlist_name", "default")
+    watchlist, _created = Watchlist.objects.get_or_create(name=watchlist_name)
+    try:
+        obj = Stellenangebot.objects.get(refnr=refnr)
+    except Stellenangebot.DoesNotExist:  # noqa
+        # Create a new Stellenangebot instance from the POST data:
+        form = StellenangebotForm(data=request.POST)
+        if form.is_valid():
+            obj = form.save()
+        else:
+            return HttpResponseBadRequest()
+
+    if watchlist.on_watchlist(obj):
+        watchlist.remove_watchlist_item(obj)
+        on_watchlist = False
+    else:
+        watchlist.add_watchlist_item(obj)
+        on_watchlist = True
+    return JsonResponse({"on_watchlist": on_watchlist, "link_url": obj.as_url()})
