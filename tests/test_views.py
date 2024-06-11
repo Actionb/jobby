@@ -8,7 +8,15 @@ from django.db.models import QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from jobby.models import Stellenangebot, Watchlist
-from jobby.views import PAGE_VAR, StellenangebotView, SucheView, WatchlistView, watchlist_toggle
+from jobby.views import (
+    PAGE_VAR,
+    StellenangebotView,
+    SucheView,
+    WatchlistView,
+    watchlist_remove,
+    watchlist_remove_all,
+    watchlist_toggle,
+)
 
 from tests.factories import StellenangebotFactory
 
@@ -451,3 +459,70 @@ class TestStellenangebotView:
         """
         view.object = stellenangebot
         assert not view.get_arge_link()
+
+
+@pytest.mark.usefixtures("ignore_csrf_protection")
+class TestWatchlistRemove:
+
+    @pytest.fixture
+    def request_data(self, refnr, watchlist_name):
+        return {"refnr": refnr, "watchlist_name": watchlist_name}
+
+    def test_watchlist_remove(self, post_request, stellenangebot, watchlist_item, watchlist):
+        """Assert that ``watchlist_remove`` removes the item from the watchlist."""
+        response = watchlist_remove(post_request)
+        assert response.status_code == 200
+        assert not watchlist.items.filter(stellenangebot=stellenangebot).exists()
+
+    @pytest.mark.parametrize("request_data", [{}])
+    def test_watchlist_remove_missing_parameter(self, post_request, request_data):
+        """
+        Assert that ``watchlist_remove`` returns a 400 response if the
+        request does not contain a refnr.
+        """
+        response = watchlist_remove(post_request)
+        assert response.status_code == 400
+
+    @pytest.mark.parametrize("refnr", ["foo"])
+    def test_watchlist_remove_object_does_not_exist(self, post_request, refnr):
+        """
+        Assert that ``watchlist_remove`` returns an OK response if no
+        Stellenangebot with the requested refnr exists.
+        """
+        response = watchlist_remove(post_request)
+        assert response.status_code == 200
+
+    @pytest.mark.parametrize("watchlist", [None])
+    def test_watchlist_does_not_exist(self, post_request, watchlist):
+        """
+        Assert that ``watchlist_remove`` returns an OK response if the
+        requested watchlist does not exist.
+        """
+        response = watchlist_remove(post_request)
+        assert response.status_code == 200
+
+
+@pytest.mark.usefixtures("ignore_csrf_protection")
+class TestWatchlistRemoveAll:
+
+    @pytest.fixture
+    def request_data(self, refnr, watchlist_name):
+        return {"refnr": refnr, "watchlist_name": watchlist_name}
+
+    def test_watchlist_remove_all(self, post_request, watchlist_item, watchlist):
+        """
+        Assert that ``watchlist_remove_all`` removes all items from the
+        watchlist.
+        """
+        response = watchlist_remove_all(post_request)
+        assert response.status_code == 200
+        assert not watchlist.items.exists()
+
+    @pytest.mark.parametrize("watchlist", [None])
+    def test_watchlist_does_not_exist(self, post_request, watchlist):
+        """
+        Assert that ``watchlist_remove_all`` returns an OK response if the
+        requested watchlist does not exist.
+        """
+        response = watchlist_remove_all(post_request)
+        assert response.status_code == 200

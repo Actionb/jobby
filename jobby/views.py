@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
@@ -182,8 +183,8 @@ class WatchlistView(BaseMixin, ListView):
 @csrf_protect
 def watchlist_toggle(request):
     """
-    Add an object to the watchlist, or remove an object if it already exists on
-    the watchlist.
+    Add an item to the watchlist, or remove an item if it already exists on the
+    watchlist.
     """
     try:
         refnr = request.POST["refnr"]
@@ -209,3 +210,37 @@ def watchlist_toggle(request):
         watchlist.add_watchlist_item(obj)
         on_watchlist = True
     return JsonResponse({"on_watchlist": on_watchlist, "link_url": obj.as_url()})
+
+
+@csrf_protect
+def watchlist_remove(request):
+    """Remove an item from the watchlist."""
+    try:
+        refnr = request.POST["refnr"]
+    except KeyError:
+        return HttpResponseBadRequest()
+    try:
+        watchlist = Watchlist.objects.get(name=request.POST.get("watchlist_name", "default"))
+        obj = Stellenangebot.objects.get(refnr=refnr)
+    except ObjectDoesNotExist:
+        # The Stellenangebot is not on the watchlist either because the
+        # Stellenangebot does not exist or because the watchlist itself does
+        # not exist. Job done!
+        pass
+    else:
+        watchlist.remove_watchlist_item(obj)
+    return JsonResponse({})
+
+
+@csrf_protect
+def watchlist_remove_all(request):
+    """Remove all items from the watchlist."""
+    try:
+        watchlist = Watchlist.objects.get(name=request.POST.get("watchlist_name", "default"))
+    except Watchlist.DoesNotExist:  # noqa
+        # This watchlist already has all its items removed, because it does not
+        # exist.
+        pass
+    else:
+        watchlist.items.all().delete()
+    return JsonResponse({})
