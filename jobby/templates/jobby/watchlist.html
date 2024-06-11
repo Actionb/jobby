@@ -22,6 +22,7 @@
         <th scope="col" class="sticky-top z-999">Arbeitgeber</th>
         <th scope="col" class="sticky-top z-999">Eintrittsdatum</th>
         <th scope="col" class="sticky-top z-999">Bewerbung</th>
+        <th scope="col" class="sticky-top z-999 text-center">Entfernen</th>
     </tr>
     </thead>
     <tbody>
@@ -32,6 +33,11 @@
         <td>{{ stellenangebot.arbeitgeber }}</td>
         <td>{{ stellenangebot.eintrittsdatum }}</td>
         <td>{{ stellenangebot.bewerbungsstatus }}</td>
+        <td class="px-4">
+            <button class="btn text-danger w-100 p-0 watchlist-remove-btn" title="Von Merkliste entfernen" data-url="{% url 'watchlist_remove' %}" data-refnr="{{ stellenangebot.refnr }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </td>
     </tr>
     {% endfor %}
     </tbody>
