@@ -147,6 +147,15 @@ class StellenangebotView(BaseMixin, UpdateView):
         ctx["arge_link"] = self.get_arge_link()
         return ctx
 
+    def get_watchlist(self, request):
+        watchlist, _created = Watchlist.objects.get_or_create(name=request.POST.get("watchlist_name", "default"))
+        return watchlist
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        self.get_watchlist(self.request).add_watchlist_item(self.object)
+        return response
+
 
 ################################################################################
 # Watchlist
