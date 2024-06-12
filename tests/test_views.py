@@ -347,6 +347,11 @@ class TestStellenangebotView:
     def view_class(self):
         return StellenangebotView
 
+    @pytest.fixture
+    def request_data(self, request_data, watchlist_name):
+        request_data["watchlist_name"] = watchlist_name
+        return request_data
+
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
     def test_get_object_add(self, view, view_extra_context):
         """Assert that ``get_object`` returns None if this is an 'add' view."""
@@ -462,6 +467,20 @@ class TestStellenangebotView:
         """
         view.object = stellenangebot
         assert not view.get_arge_link()
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}, {"add": False}])
+    def test_get_watchlist(self, view, view_extra_context, post_request, watchlist):
+        """Assert that ``get_watchlist`` returns the expected watchlist."""
+        assert view.get_watchlist(post_request) == watchlist
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}, {"add": False}])
+    def test_form_valid_adds_to_watchlist(self, view, view_extra_context, super_mock, stellenangebot, watchlist):
+        """Asser that ``form_valid`` adds the view object to the watchlist."""
+        view.object = stellenangebot
+        with patch.object(view, "get_watchlist", new=Mock(return_value=watchlist)):
+            with patch.object(watchlist, "add_watchlist_item") as add_mock:
+                view.form_valid(None)
+                add_mock.assert_called_with(stellenangebot)
 
 
 @pytest.mark.usefixtures("ignore_csrf_protection")
