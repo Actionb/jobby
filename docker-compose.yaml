@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres
+    container_name: jobby-postgres
+    volumes:
+      - "$DB_DATA_DIR:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_DB: jobby
+      POSTGRES_USER: jobby
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    restart: unless-stopped
+    secrets:
+      - db_password
+    healthcheck:
+      test: ["CMD", "pg_isready", "--username=jobby"]
+      interval: 5s
+    user: "${UID:-1000}:${GID:-1000}"
+
+  web:
+    build: .
+    container_name: jobby-app
+    volumes:
+      - "$CONFIG_DIR/.secrets:/jobby/.secrets:ro"
+    env_file:
+      - "$CONFIG_DIR/.env"
+    ports:
+      - 80:8000
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    entrypoint: [ "/jobby/docker-entrypoint.sh" ]
+    command: [ "/etc/jobby-server/apachectl", "start", "-DFOREGROUND" ]
+
+secrets:
+  db_password:
+    file: "$CONFIG_DIR/.secrets/.passwd"
