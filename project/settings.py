@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "jobby",
     "django_bootstrap5",
+    "mod_wsgi.server",
 ]
 
 MIDDLEWARE = [
