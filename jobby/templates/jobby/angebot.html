@@ -1,5 +1,10 @@
 {% extends "jobby/base.html" %}
-{% load django_bootstrap5 %}
+{% load static django_bootstrap5 %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="{% static 'jobby/js/fetch_jobdetails.js' %}"></script>
+{% endblock extrahead %}
 
 {% block content %}
 <div class="d-flex justify-content-between mb-3">
@@ -9,12 +14,30 @@
     {% endif %}
 </div>
 {% block angebot_details %}
-{% for field in form %}
-    {% if field.is_hidden %}
-        <p><span class="fw-bold">{{ field.label }}: </span>{{ field.value }}</p>
-    {% endif %}
-{% endfor %}
+<div id="details" class="mb-3">
+    {% for field in form %}
+        {% if field.is_hidden %}
+            <p><span class="fw-bold">{{ field.label }}: </span>{{ field.value }}</p>
+        {% endif %}
+    {% endfor %}
+    <div class="accordion" id="beschreibungAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="true" aria-controls="accordionOne">
+            Beschreibung
+          </button>
+        </h2>
+          <div id="accordionOne" class="accordion-collapse collapse" data-bs-parent="beschreibungAccordion">
+              <div id="textBeschreibung" class="accordion-body" data-url="{% url 'get_angebot_beschreibung' refnr=form.refnr.value %}">
+                  <div id="spinner" class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
 {% endblock angebot_details %}
+
+<h2>Eigene Daten:</h2>
 <form method="POST">
     {% csrf_token %}
     {% bootstrap_form_errors form %}

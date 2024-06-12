@@ -3,16 +3,19 @@ from unittest.mock import Mock, patch
 
 # noinspection PyPackageRequirements
 import pytest
+import requests
 from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from jobby.models import Stellenangebot, Watchlist
 from jobby.views import (
+    DETAILS_BESCHREIBUNG_ID,
     PAGE_VAR,
     StellenangebotView,
     SucheView,
     WatchlistView,
+    get_beschreibung,
     watchlist_remove,
     watchlist_remove_all,
     watchlist_toggle,
@@ -526,3 +529,63 @@ class TestWatchlistRemoveAll:
         """
         response = watchlist_remove_all(post_request)
         assert response.status_code == 200
+
+
+class TestGetBeschreibung:
+
+    @pytest.fixture
+    def details_url(self, refnr):
+        return f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}"
+
+    @pytest.fixture
+    def beschreibung_html(self):
+        return """<p>A paragraph</p><ul><li>Some list item</li><li>Another list item</li></ul>"""
+
+    @pytest.fixture
+    def beschreibung_id(self):
+        return DETAILS_BESCHREIBUNG_ID
+
+    @pytest.fixture
+    def details_html(self, beschreibung_html, beschreibung_id):
+        return f"""<div>This is not the beschreibung</div><p id="{beschreibung_id}">{beschreibung_html}</p>"""
+
+    @pytest.fixture
+    def status_code(self):
+        """Return the status code of the job details response."""
+        return requests.codes["ok"]
+
+    @pytest.fixture
+    def get_request(self, get_request, requests_mock, details_url, details_html, status_code):
+        """Create a mocked response for the job details request call."""
+        requests_mock.get(details_url, text=details_html, status_code=status_code)
+        return get_request
+
+    @pytest.fixture
+    def get_beschreibung_response(self, get_request, refnr):
+        """Call ``get_beschreibung`` and return the response."""
+        return get_beschreibung(get_request, refnr=refnr)
+
+    def test_get_beschreibung(self, get_beschreibung_response, beschreibung_html):
+        """Assert that ``get_beschreibung`` returns the expected HTML."""
+        assert get_beschreibung_response.content.decode("utf-8") == beschreibung_html
+
+    def test_get_beschreibung_url(self, get_beschreibung_response, details_url, requests_mock):
+        """Assert that ``get_beschreibung`` made a request against the expected URL."""
+        assert requests_mock.request_history[0].url == details_url
+
+    @pytest.mark.parametrize("status_code", [123])
+    def test_get_beschreibung_bad_response(self, get_beschreibung_response, status_code):
+        """
+        Assert that ``get_beschreibung`` returns a response with status code
+        400 if the fetch request was not ok.
+        """
+        assert get_beschreibung_response.status_code == 400
+
+    @pytest.mark.parametrize("beschreibung_id", ["foo"])
+    def test_get_beschreibung_no_beschreibung(self, get_beschreibung_response, beschreibung_id):
+        """
+        Assert that ``get_beschreibung`` returns a response with a short message
+        if the job details page does not contain an element with the
+        'beschreibung id'.
+        """
+        assert get_beschreibung_response.content.decode("utf-8") == "Keine Beschreibung gegeben!"
