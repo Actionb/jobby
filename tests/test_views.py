@@ -430,7 +430,7 @@ class TestStellenangebotView:
         Assert that ``get_arge_link`` returns a URL to the details page of the
         refnr given in the 'add' view's request data.
         """
-        assert view.get_arge_link() == f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{request_data["refnr"]}"
+        assert view.get_arge_link() == f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{request_data['refnr']}"
 
     @pytest.mark.parametrize("request_data", [{}])
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
