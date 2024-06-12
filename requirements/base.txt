@@ -2,6 +2,7 @@
 requests==2.32.2
 Django==5.0.6
 django-bootstrap5==24.2
+mod_wsgi==5.0.0
 ## The following requirements were added by pip freeze:
 asgiref==3.8.1
 certifi==2024.2.2
