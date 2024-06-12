@@ -2,4 +2,5 @@
 requests
 Django
 django-bootstrap5
+psycopg2
 mod_wsgi
