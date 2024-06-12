@@ -15,18 +15,40 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Read secrets from files
+try:
+    with open(BASE_DIR / ".secrets" / ".passwd") as f:
+        password = f.readline().strip()
+except FileNotFoundError as e:
+    raise FileNotFoundError(
+        "No database password file found. Create a file called '.passwd' "
+        "in the '.secrets' subdirectory that contains the database password.\n"
+        "HINT: run setup.sh"
+    ) from e
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+try:
+    with open(BASE_DIR / ".secrets" / ".key") as f:
+        SECRET_KEY = f.readline().strip()
+except FileNotFoundError as e:
+    raise FileNotFoundError(
+        "No secret key file found. Create a file called '.key' "
+        "in the '.secrets' subdirectory that contains the secret key.\n"
+        "HINT: run setup.sh"
+    ) from e
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-gtey#8sy1d^2cwpa3h6r7@-ei^%zlqpw=9wg-7kfpkq@shigc2"
+try:
+    with open(BASE_DIR / ".secrets" / ".allowedhosts") as f:
+        ALLOWED_HOSTS = f.readline().strip().split(",")
+except FileNotFoundError as e:
+    raise FileNotFoundError(
+        "No allowed hosts file found. Create a file called '.allowedhosts' "
+        "in the '.secrets' subdirectory that contains a list of allowed "
+        "host names.\n"
+        "HINT: run setup.sh"
+    ) from e
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
