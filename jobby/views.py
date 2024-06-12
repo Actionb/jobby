@@ -1,7 +1,9 @@
+import requests
+from bs4 import BeautifulSoup
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_protect
@@ -244,3 +246,27 @@ def watchlist_remove_all(request):
     else:
         watchlist.items.all().delete()
     return JsonResponse({})
+
+
+# The id of the element on the job details page that contains the description:
+DETAILS_BESCHREIBUNG_ID = "detail-beschreibung-beschreibung"
+
+
+def get_beschreibung(request, refnr=""):
+    """
+    Fetch the job details page of the job with the given refnr, and return the
+    'beschreibung' part of the page.
+    """
+    url = f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}"
+    response = requests.get(url)
+    if not response.status_code == 200:
+        return HttpResponseBadRequest()
+
+    soup = BeautifulSoup(response.content, "html.parser")
+    response = HttpResponse()
+    if beschreibung := soup.find(id=DETAILS_BESCHREIBUNG_ID):
+        for p in beschreibung.children:
+            response.write(p)
+    else:
+        response.write("Keine Beschreibung gegeben!")
+    return response
