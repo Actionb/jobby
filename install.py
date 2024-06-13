@@ -9,6 +9,7 @@ import argparse
 import os
 import platform
 import secrets
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -62,6 +63,11 @@ def get_parser():
         help="Comma-separated list of allowed host names for the Django settings 'ALLOWED_HOSTS'",
         type=str,
         default="localhost,127.0.0.1",
+    )
+    parser.add_argument(
+        "--uninstall",
+        help="Remove jobby directories and files",
+        action="store_true",
     )
     return parser
 
@@ -198,6 +204,32 @@ def install(passwd: str, allowed: str, user_id: int | None = None, group_id: int
     subprocess.run(["docker", "compose", "up", "-d"])
 
 
+def uninstall():
+    data_dir = get_data_directory()
+    app_config_dir = get_config_directory()
+
+    print("This will delete the following directories and everything in it:")
+    print(data_dir)
+    print(app_config_dir)
+    if input("Continue? [y/n]: ").lower().strip() not in ("y", "yes", "j", "ja", "ok"):
+        print("Aborted.")
+        return
+
+    print("Stopping containers...")
+    subprocess.run(["docker", "compose", "down"])
+
+    print("Deleting directories...")
+    shutil.rmtree(data_dir)
+    shutil.rmtree(app_config_dir)
+
+    # TODO: remove docker image?
+    # subprocess.run(["docker", "image", "rm", "jobby-web"])
+
+
 if __name__ == "__main__":
     _parser = get_parser()
-    install(**vars(_parser.parse_args()))
+    _args = _parser.parse_args()
+    if _args.uninstall:
+        uninstall()
+    else:
+        install(**vars(_args))
