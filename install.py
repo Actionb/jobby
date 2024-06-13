@@ -21,7 +21,7 @@ DB_HOST=db
 DB_PORT=5432
 
 # Set the settings to use to the "production" settings:
-DJANGO_SETTINGS_MODULE = "project.settings"
+DJANGO_SETTINGS_MODULE = "project.settings.prod"
 
 # The URL path at which the WSGI application will be mounted in the docker container.
 # e.g.: MOUNT_POINT=/foo => site available under example.com/foo
