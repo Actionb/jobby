@@ -25,7 +25,7 @@
 # will be cached with the same configuration used each time. If you need to
 # update the set of options, run ``setup-server`` again with the new set of
 # options.
-python manage.py runmodwsgi --setup-only --user www-data --group www-data --server-root=/etc/jobby-server --mount-point "$MOUNT_POINT"
+python manage.py runmodwsgi --setup-only --user apache --group apache --server-root=/etc/jobby-server --mount-point "$MOUNT_POINT"
 
 # Apply migrations and collect static files.
 # NOTE: could running this in the entrypoint be an issue?
