@@ -52,23 +52,18 @@ class NotSupported(Exception):
         super().__init__(msg, *args, **kwargs)
 
 
-def get_parser():
+def get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Install the jobby app")
-    parser.add_argument("--uid", dest="user_id", help="The User ID for the postgres container", type=int)
-    parser.add_argument("--gid", dest="group_id", help="The Group ID for the postgres container", type=int)
-    parser.add_argument("--password", dest="passwd", help="Password for the database", type=str, default="foo")
+    parser.add_argument("--uid", help="The User ID for the postgres container", type=int)
+    parser.add_argument("--gid", help="The Group ID for the postgres container", type=int)
+    parser.add_argument("--password", help="Password for the database", type=str, default="foo")
     parser.add_argument(
         "--allowedhosts",
-        dest="allowed",
         help="Comma-separated list of allowed host names for the Django settings 'ALLOWED_HOSTS'",
         type=str,
         default="localhost,127.0.0.1",
     )
-    parser.add_argument(
-        "--uninstall",
-        help="Remove jobby directories and files",
-        action="store_true",
-    )
+    parser.add_argument("--uninstall", help="Remove jobby directories and files", action="store_true")
     return parser
 
 
@@ -115,11 +110,11 @@ def _generate_secret_key() -> str:
     return "".join(secrets.choice(allowed_chars) for _ in range(50))
 
 
-def write_secrets(app_config_dir, allowed, key, passwd):
+def write_secrets(app_config_dir: Path, allowedhosts: str, key: str, password: str):
     """Write the files containing the secrets into the user config directory."""
     secrets_dir = app_config_dir / ".secrets"
     secrets_dir.mkdir(exist_ok=True)
-    for file_name, value in [(".allowedhosts", allowed), (".key", key), (".passwd", passwd)]:
+    for file_name, value in [(".allowedhosts", allowedhosts), (".key", key), (".passwd", password)]:
         with open(secrets_dir / file_name, "w") as f:
             f.write(value)
 
@@ -148,17 +143,17 @@ def get_data_home() -> Path:
         raise NotSupported()
 
 
-def get_data_directory():
+def get_data_directory() -> Path:
     """Return the directory where the app's database data should be stored."""
     return get_data_home() / "jobby" / "data"
 
 
-def get_config_directory():
+def get_config_directory() -> Path:
     """Return the directory where the app's user configs should be stored."""
     return get_config_home() / "jobby"
 
 
-def setup_data_directory():
+def setup_data_directory() -> Path:
     """Create the directories for the database data."""
     directory = get_data_directory()
     directory.mkdir(parents=True, exist_ok=True)
@@ -167,7 +162,7 @@ def setup_data_directory():
     return directory
 
 
-def setup_config_directory():
+def setup_config_directory() -> Path:
     """Create the directories for the user config files."""
     directory = get_config_directory()
     directory.mkdir(parents=True, exist_ok=True)
@@ -176,7 +171,7 @@ def setup_config_directory():
     return directory
 
 
-def install(passwd: str, allowed: str, user_id: int | None = None, group_id: int | None = None):
+def install(password: str, allowedhosts: str, uid: int | None = None, gid: int | None = None, **_kwargs):
     """
     Setup directories for the database data and config files. Then create the
     docker containers.
@@ -184,7 +179,7 @@ def install(passwd: str, allowed: str, user_id: int | None = None, group_id: int
     print("This sets up directories for persistent storage and config files.")
     print(f"Database data directory: {get_data_directory()}")
     print(f"Config directory: {get_config_directory()}")
-    print(f"Database password: {passwd}")
+    print(f"Database password: {password}")
     if input("Continue? [y/n]: ").lower().strip() not in ("y", "yes", "j", "ja", "ok"):
         print("Aborted.")
         return
@@ -195,9 +190,9 @@ def install(passwd: str, allowed: str, user_id: int | None = None, group_id: int
 
     # TODO: ask for confirmation if overriding existing stuff
     # Write secrets and env files:
-    write_secrets(app_config_dir, allowed=allowed, key=_generate_secret_key(), passwd=passwd)
+    write_secrets(app_config_dir, allowedhosts=allowedhosts, key=_generate_secret_key(), password=password)
     write_jobby_env_file(app_config_dir)
-    write_docker_env_file(app_config_dir, data_dir, user_id, group_id)
+    write_docker_env_file(app_config_dir, data_dir, uid, gid)
 
     # Start containers:
     print("Creating docker containers...")
