@@ -608,3 +608,22 @@ class TestGetBeschreibung:
         'beschreibung id'.
         """
         assert get_beschreibung_response.content.decode("utf-8") == "Keine Beschreibung gegeben!"
+
+    @pytest.mark.parametrize(
+        "details_html,beschreibung_html",
+        [
+            (
+                """
+                    <div id="detail-beschreibung-extern">
+                    <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a></div>
+                """,
+                """Beschreibung auf externer Seite: <a href="www.foobar.com">www.foobar.com</a>""",
+            )
+        ],
+    )
+    def test_get_beschreibung_externe_url(self, get_beschreibung_response, details_html, beschreibung_html):
+        """
+        Assert that ``get_beschreibung`` also checks links to external
+        descriptions.
+        """
+        assert get_beschreibung_response.content.decode("utf-8") == beschreibung_html

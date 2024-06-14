@@ -259,6 +259,9 @@ def watchlist_remove_all(request):
 
 # The id of the element on the job details page that contains the description:
 DETAILS_BESCHREIBUNG_ID = "detail-beschreibung-beschreibung"
+# The id of the link on the job details page that links to the external page
+# that contains the job description:
+EXTERNAL_BESCHREIBUNG_LINK = "detail-beschreibung-externe-url-btn"
 
 
 def get_beschreibung(request, refnr=""):
@@ -276,6 +279,8 @@ def get_beschreibung(request, refnr=""):
     if beschreibung := soup.find(id=DETAILS_BESCHREIBUNG_ID):
         for p in beschreibung.children:
             response.write(p)
+    elif extern_link := soup.find(id=EXTERNAL_BESCHREIBUNG_LINK):
+        response.write(f"""Beschreibung auf externer Seite: <a href="{extern_link["href"]}">{extern_link.string}</a>""")
     else:
         response.write("Keine Beschreibung gegeben!")
     return response
