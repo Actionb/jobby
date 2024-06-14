@@ -201,6 +201,8 @@ def install(password: str, allowedhosts: str, uid: int | None = None, gid: int |
     # TODO: symlink to secrets directory from project root so that settings can
     #  read from it? (i.e. open(BASE_DIR / ".secrets" / ".passwd"))
 
+    print("\nDone! jobby should now be up at http://localhost/jobby/")  # TODO: adjust port
+
 
 def uninstall():
     data_dir = get_data_directory()
