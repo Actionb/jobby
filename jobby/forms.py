@@ -1,7 +1,7 @@
 from functools import cached_property
 
 from django import forms
-from django.core.exceptions import ValidationError
+from django.core.exceptions import BadRequest, ValidationError
 from django.db.models import QuerySet
 
 from jobby.models import Stellenangebot, SucheModel
@@ -57,6 +57,7 @@ class StellenangebotForm(forms.ModelForm):
             "veroeffentlicht": forms.HiddenInput(),
             "modified": forms.HiddenInput(),
             "externe_url": forms.HiddenInput(),
+            "beschreibung": forms.HiddenInput(),
         }
 
     def get_initial_for_field(self, field, field_name):
@@ -70,6 +71,19 @@ class StellenangebotForm(forms.ModelForm):
                 # Invalid date - can't localize anyway.
                 pass
         return initial
+
+    def clean_beschreibung(self):
+        # Fetch a job description from the job details page on arbeitsagentur.de
+        # if no description is given:
+        beschreibung = self.cleaned_data.get("beschreibung", "")
+        if not beschreibung:
+            from jobby.views import _get_beschreibung  # avoid circular imports
+
+            try:
+                beschreibung = _get_beschreibung(self.cleaned_data["refnr"])
+            except BadRequest:
+                pass
+        return beschreibung
 
 
 class WatchlistSearchForm(forms.Form):

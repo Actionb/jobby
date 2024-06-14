@@ -2,6 +2,7 @@ import datetime
 from unittest.mock import PropertyMock, patch
 
 import pytest
+from django.core.exceptions import BadRequest
 from jobby.forms import StellenangebotForm, SucheForm
 
 
@@ -53,6 +54,20 @@ class TestStellenangebotForm:
     def form_class(self):
         return StellenangebotForm
 
+    @pytest.fixture
+    def cleaned_data(self, refnr):
+        return {"refnr": refnr}
+
+    @pytest.fixture
+    def beschreibung(self):
+        return "foo"
+
+    @pytest.fixture
+    def get_beschreibung_mock(self, beschreibung):
+        with patch("jobby.views._get_beschreibung") as m:
+            m.return_value = beschreibung
+            yield m
+
     @pytest.mark.parametrize(
         "initial_data",
         [
@@ -95,3 +110,31 @@ class TestStellenangebotForm:
     def test_get_initial_for_field_invalid_datetime(self, form, initial_data):
         """Assert that an invalid datetime is handled."""
         assert isinstance(form.get_initial_for_field(form.fields["modified"], "modified"), str)
+
+    def test_clean_beschreibung_no_beschreibung(self, form, cleaned_data, get_beschreibung_mock, beschreibung, refnr):
+        """
+        Assert that ``clean_beschreibung`` calls ``_get_beschreibung`` if the
+        form's cleaned data does not contain a beschreibung.
+        """
+        form.cleaned_data = cleaned_data
+        assert form.clean_beschreibung() == beschreibung
+        get_beschreibung_mock.assert_called_with(refnr)
+
+    def test_clean_beschreibung_bad_request(self, form, cleaned_data, get_beschreibung_mock, beschreibung):
+        """
+        Assert that ``clean_beschreibung`` returns an empty string if
+        ``_get_beschreibung`` raises a BadRequest.
+        """
+        form.cleaned_data = cleaned_data
+        get_beschreibung_mock.side_effect = BadRequest
+        assert form.clean_beschreibung() == ""
+
+    @pytest.mark.parametrize("cleaned_data", [{"beschreibung": "foo"}])
+    def test_clean_beschreibung_cleaned_data_contains_beschreibung(self, form, cleaned_data, get_beschreibung_mock):
+        """
+        Assert that ``clean_beschreibung`` does not call ``_get_beschreibung``
+        if the form's cleaned data contains a beschreibung.
+        """
+        form.cleaned_data = cleaned_data
+        form.clean_beschreibung()
+        get_beschreibung_mock.assert_not_called()
