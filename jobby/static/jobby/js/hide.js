@@ -2,7 +2,6 @@
   const STORAGE_KEY = 'hidden_results'
   const HIDE_BUTTON_SELECTOR = '.hide-btn'
   const RESULT_ITEM_SELECTOR = 'li.result-item'
-  const RESULT_DETAILS_SELECTOR = '.result-details'
 
   function getHiddenResults () {
     return new Set(Array.from(JSON.parse(window.localStorage.getItem(STORAGE_KEY))))
@@ -18,14 +17,19 @@
   }
 
   function getResultDetails (resultItem) {
-    return resultItem.querySelector(RESULT_DETAILS_SELECTOR)
+    return resultItem.querySelector('.result-details')
+  }
+
+  function getResultLink(resultItem) {
+    return resultItem.querySelector(".result-link")
   }
 
   function setHidden (btn) {
     btn.classList.add('hidden')
     const resultItem = getResultItem(btn)
     if (resultItem) {
-      resultItem.classList.add('opacity-25')
+      const link = getResultLink(resultItem)
+      if (link) link.classList.add('link-opacity-25')
       const details = getResultDetails(resultItem)
       if (details) details.classList.add('d-none')
     }
@@ -35,7 +39,8 @@
     btn.classList.remove('hidden')
     const resultItem = getResultItem(btn)
     if (resultItem) {
-      resultItem.classList.remove('opacity-25')
+      const link = getResultLink(resultItem)
+      if (link) link.classList.remove('link-opacity-25')
       const details = getResultDetails(resultItem)
       if (details) details.classList.remove('d-none')
     }
