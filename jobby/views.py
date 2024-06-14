@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from django.contrib import messages
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import BadRequest, ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
@@ -264,23 +264,28 @@ DETAILS_BESCHREIBUNG_ID = "detail-beschreibung-beschreibung"
 EXTERNAL_BESCHREIBUNG_LINK = "detail-beschreibung-externe-url-btn"
 
 
-def get_beschreibung(request, refnr=""):
+def _get_beschreibung(refnr):
     """
     Fetch the job details page of the job with the given refnr, and return the
     'beschreibung' part of the page.
     """
-    url = f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}"
-    response = requests.get(url)
+    response = requests.get(f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}")
     if not response.status_code == 200:
-        return HttpResponseBadRequest()
+        raise BadRequest
 
     soup = BeautifulSoup(response.content, "html.parser")
-    response = HttpResponse()
     if beschreibung := soup.find(id=DETAILS_BESCHREIBUNG_ID):
-        for p in beschreibung.children:
-            response.write(p)
+        return "".join(str(elem) for elem in beschreibung.children)
     elif extern_link := soup.find(id=EXTERNAL_BESCHREIBUNG_LINK):
-        response.write(f"""Beschreibung auf externer Seite: <a href="{extern_link["href"]}">{extern_link.string}</a>""")
+        return f"""Beschreibung auf externer Seite: <a href="{extern_link["href"]}">{extern_link.string}</a>"""
     else:
-        response.write("Keine Beschreibung gegeben!")
-    return response
+        return "Keine Beschreibung gegeben!"
+
+
+def get_beschreibung(request, refnr=""):
+    """Get the job description HTML from the details page on arbeitsagentur.de."""
+    try:
+        beschreibung = _get_beschreibung(refnr)
+    except BadRequest:
+        return HttpResponseBadRequest()
+    return HttpResponse(beschreibung)
