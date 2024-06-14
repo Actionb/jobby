@@ -114,7 +114,7 @@ class Stellenangebot(models.Model):
     veroeffentlicht = models.DateField(blank=True, null=True, verbose_name="Veröffentlicht am")
     modified = models.DateTimeField(blank=True, null=True, verbose_name="Zuletzt verändert am")
     externe_url = models.URLField(blank=True, null=True, verbose_name="Externe URL")
-    # TODO: add full text from the corresponding arbeitsagentur page
+    beschreibung = models.TextField(blank=True, verbose_name="Beschreibung")
 
     bewerbungsstatus = models.CharField(
         max_length=CHARFIELD_MAX,
