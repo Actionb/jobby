@@ -55,6 +55,7 @@ class StellenangebotForm(forms.ModelForm):
             "eintrittsdatum": forms.HiddenInput(),
             "veroeffentlicht": forms.HiddenInput(),
             "modified": forms.HiddenInput(),
+            "externe_url": forms.HiddenInput(),
         }
 
 

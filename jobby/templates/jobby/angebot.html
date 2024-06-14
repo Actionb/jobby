@@ -17,7 +17,7 @@
 <div id="details" class="mb-3">
     {% for field in form %}
         {% if field.is_hidden %}
-            <p><span class="fw-bold">{{ field.label }}: </span>{{ field.value }}</p>
+            <p><span class="fw-bold">{{ field.label }}: </span>{{ field.value|default:"" }}</p>
         {% endif %}
     {% endfor %}
     <div class="accordion" id="beschreibungAccordion">

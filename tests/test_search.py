@@ -158,6 +158,7 @@ class TestSearchResponse:
             "eintrittsdatum": "2024-07-01",
             "aktuelleVeroeffentlichungsdatum": "2024-05-30",
             "modifikationsTimestamp": "2024-05-22T09:00:15.099",
+            "externeUrl": "www.foobar.com",
         }
         with patch.object(search_response, "_parse_arbeitsort", new=Mock(return_value="mocked")) as arbeitsort_mock:
             with patch.object(search_response, "_make_aware", new=Mock(return_value="2024-06-06")) as make_aware_mock:
@@ -175,6 +176,7 @@ class TestSearchResponse:
                 assert result.veroeffentlicht == search_result["aktuelleVeroeffentlichungsdatum"]
                 assert result.modified == "2024-06-06"
                 make_aware_mock.assert_called_with(search_result["modifikationsTimestamp"])
+                assert result.externe_url == "www.foobar.com"
 
     @pytest.mark.parametrize(
         "ort_data, expected",

@@ -145,6 +145,7 @@ class SearchResponse:
                 eintrittsdatum=result.get("eintrittsdatum", ""),
                 veroeffentlicht=result.get("aktuelleVeroeffentlichungsdatum", ""),
                 modified=self._make_aware(result.get("modifikationsTimestamp", "")),
+                externe_url=result.get("externeUrl", ""),
             )
             processed.append(instance)
         return processed
