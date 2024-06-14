@@ -8,6 +8,5 @@ pytest-cov
 pytest-django
 pytest-xdist
 factory-boy
-beautifulsoup4
 django-debug-toolbar
 requests-mock

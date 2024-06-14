@@ -2,3 +2,6 @@
 requests
 Django
 django-bootstrap5
+beautifulsoup4
+psycopg2
+mod_wsgi

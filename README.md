@@ -1,5 +1,18 @@
 # jobby
 
+## Installation
+
+This will install the app into a docker container on your system.
+After the installation is complete, the app should be accessible under: http://localhost/jobby/
+
+### Linux
+
+It is recommended to pass the UID and GID to avoid permission issues with docker volumes:
+```sh
+python install.py --uid="$(id -u)" --gid="$(id -g)" --password=supersecret
+```
+
+
 ## Development
 
 ### Install project
