@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('#textBeschreibung')
+  if (!container) return
   fetch(container.dataset.url).then(response => {
     if (response.ok) {
       return response.text()
