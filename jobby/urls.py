@@ -11,12 +11,12 @@ from jobby.views import (
 )
 
 urlpatterns = [
-    path("", SucheView.as_view(), name="suche"),
-    path("watchlist/", WatchlistView.as_view(), name="watchlist"),
-    path("watchlist/toggle/", watchlist_toggle, name="watchlist_toggle"),
-    path("watchlist/remove/", watchlist_remove, name="watchlist_remove"),
-    path("watchlist/remove_all/", watchlist_remove_all, name="watchlist_remove_all"),
+    path("suche/", SucheView.as_view(), name="suche"),
+    path("merkliste/", WatchlistView.as_view(), name="watchlist"),
+    path("merkliste/toggle/", watchlist_toggle, name="watchlist_toggle"),
+    path("merkliste/remove/", watchlist_remove, name="watchlist_remove"),
+    path("merkliste/remove_all/", watchlist_remove_all, name="watchlist_remove_all"),
     path("angebot/", StellenangebotView.as_view(extra_context={"add": True}), name="stellenangebot_add"),
     path("angebot/<int:id>/", StellenangebotView.as_view(extra_context={"add": False}), name="stellenangebot_edit"),
-    path("f/<str:refnr>/", get_beschreibung, name="get_angebot_beschreibung"),  # TODO: change path from just 'f/'
+    path("fetch_description/<str:refnr>/", get_beschreibung, name="get_angebot_beschreibung"),
 ]
