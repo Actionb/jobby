@@ -1,5 +1,5 @@
 {% extends "jobby/base.html" %}
-{% load static django_bootstrap5 %}
+{% load l10n static django_bootstrap5 %}
 
 {% block extrahead %}
     {{ block.super }}
@@ -17,7 +17,7 @@
 <div id="details" class="mb-3">
     {% for field in form %}
         {% if field.is_hidden %}
-            <p><span class="fw-bold">{{ field.label }}: </span>{{ field.value|default:"" }}</p>
+            <p><span class="fw-bold">{{ field.label }}: </span>{{ field.value|default_if_none:"---"|localize }}</p>
         {% endif %}
     {% endfor %}
     <div class="accordion" id="beschreibungAccordion">

@@ -1,6 +1,7 @@
 from functools import cached_property
 
 from django import forms
+from django.core.exceptions import ValidationError
 from django.db.models import QuerySet
 
 from jobby.models import Stellenangebot, SucheModel
@@ -57,6 +58,18 @@ class StellenangebotForm(forms.ModelForm):
             "modified": forms.HiddenInput(),
             "externe_url": forms.HiddenInput(),
         }
+
+    def get_initial_for_field(self, field, field_name):
+        initial = super().get_initial_for_field(field, field_name)
+        # Turn initial data for date/datetime fields into date/datetime objects
+        # so that the template can render them as localized.
+        if isinstance(field, (forms.DateField, forms.DateTimeField)) and isinstance(initial, str):
+            try:
+                return field.to_python(initial)
+            except ValidationError:
+                # Invalid date - can't localize anyway.
+                pass
+        return initial
 
 
 class WatchlistSearchForm(forms.Form):
