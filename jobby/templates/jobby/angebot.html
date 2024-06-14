@@ -7,32 +7,58 @@
 {% endblock extrahead %}
 
 {% block content %}
-<div class="d-flex justify-content-between mb-3">
-    <h1>{{ form.titel.value|default:form.beruf.value }}</h1>
-    {% if arge_link %}
-        <a href="{{ arge_link }}" target="_blank">Zum Angebot auf arbeitsagentur.de</a>
+<div class="d-flex justify-content-between mb-3 ms-3">
+    <div>
+        <h1>{{ form.titel.value|default:form.beruf.value }}</h1>
+        <span class="ms-3">{{ form.beruf.value }}</span>
+    </div>
+    {% if arge_link or form.externe_url.value %}
+    <div>
+        {% if arge_link %}<div><a href="{{ arge_link }}" target="_blank">Zum Angebot auf arbeitsagentur.de</a></div>{% endif %}
+        {% if form.externe_url.value %}<div><a href="{{ form.externe_url.value }}" target="_blank">Externer Link</a></div>{% endif %}
+    </div>
     {% endif %}
 </div>
 {% block angebot_details %}
-<div id="details" class="mb-3">
-    {% for field in form %}
-        {% if field.is_hidden %}
-            <p><span class="fw-bold">{{ field.label }}: </span>{{ field.value|default_if_none:"---"|localize }}</p>
-        {% endif %}
-    {% endfor %}
-    <div class="accordion" id="beschreibungAccordion">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="true" aria-controls="accordionOne">
-            Beschreibung
-          </button>
-        </h2>
-          <div id="accordionOne" class="accordion-collapse collapse" data-bs-parent="beschreibungAccordion">
-              <div id="textBeschreibung" class="accordion-body" data-url="{% url 'get_angebot_beschreibung' refnr=form.refnr.value %}">
-                  <div id="spinner" class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>
-              </div>
+<div id="details" class="mb-3 ms-3">
+    <div class="d-flex mb-3 gap-3">
+        <div title="Arbeitsort">
+            <svg class="feather feather-map-pin" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span class="fw-bold">{{ form.arbeitsort.label}}: </span> {{ form.arbeitsort.value }}
+        </div>
+        <div title="Arbeitgeber">
+            <svg class="feather feather-user" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span class="fw-bold">{{ form.arbeitgeber.label}}: </span> {{ form.arbeitgeber.value }}
+        </div>
+        <div title="Eintrittsdatum">
+            <svg class="feather feather-calendar" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+                <line x1="16" x2="16" y1="2" y2="6"></line>
+                <line x1="8" x2="8" y1="2" y2="6"></line>
+                <line x1="3" x2="21" y1="10" y2="10"></line>
+            </svg>
+            <span class="fw-bold">{{ form.eintrittsdatum.label}}: </span> {{ form.eintrittsdatum.value|localize }}
+        </div>
+    </div>
+    <div id="beschreibung" class="mb-3 border rounded p-3">
+        {% if form.beschreibung.value %}
+            {{ form.beschreibung.value|safe }}
+        {% else %}
+          <div id="textBeschreibung" class="accordion-body" data-url="{% url 'get_angebot_beschreibung' refnr=form.refnr.value %}">
+              <div id="spinner" class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>
           </div>
-      </div>
+        {% endif %}
+    </div>
+    <div class="d-flex justify-content-around text-secondary">
+        <span>{{ form.veroeffentlicht.label }}: {{ form.veroeffentlicht.value|localize }}</span>
+        <span>{{ form.refnr.label }}: {{ form.refnr.value }}</span>
+        <span>{{ form.modified.label }}: {{ form.modified.value|localize }}</span>
     </div>
 </div>
 {% endblock angebot_details %}
