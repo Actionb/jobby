@@ -1,4 +1,5 @@
-from django.urls import path
+from django.shortcuts import redirect
+from django.urls import path, reverse_lazy
 
 from jobby.views import (
     StellenangebotView,
@@ -11,6 +12,7 @@ from jobby.views import (
 )
 
 urlpatterns = [
+    path("", lambda r: redirect(reverse_lazy("suche")), name="index"),
     path("suche/", SucheView.as_view(), name="suche"),
     path("merkliste/", WatchlistView.as_view(), name="watchlist"),
     path("merkliste/toggle/", watchlist_toggle, name="watchlist_toggle"),
