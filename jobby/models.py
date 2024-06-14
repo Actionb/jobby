@@ -112,7 +112,7 @@ class Stellenangebot(models.Model):
     arbeitsort = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True)
     eintrittsdatum = models.DateField(blank=True, null=True, verbose_name="Eintrittsdatum")
     veroeffentlicht = models.DateField(blank=True, null=True, verbose_name="Veröffentlicht am")
-    modified = models.DateTimeField(blank=True, null=True)
+    modified = models.DateTimeField(blank=True, null=True, verbose_name="Zuletzt verändert am")
     externe_url = models.URLField(blank=True, null=True, verbose_name="Externe URL")
     # TODO: add full text from the corresponding arbeitsagentur page
 
