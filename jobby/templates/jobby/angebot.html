@@ -1,13 +1,17 @@
 {% extends "jobby/base.html" %}
-{% load l10n static django_bootstrap5 %}
+{% load l10n static django_bootstrap5 mizdb_inlines %}
 
 {% block extrahead %}
     {{ block.super }}
     <script src="{% static 'jobby/js/fetch_jobdetails.js' %}"></script>
+    {# mizdb_inlines media #}
+    {{ combined_media }}
+    <script src="{% static 'mizdb_inlines/js/mizdb_inlines.js' %}"></script>
 {% endblock extrahead %}
 
 {% block content %}
-<div class="d-flex justify-content-between mb-3 ms-3">
+<div class="mx-3">
+<div class="d-flex justify-content-between mb-3">
     <div>
         <h1 title="Stellenangebot Titel">{{ form.titel.value|default:form.beruf.value }}</h1>
         <span class="ms-3">{{ form.beruf.value }}</span>
@@ -20,7 +24,7 @@
     {% endif %}
 </div>
 {% block angebot_details %}
-<div id="details" class="mb-3 ms-3">
+<div id="details" class="mb-3">
     <div class="d-flex mb-3 gap-3">
         <div title="Arbeitsort">
             <svg class="feather feather-map-pin" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -62,12 +66,16 @@
     </div>
 </div>
 {% endblock angebot_details %}
-
+<hr>
 <h2>Eigene Daten:</h2>
 <form method="POST">
     {% csrf_token %}
     {% bootstrap_form_errors form %}
     {% bootstrap_form form layout="floating" %}
-    <button type="submit" class="btn btn-success">Merken</button>
+    {% for formset in formsets %}
+        {% tabular_inline_formset formset %}
+    {% endfor %}
+    <button type="submit" class="btn btn-success">{% if object.id %}Aktualisieren{% else %}Merken{% endif %}</button>
 </form>
+</div>
 {% endblock content %}
