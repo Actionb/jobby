@@ -5,10 +5,12 @@ django-bootstrap5==24.2
 beautifulsoup4==4.12.3
 psycopg2==2.9.9
 mod_wsgi==5.0.0
+mizdb-inlines==0.3.1
 ## The following requirements were added by pip freeze:
 asgiref==3.8.1
 certifi==2024.2.2
 charset-normalizer==3.3.2
 idna==3.7
+setuptools==70.0.0
 sqlparse==0.5.0
 urllib3==2.2.1

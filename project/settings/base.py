@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "jobby",
     "django_bootstrap5",
     "mod_wsgi.server",
+    "mizdb_inlines",
 ]
 
 MIDDLEWARE = [
