@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from django import forms
 from django.contrib import messages
 from django.core.exceptions import BadRequest, ObjectDoesNotExist
 from django.core.paginator import Paginator
@@ -10,10 +11,11 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import FormView, ListView, UpdateView
 from django.views.generic.base import ContextMixin
+from mizdb_inlines.views import InlineFormsetMixin
 
 from jobby.apis.registry import registry
 from jobby.forms import StellenangebotForm, SucheForm, WatchlistSearchForm
-from jobby.models import Stellenangebot, Watchlist, WatchlistItem
+from jobby.models import Stellenangebot, StellenangebotKontakt, StellenangebotURLs, Watchlist, WatchlistItem
 
 PAGE_VAR = "page"
 PAGE_SIZE = 100
@@ -91,11 +93,16 @@ class SucheView(BaseMixin, FormView):
         }
 
 
-class StellenangebotView(BaseMixin, UpdateView):
+class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
     model = Stellenangebot
     form_class = StellenangebotForm
     template_name = "jobby/angebot.html"
     pk_url_kwarg = "id"
+
+    formset_classes = [
+        forms.inlineformset_factory(Stellenangebot, StellenangebotURLs, fields=forms.ALL_FIELDS, extra=1),
+        forms.inlineformset_factory(Stellenangebot, StellenangebotKontakt, fields=forms.ALL_FIELDS, extra=1),
+    ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

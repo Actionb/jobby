@@ -72,6 +72,7 @@
     {% csrf_token %}
     {% bootstrap_form_errors form %}
     {% bootstrap_form form layout="floating" %}
+    {# TODO: wrap formsets in an accordion #}
     {% for formset in formsets %}
         {% tabular_inline_formset formset %}
     {% endfor %}
