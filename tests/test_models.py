@@ -56,6 +56,16 @@ class TestUpdateStellenangebot:
         with django_assert_num_queries(0):
             assert not _update_stellenangebot(stellenangebot, other)
 
+    def test_update_stellenangebot_not_stellenangebot_instances(self, stellenangebot, other):
+        """
+        Assert that ``_update_stellenangebot`` raises a TypeError if either of
+        the arguments is not a Stellenangebot instance.
+        """
+        with pytest.raises(TypeError):
+            _update_stellenangebot(stellenangebot, "foo")
+        with pytest.raises(TypeError):
+            _update_stellenangebot("bar", other)
+
 
 class AsDictTestModel(models.Model):
     name = models.CharField(max_length=10)

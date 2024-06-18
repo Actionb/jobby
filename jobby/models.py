@@ -8,19 +8,24 @@ CHARFIELD_MAX = 256
 
 def _update_stellenangebot(existing, other):
     """Update the existing Stellenangebot object with data from the other."""
+    if not isinstance(existing, Stellenangebot) or not isinstance(other, Stellenangebot):
+        raise TypeError("Arguments must be Stellenangebot instances.")
+
     if existing.refnr != other.refnr:
         # Not the same Stellenangebot.
         return False
 
     update_dict = {}
     for field in existing._meta.get_fields():
-        if not field.concrete or not hasattr(other, field.name) or field.primary_key:  # pragma: no cover
+        if not field.concrete or field.primary_key:
+            # This either a relation field or the field is a primary key
+            # (which should not be updated).
             continue
-        # TODO: do not overwrite values on existing with default values on other
-        #  (ignore default values on other?)
-        # TODO: how to handle empty values on other?
-        if getattr(existing, field.name) != getattr(other, field.name):
-            update_dict[field.name] = getattr(other, field.name)
+        existing_value = field.value_from_object(existing)
+        other_field = other._meta.get_field(field.name)
+        other_value = other_field.value_from_object(other)
+        if existing_value != other_value:
+            update_dict[field.name] = other_value
     if update_dict:
         Stellenangebot.objects.filter(refnr=existing.refnr).update(**update_dict)
         return True
