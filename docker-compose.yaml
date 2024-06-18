@@ -12,7 +12,7 @@ services:
     secrets:
       - db_password
     healthcheck:
-      test: ["CMD", "pg_isready", "--username=jobby"]
+      test: ["CMD", "pg_isready", "--username=$UID"]
       interval: 5s
     user: "${UID:-1000}:${GID:-1000}"
 
