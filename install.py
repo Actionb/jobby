@@ -123,6 +123,7 @@ def get_config_home() -> Path:
     """Return the default directory for config files (os-dependent)."""
     system = platform.system()
     if system == "Linux":
+        # TODO: support XDG_CONFIG_DIRS
         return os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")
     elif system == "Windows":
         # TODO: implement
@@ -135,6 +136,7 @@ def get_data_home() -> Path:
     """Return the default directory for the user data (os-dependent)."""
     system = platform.system()
     if system == "Linux":
+        # TODO: support XDG_DATA_DIRS
         return os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share")
     elif system == "Windows":
         # TODO: implement

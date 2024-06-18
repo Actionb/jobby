@@ -124,7 +124,7 @@ class StellenangebotView(BaseMixin, UpdateView):
         return initial
 
     def get_success_url(self):  # pragma: no cover
-        # TODO: return to suche if not adding
+        # TODO: return to previous page (either suche or merkliste)
         return reverse("stellenangebot_edit", kwargs={"id": self.object.pk})
 
     @property
