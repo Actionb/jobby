@@ -41,10 +41,6 @@ def _search(**params):  # pragma: no cover
 
     Params can be found here: https://jobsuche.api.bund.dev/
     """
-    # TODO: set defaults on model
-    params.setdefault("page", "1")
-    params.setdefault("size", "100")
-    params.setdefault("umkreis", "25")
     # TODO: what is "pav"?
     params.setdefault("pav", "false")
     # TODO: is this angebotsart required?

@@ -77,11 +77,11 @@ class SucheModel(models.Model):
     arbeitszeit = models.CharField(max_length=3, choices=ArbeitszeitChoices, blank=True, null=True)
     behinderung = models.BooleanField(blank=True, null=True)
     corona = models.BooleanField(blank=True, null=True)
-    umkreis = models.PositiveSmallIntegerField(blank=True, null=True)
+    umkreis = models.PositiveSmallIntegerField(blank=True, null=True, default=25)
 
     # Query specific options
-    page = models.PositiveSmallIntegerField(blank=True, null=True)
-    size = models.PositiveSmallIntegerField(blank=True, null=True)
+    page = models.PositiveSmallIntegerField(blank=True, null=True, default=1)
+    size = models.PositiveSmallIntegerField(blank=True, null=True, default=100)
 
     class Meta:
         verbose_name = "Such-Parameter"
