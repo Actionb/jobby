@@ -181,10 +181,9 @@ class TestSearchResponse:
     @pytest.mark.parametrize(
         "ort_data, expected",
         [
+            ({}, ""),
             ({"ort": "Dortmund"}, "Dortmund"),
-            # TODO: enable these tests once _parse_arbeitsort has been improved:
-            # ({"ort": "Dortmund", "plz": "44263"}, "Dortmund, 44263"),
-            # ({"ort": "Dortmund", "plz": "44263", "region": "NRW"}, "Dortmund, 44263 (NRW)"),  # noqa
+            ({"ort": "Dortmund", "plz": "44263"}, "Dortmund, 44263"),
         ],
     )
     def test_parse_arbeitsort(self, search_response, ort_data, expected):

@@ -156,11 +156,12 @@ class SearchResponse:
         Return a string for the 'arbeitsort' field from the given data from a
         search result.
         """
-        # TODO: include data like PLZ or distance into the string
-        try:
-            return arbeitsort_dict["ort"]
-        except KeyError:
-            return ""
+        ort = arbeitsort_dict.get("ort", "")
+        plz = arbeitsort_dict.get("plz", "")
+        if plz:
+            return f"{ort}, {plz}"
+        else:
+            return ort
 
     @staticmethod
     def _make_aware(datetime_string):
