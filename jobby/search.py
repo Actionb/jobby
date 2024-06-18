@@ -41,15 +41,9 @@ def _search(**params):  # pragma: no cover
 
     Params can be found here: https://jobsuche.api.bund.dev/
     """
-    # TODO: what is "pav"?
-    params.setdefault("pav", "false")
-    # TODO: is this angebotsart required?
-    params.setdefault("angebotsart", "1")
-
-    # FIXME: queries that include these parameters never return results, so
-    #  ignore them for now:
-    params.pop("behinderung", None)
-    params.pop("corona", None)
+    # TODO: The API supports an undocumented "pav" parameter that affects
+    #  results. What is that? "Private Arbeitsvermittler"?
+    # params.setdefault("pav", "false")
 
     headers = {
         "User-Agent": "Jobsuche/2.9.2 (de.arbeitsagentur.jobboerse; build:1077; iOS 15.1.0) Alamofire/5.4.4",

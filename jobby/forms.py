@@ -12,8 +12,9 @@ null_boolean_select = forms.Select(choices=[(None, "---------"), (True, "Ja"), (
 class SucheForm(forms.ModelForm):
     class Meta:
         model = SucheModel
-        fields = forms.ALL_FIELDS
-        exclude = ["corona"]
+        # FIXME: queries that include these parameters never return results, so
+        #  ignore them for now:
+        exclude = ["behinderung", "corona"]
         widgets = {
             "page": forms.HiddenInput,
             "size": forms.HiddenInput,
