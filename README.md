@@ -71,6 +71,13 @@ Use
 make reformat
 ```
 to auto-reformat python code.
+
+### Check for security vulnerabilities
+
+Invoke [pip-audit](https://pypi.org/project/pip-audit/) with:
+```commandline
+make audit
+```
  
 ### Adding dependencies
 

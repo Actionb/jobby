@@ -10,3 +10,4 @@ pytest-xdist
 factory-boy
 django-debug-toolbar
 requests-mock
+pip-audit

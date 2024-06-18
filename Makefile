@@ -29,3 +29,7 @@ lint:
 .PHONY: test
 test:
 	pytest --cov --cov-branch --cov-report=term --cov-report=html tests/
+
+.PHONY: audit
+check:
+	pip-audit
