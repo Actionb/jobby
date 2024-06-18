@@ -72,14 +72,13 @@ class SucheModel(models.Model):
 
     was = models.CharField(max_length=CHARFIELD_MAX)
     wo = models.CharField(max_length=CHARFIELD_MAX)  # TODO: required?
-    berufsfeld = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True)
-    arbeitgeber = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True)
+    berufsfeld = models.CharField(max_length=CHARFIELD_MAX, blank=True)
+    arbeitgeber = models.CharField(max_length=CHARFIELD_MAX, blank=True)
     veroeffentlichtseit = models.PositiveSmallIntegerField(verbose_name="Veröffentlicht seit", blank=True, null=True)
     zeitarbeit = models.BooleanField(blank=True, null=True)
-    # TODO: null=True on IntegerField a problem?
     angebotsart = models.IntegerField(choices=AngebotsChoices, blank=True, null=True)
     befristung = models.IntegerField(choices=BefristungChoices, blank=True, null=True)
-    arbeitszeit = models.CharField(max_length=3, choices=ArbeitszeitChoices, blank=True, null=True)
+    arbeitszeit = models.CharField(max_length=3, choices=ArbeitszeitChoices, blank=True)
     behinderung = models.BooleanField(blank=True, null=True)
     corona = models.BooleanField(blank=True, null=True)
     umkreis = models.PositiveSmallIntegerField(blank=True, null=True, default=25)
@@ -111,10 +110,10 @@ class Stellenangebot(models.Model):
         unique=True,
         error_messages={"unique": "Stellenangebot mit dieser Referenz-Nummer existiert bereits"},
     )
-    beruf = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True, verbose_name="Beruf")
+    beruf = models.CharField(max_length=CHARFIELD_MAX, blank=True, verbose_name="Beruf")
     # TODO: arbeitgeber could be a relation?
-    arbeitgeber = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True, verbose_name="Arbeitgeber")
-    arbeitsort = models.CharField(max_length=CHARFIELD_MAX, blank=True, null=True)
+    arbeitgeber = models.CharField(max_length=CHARFIELD_MAX, blank=True, verbose_name="Arbeitgeber")
+    arbeitsort = models.CharField(max_length=CHARFIELD_MAX, blank=True)
     eintrittsdatum = models.DateField(blank=True, null=True, verbose_name="Eintrittsdatum")
     veroeffentlicht = models.DateField(blank=True, null=True, verbose_name="Veröffentlicht am")
     modified = models.DateTimeField(blank=True, null=True, verbose_name="Zuletzt verändert am")
@@ -129,7 +128,7 @@ class Stellenangebot(models.Model):
         blank=True,
         null=True,
     )
-    notizen = models.TextField(verbose_name="Notizen", blank=True, null=True)
+    notizen = models.TextField(verbose_name="Notizen", blank=True)
 
     class Meta:
         verbose_name = "Stellenangebot"
