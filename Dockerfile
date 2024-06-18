@@ -23,4 +23,4 @@ COPY project project
 COPY docker-entrypoint.sh .
 COPY jobby jobby
 
-EXPOSE 80
+EXPOSE 8787
