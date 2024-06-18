@@ -27,9 +27,7 @@
 # options.
 python manage.py runmodwsgi --setup-only --user apache --group apache --server-root=/etc/jobby-server --mount-point "$MOUNT_POINT"
 
-# Apply migrations and collect static files.
-# NOTE: could running this in the entrypoint be an issue?
-python manage.py migrate --noinput --verbosity 0
+# Collect static files
 python manage.py collectstatic --clear --noinput --skip-checks --verbosity 0
 
 # The entrypoint is run as pid 1, and the container will remain up and running

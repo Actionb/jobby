@@ -197,6 +197,8 @@ def install(password: str, allowedhosts: str, uid: int | None = None, gid: int |
     # Start containers:
     print("Creating docker containers...")
     subprocess.run(["docker", "compose", "up", "-d"])
+    print("Running migrations...")
+    subprocess.run(["docker", "exec", "-i", "jobby-app", "python3", "manage.py", "migrate"])
 
     # TODO: symlink to secrets directory from project root so that settings can
     #  read from it? (i.e. open(BASE_DIR / ".secrets" / ".passwd"))
