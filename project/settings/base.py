@@ -99,3 +99,9 @@ BOOTSTRAP5 = {
     "field_renderers": {"default": "jobby.renderer.NoIsValidFieldRenderer"},
     "set_placeholder": False,
 }
+
+# RemovedInDjango60Warning: The default scheme will be changed from 'http' to
+# 'https' in Django 6.0. Pass the forms.URLField.assume_scheme argument to
+# silence this warning, or set the FORMS_URLFIELD_ASSUME_HTTPS transitional
+# setting to True to opt into using 'https' as the new default scheme.
+FORMS_URLFIELD_ASSUME_HTTPS = True
