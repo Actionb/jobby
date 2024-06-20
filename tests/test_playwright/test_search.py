@@ -1,7 +1,6 @@
 import json
 import re
 from pathlib import Path
-from unittest.mock import Mock, patch
 
 import pytest
 from playwright.sync_api import expect
@@ -60,10 +59,9 @@ def search_result_count(search_results_parsed):
 
 
 @pytest.fixture(autouse=True)
-def get_jwt_mock():
+def get_jwt_mock(requests_mock):
     """Mock out retrieving a jwt token."""
-    with patch("jobby.apis.bundesagentur_api.get_jwt", new=Mock(return_value="")) as m:
-        yield m
+    requests_mock.post("https://rest.arbeitsagentur.de/oauth/gettoken_cc", json={"access_token": "foo"})
 
 
 @pytest.fixture
