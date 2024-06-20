@@ -3,12 +3,7 @@ import re
 import pytest
 from playwright.sync_api import expect
 
-from tests.factories import StellenangebotFactory, WatchlistFactory
-
-
-@pytest.fixture
-def watchlist():
-    return WatchlistFactory()
+from tests.factories import StellenangebotFactory
 
 
 @pytest.fixture

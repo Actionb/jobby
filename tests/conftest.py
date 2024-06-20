@@ -42,7 +42,7 @@ def stellenangebot(refnr, modified):
 @pytest.fixture
 def watchlist_name():
     """Return the name for the test watchlist."""
-    return "test_watchlist"
+    return "default"
 
 
 @pytest.fixture
