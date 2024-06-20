@@ -46,6 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           btn.closest('.trash-item').remove()
         }
+        // Update the badge counter in the navbar:
+        const badge = document.querySelector(".papierkorb-badge")
+        if (badge && parseInt(badge.innerHTML)) {
+            badge.innerHTML = parseInt(badge.innerHTML) - 1
+        }
       })
     })
   })

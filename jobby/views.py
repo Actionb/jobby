@@ -25,6 +25,9 @@ class BaseMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx["site_title"] = self.site_title
+        ctx["orphan_count"] = Stellenangebot.objects.exclude(
+            Exists(WatchlistItem.objects.filter(stellenangebot_id=OuterRef("id")))
+        ).count()
         return ctx
 
 
