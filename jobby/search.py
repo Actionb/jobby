@@ -65,6 +65,7 @@ def _search(**params):  # pragma: no cover
 
 def search(**params):
     response = _search(**{k: v for k, v in params.items() if v is not None})
+    # TODO: check response status code
     return SearchResponse(response)
 
 
