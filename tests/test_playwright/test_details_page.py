@@ -8,6 +8,8 @@ from django.utils.timezone import make_aware
 from jobby.models import Stellenangebot
 from playwright.sync_api import expect
 
+pytestmark = [pytest.mark.django_db, pytest.mark.pw]
+
 
 @pytest.fixture
 def edit_url(get_url, stellenangebot):
