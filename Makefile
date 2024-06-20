@@ -30,6 +30,10 @@ lint:
 test:
 	pytest --cov --cov-branch --cov-report=term --cov-report=html tests/
 
+.PHONY: test-pw
+test-pw:
+	pytest tests/test_playwright/
+
 .PHONY: audit
 check:
 	pip-audit

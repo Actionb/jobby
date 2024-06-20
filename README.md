@@ -59,6 +59,17 @@ to run tests with coverage, and then check the coverage report with
 firefox htmlcov/index.html
 ```
 
+#### Playwright
+
+To run playwright tests, make sure you have installed the browsers:
+```commandline
+playwright install
+```
+Then run the tests with:
+```commandline
+make test-pw
+```
+
 ### Linting and formatting
 
 Use 
