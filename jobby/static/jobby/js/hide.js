@@ -4,7 +4,7 @@
   const RESULT_ITEM_SELECTOR = 'li.result-item'
 
   function getHiddenResults () {
-    return new Set(Array.from(JSON.parse(window.localStorage.getItem(STORAGE_KEY))))
+    return new Set(Array.from(JSON.parse(window.localStorage.getItem(STORAGE_KEY) | [])))
   }
 
   function store (hiddenResults) {
