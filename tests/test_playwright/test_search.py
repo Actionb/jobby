@@ -6,6 +6,8 @@ from unittest.mock import Mock, patch
 import pytest
 from playwright.sync_api import expect
 
+from tests.factories import StellenangebotFactory, WatchlistItemFactory
+
 pytestmark = [pytest.mark.django_db, pytest.mark.pw]
 
 
@@ -113,86 +115,13 @@ def get_page_links(page):
 
 
 def get_watchlist_buttons(page):
-    """Return the buttons that a search result to the watchlist."""
+    """Return the watchlist toggle buttons."""
     return page.get_by_title("Angebot merken")
 
 
 def get_hide_buttons(page):
     """Return the buttons that 'hides' a search result."""
     return page.get_by_title("Angebot ausblenden")
-
-
-def get_watchlist_items(page):
-    """Return the 'tr' elements that represent watchlist items."""
-    return page.locator("tr.watchlist-item")
-
-
-def test(page, do_search, get_search_results, search_result_count):
-    # There should be a count of the total results:
-    expect(page.locator("body")).to_contain_text(f"{search_result_count} Ergebnisse")
-    # There should be ten pages of results:
-    page_links = get_page_links(page)
-    expect(page_links).to_have_count(10)
-    # There should be 100 results on the current page:
-    result_items = get_result_items(page)
-    expect(result_items).to_have_count(100)
-
-    watchlist_buttons = get_watchlist_buttons(page)
-    search_results = get_search_results(page_number=1)
-    watchlist_titles = []
-    # User adds the first result item of the page to their watchlist:
-    link = get_result_link(result_items.first)
-    search_result_title = search_results[0]["titel"]
-    expect(link).to_have_text(search_result_title)
-    watchlist_titles.append(search_result_title)
-    watchlist_button = watchlist_buttons.first
-    with page.expect_request_finished():
-        watchlist_button.click()
-    expect(watchlist_button).to_have_class(re.compile("on-watchlist"))
-
-    # User hides the second result:
-    link = get_result_link(result_items.nth(1))
-    expect(link).to_have_text(search_results[1]["titel"])
-    get_hide_buttons(page).nth(1).click()
-    expect(link).to_have_class(re.compile("link-opacity-25"))
-
-    # User navigates to the second page of results:
-    with page.expect_request_finished():
-        page_links.nth(1).click()
-    search_results = get_search_results(page_number=2)
-
-    # User adds the third result item of the page to their watchlist:
-    result_items = get_result_items(page)
-    link = get_result_link(result_items.nth(2))
-    search_result_title = search_results[2]["titel"]
-    expect(link).to_have_text(search_result_title)
-    watchlist_titles.append(search_result_title)
-    watchlist_button = watchlist_buttons.nth(2)
-    with page.expect_request_finished():
-        watchlist_button.click()
-    expect(watchlist_button).to_have_class(re.compile("on-watchlist"))
-
-    # User clicks on the link of the fourth result item:
-    link = get_result_link(result_items.nth(3))
-    search_result_title = search_results[3]["titel"]
-    # User is sent to the details view of the fourth result item:
-    link.click()
-    page.wait_for_url("**/angebot/**")
-    expect(page.get_by_title("Stellenangebot Titel")).to_have_text(search_result_title)
-    # User adds this result to their watchlist:
-    with page.expect_request_finished():
-        page.get_by_text(re.compile("merken", re.IGNORECASE)).click()
-
-    watchlist_titles.append(search_result_title)
-    # User navigates to the watchlist:
-    page.get_by_text(re.compile("Merkliste")).click()
-    page.wait_for_url("**/merkliste/")
-    # The watchlist should contain 3 items:
-    watchlist_items = get_watchlist_items(page)
-    expect(watchlist_items).to_have_count(3)
-    expect(watchlist_items.nth(0)).to_contain_text(watchlist_titles[0])
-    expect(watchlist_items.nth(1)).to_contain_text(watchlist_titles[1])
-    expect(watchlist_items.nth(2)).to_contain_text(watchlist_titles[2])
 
 
 def test_search(page, do_search, search_result_count, get_search_results):
@@ -234,3 +163,55 @@ def test_search_angebot_details(page, do_search, get_search_results):
     link.click()
     page.wait_for_url("**/angebot/**")
     expect(page.get_by_title("Stellenangebot Titel")).to_have_text(search_result_title)
+
+
+def test_search_can_hide_results(page, do_search):
+    """Assert that the user can use the 'hide' button to hide a search result."""
+    result_items = get_result_items(page)
+    link = get_result_link(result_items.nth(1))
+    get_hide_buttons(page).nth(1).click()
+    expect(link).to_have_class(re.compile("link-opacity-25"))
+
+
+def test_search_can_add_watchlist(page, do_search, watchlist, get_search_results):
+    """
+    Assert that the user can add a result to their watchlist by clicking the
+    watchlist toggle button.
+    """
+    watchlist_button = get_watchlist_buttons(page).first
+    with page.expect_request_finished():
+        watchlist_button.click()
+    expect(watchlist_button).to_have_class(re.compile("on-watchlist"))
+    assert watchlist.items.count() == 1
+    search_results = get_search_results(page_number=1)
+    assert watchlist.get_stellenangebote().first().titel == search_results[0]["titel"]
+
+
+@pytest.fixture
+def watchlist_item(watchlist, get_search_results):
+    search_results = get_search_results(page_number=1)
+    return WatchlistItemFactory(
+        watchlist=watchlist,
+        stellenangebot=StellenangebotFactory(titel=search_results[0]["titel"], refnr=search_results[0]["refnr"]),
+    )
+
+
+def test_result_is_on_watchlist_button_class(watchlist_item, page, do_search):
+    """
+    Assert that the watchlist button for results that are already on the
+    watchlist has a specific CSS class.
+    """
+    watchlist_button = get_watchlist_buttons(page).first
+    expect(watchlist_button).to_have_class(re.compile("on-watchlist"))
+
+
+def test_can_remove_result_from_watchlist(watchlist_item, page, do_search, watchlist):
+    """
+    Assert that the user can add a result to their watchlist by clicking the
+    watchlist toggle button.
+    """
+    watchlist_button = get_watchlist_buttons(page).first
+    with page.expect_request_finished():
+        watchlist_button.click()
+    expect(watchlist_button).not_to_have_class(re.compile("on-watchlist"))
+    assert watchlist.items.count() == 0
