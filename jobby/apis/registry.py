@@ -12,11 +12,10 @@ class APIRegistry:
             self._apis.remove(api)
 
     def search(self, **params):
-        results = []
         for api in self._apis:
+            # TODO: merge search results of the apis instead of just returning
+            #  the results of the first api
             return api.search(**{k: v for k, v in params.items() if v is not None})
-            results.append(api.search(**{k: v for k, v in params.items() if v is not None}))
-        return results
 
 
 registry = APIRegistry()
