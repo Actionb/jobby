@@ -20,6 +20,7 @@
 {% block watchlist_items %}
 <div class="watchlist-container">
 {% if stellenangebot_list %}
+{% csrf_token %}
 <div class="d-flex justify-content-between mb-3">
     <h2>{{ stellenangebot_list.count }} gemerkte Stellenangebote:</h2>
     <button class="btn btn-outline-danger watchlist-remove-all-btn" data-url="{% url 'watchlist_remove_all' %}">Alle entfernen</button>
