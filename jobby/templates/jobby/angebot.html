@@ -46,7 +46,7 @@
             <span class="fw-bold">{{ form.eintrittsdatum.label}}: </span> {{ form.eintrittsdatum.value|localize }}
         </div>
     </div>
-    <div id="beschreibung" class="mb-3 border rounded p-3">
+    <div id="beschreibung" class="mb-3 border rounded p-3" data-testid="job-description">
         {% if form.beschreibung.value %}
             {{ form.beschreibung.value|safe }}
         {% else %}

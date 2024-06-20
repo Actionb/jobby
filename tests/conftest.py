@@ -25,7 +25,7 @@ def modified():
 @pytest.fixture
 def stellenangebot(refnr, modified):
     """Create a Stellenangebot instance."""
-    return StellenangebotFactory(
+    obj = StellenangebotFactory(
         titel="Software Developer",
         refnr=refnr,
         beruf="Informatiker",
@@ -35,6 +35,8 @@ def stellenangebot(refnr, modified):
         veroeffentlicht="2024-05-30",
         modified=modified,
     )
+    obj.refresh_from_db()
+    return obj
 
 
 @pytest.fixture
