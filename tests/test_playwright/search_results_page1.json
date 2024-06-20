@@ -1,0 +1,2697 @@
+{
+  "stellenangebote" : [ {
+    "beruf" : "Anwendungsprogrammierer/in",
+    "titel" : "Software Developer (m/w/d)",
+    "refnr" : "13644-260055-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "BEUMER Group",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-13",
+    "modifikationsTimestamp" : "2024-06-13T08:35:39.455",
+    "eintrittsdatum" : "2024-06-13",
+    "externeUrl" : "https://www.get-in-it.de/jobsuche/p260055?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-basic"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Softwareentwickler / Software Engineer C#/C++ (m/w/d)",
+    "refnr" : "11858-9923258-STA-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5127673,
+        "lon" : 7.4753817
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "FRILO Software GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-10",
+    "modifikationsTimestamp" : "2024-06-10T07:59:14.254",
+    "eintrittsdatum" : "2024-06-10",
+    "externeUrl" : "https://www.stellenanzeigen.de/job/detail/9923258/?utm_id=ba&utm_source=bundesagentur&utm_medium=unpaid-partner&utm_campaign=Free&subkategorie=64X&campaign=ba"
+  }, {
+    "beruf" : "Qualitätsingenieur/in",
+    "titel" : "Software Qualitätsingenieur (m/w/d)",
+    "refnr" : "12208-JP4143482-S",
+    "arbeitsort" : {
+      "plz" : "44141",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.50339597432829,
+        "lon" : 7.498787197091627
+      },
+      "entfernung" : "2"
+    },
+    "arbeitgeber" : "IKS Engineering GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-04-10",
+    "modifikationsTimestamp" : "2024-04-10T08:36:40.709",
+    "eintrittsdatum" : "2024-06-01",
+    "kundennummerHash" : "sxmJelsMoG7-pS2RJEiEnTqzeB29KqQlyRAXEuHt3Lg="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Software-Architekt (m/w/d)",
+    "refnr" : "12728-42594561-613-S",
+    "arbeitsort" : {
+      "plz" : "44139",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.498834613223245,
+        "lon" : 7.461971135637377
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "E.ON SE",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-14",
+    "modifikationsTimestamp" : "2024-06-13T12:52:39.908",
+    "eintrittsdatum" : "2024-06-14",
+    "kundennummerHash" : "GEhs3p-5hErGm5cC8YXdVxgMhnzHQfUFdsPo2vQnjmo="
+  }, {
+    "beruf" : "Produktmanager/in",
+    "titel" : "Strategischer Software-Produktmanager (m/w/d)",
+    "refnr" : "10001-1000330737-S",
+    "arbeitsort" : {
+      "plz" : "44263",
+      "ort" : "Dortmund",
+      "strasse" : "Phoenixseestr. 6",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4888848,
+        "lon" : 7.5087678
+      },
+      "entfernung" : "3"
+    },
+    "arbeitgeber" : "Lovion GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-13",
+    "modifikationsTimestamp" : "2024-06-13T09:02:55.655",
+    "eintrittsdatum" : "2024-06-13",
+    "kundennummerHash" : "iMRlMJo8POgzv2grG_BdYmfwUd0cBBRtzujjxcXlV6A="
+  }, {
+    "beruf" : "Projektleiter/in",
+    "titel" : "Projektleiter Software Automotive (all gender)",
+    "refnr" : "10001-1000312852-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.51481389200006,
+        "lon" : 7.472404571000084
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "ALTEN GmbH Coburg",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-07",
+    "modifikationsTimestamp" : "2024-06-07T13:31:38.336",
+    "eintrittsdatum" : "2024-06-07",
+    "kundennummerHash" : "0FUlvexPnfNLVIHUGLueHGyp_NWFkd8YDmzWIFc3fug="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Software- / Kundensupport (m/w/d)",
+    "refnr" : "12688-23812982-RJA-S",
+    "arbeitsort" : {
+      "plz" : "44143",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5174951,
+        "lon" : 7.51132
+      },
+      "entfernung" : "3"
+    },
+    "arbeitgeber" : "WECKBACHER Sicherheitssysteme GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-05",
+    "modifikationsTimestamp" : "2024-06-05T07:51:45.007",
+    "eintrittsdatum" : "2024-08-01",
+    "externeUrl" : "https://www.dortmunder-jobanzeiger.de/job/weckbacher-sicherheit/23812982/?utm_campaign=free&utm_source=bundesagentur&utm_medium=unpaid-partner"
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Software-Architekt (m/w/d)",
+    "refnr" : "12336-a24f1108j0393536-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "E.ON Grid Solutions GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-04T07:16:26.259",
+    "eintrittsdatum" : "2024-06-04",
+    "externeUrl" : "https://jobs.jobspreader.com/viewjob-f5y7b?utm_source=jsba-premium&utm_medium=n-a&utm_campaign=it&utm_term=software-architekt-m-w-d"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Software Entwickler / Software Engineer (m/w/d) Geoinformationssysteme",
+    "refnr" : "10000-1196802096-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5148138,
+        "lon" : 7.4724045
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Spie GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-04-03",
+    "modifikationsTimestamp" : "2024-06-14T12:14:12.484",
+    "eintrittsdatum" : "2024-06-14",
+    "kundennummerHash" : "RoxssLBxUY9tXvtbvmtIYuZS5_iJmzScMLR-Y_wb8t4="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "IT Architekt (w/m/d)",
+    "refnr" : "17311-150142-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "strasse" : "Löwenstrasse 11a",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5095031,
+        "lon" : 7.4703631
+      },
+      "entfernung" : "0"
+    },
+    "arbeitgeber" : "Capgemini Deutschland GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-27",
+    "modifikationsTimestamp" : "2024-06-12T11:17:05.174",
+    "eintrittsdatum" : "2024-06-12",
+    "kundennummerHash" : "oWT74Mpbdj5YwZ5RocquNMW_kXPfYT21lJCUoSyvOdA="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "B02-C02 Software-Ingenieur (m/w/d)",
+    "refnr" : "10001-1000281460-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5148138,
+        "lon" : 7.4724046
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Jan Schreiner Arbitex Private Personal- und Arbeitsvermittlung",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-30",
+    "modifikationsTimestamp" : "2024-05-30T13:54:10.282",
+    "eintrittsdatum" : "2024-05-30",
+    "kundennummerHash" : "otW62uAx2MRf96TZusuyFqGbQOm0-OdmTbMxqUiDoQQ="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Software-Architekt (m/w/d)",
+    "refnr" : "10001-1000330744-S",
+    "arbeitsort" : {
+      "plz" : "44263",
+      "ort" : "Dortmund",
+      "strasse" : "Phoenixseestr. 6",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4888848,
+        "lon" : 7.5087678
+      },
+      "entfernung" : "3"
+    },
+    "arbeitgeber" : "Lovion GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-13",
+    "modifikationsTimestamp" : "2024-06-13T09:03:35.97",
+    "eintrittsdatum" : "2024-06-13",
+    "kundennummerHash" : "iMRlMJo8POgzv2grG_BdYmfwUd0cBBRtzujjxcXlV6A="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Software Developer (m/w/d) Frontend",
+    "refnr" : "13644-260354-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "MAXIMAGO",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-22",
+    "modifikationsTimestamp" : "2024-06-01T07:05:56.708",
+    "eintrittsdatum" : "2024-06-01",
+    "externeUrl" : "https://www.get-in-it.de/jobsuche/p260354?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-basic"
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Trainee (m/w/d) Software Engineering",
+    "refnr" : "13884-156503-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5148138,
+        "lon" : 7.4724045
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "CHECK24",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-04T12:21:27.435",
+    "eintrittsdatum" : "2024-06-04",
+    "externeUrl" : "https://jobad.onapply.de/details/156503.html?source=arbeitsagentur"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Programmierer/Entwickler (m/w/d) Software SPS/IPC",
+    "refnr" : "10001-1000001749-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5148138,
+        "lon" : 7.4724045
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "MGA Ingenieurdienstleistungen GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-24",
+    "modifikationsTimestamp" : "2024-05-24T08:22:37.923",
+    "eintrittsdatum" : "2024-05-24",
+    "kundennummerHash" : "sQIxzYyzqgZCjOoFoMyqCRoTZXh8R0FdHlGHFjPHrOI="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Solution Architect Salesforce CRM (w/m/d)",
+    "refnr" : "17311-151307-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "adresszusatz" : "Dortmund, Deutschland",
+      "strasse" : "Löwenstraße 11a",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5095031,
+        "lon" : 7.4703631
+      },
+      "entfernung" : "0"
+    },
+    "arbeitgeber" : "Capgemini Deutschland GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-06T13:45:08.996",
+    "eintrittsdatum" : "2024-06-06",
+    "kundennummerHash" : "oWT74Mpbdj5YwZ5RocquNMW_kXPfYT21lJCUoSyvOdA="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Lead Architect Intelligent Integration (m/w/d)",
+    "refnr" : "17311-231697-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "adresszusatz" : "Dortmund, Deutschland",
+      "strasse" : "Löwenstraße 11a",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5095031,
+        "lon" : 7.4703631
+      },
+      "entfernung" : "0"
+    },
+    "arbeitgeber" : "Capgemini Deutschland GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-05T08:22:54.149",
+    "eintrittsdatum" : "2024-06-05",
+    "kundennummerHash" : "oWT74Mpbdj5YwZ5RocquNMW_kXPfYT21lJCUoSyvOdA="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Technischer Architekt Salesforce (w/m/d)",
+    "refnr" : "17311-151309-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "adresszusatz" : "Dortmund, Deutschland",
+      "strasse" : "Löwenstraße 11a",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5095031,
+        "lon" : 7.4703631
+      },
+      "entfernung" : "0"
+    },
+    "arbeitgeber" : "Capgemini Deutschland GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-04T12:16:42.941",
+    "eintrittsdatum" : "2024-06-05",
+    "kundennummerHash" : "oWT74Mpbdj5YwZ5RocquNMW_kXPfYT21lJCUoSyvOdA="
+  }, {
+    "beruf" : "Ingenieur/in - Elektrotechnik",
+    "titel" : "Software Projektmanager (m/w/d)",
+    "refnr" : "13645-236671-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Swisslog",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-08",
+    "modifikationsTimestamp" : "2024-06-01T07:03:20.493",
+    "eintrittsdatum" : "2024-06-01",
+    "externeUrl" : "https://www.get-in-engineering.de/jobsuche/p236671?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-basic"
+  }, {
+    "beruf" : "Anwendungsprogrammierer/in",
+    "titel" : "Senior Software Engineer (m/w/d)",
+    "refnr" : "13644-258363-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "proLogistik",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-03",
+    "modifikationsTimestamp" : "2024-06-01T07:03:34.231",
+    "eintrittsdatum" : "2024-06-01",
+    "externeUrl" : "https://www.get-in-it.de/jobsuche/p258363?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-premium"
+  }, {
+    "beruf" : "Anwendungsprogrammierer/in",
+    "titel" : "JAVA Software Engineer (m/w/d)",
+    "refnr" : "13644-258356-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "proLogistik",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-03",
+    "modifikationsTimestamp" : "2024-06-01T07:03:33.989",
+    "eintrittsdatum" : "2024-06-01",
+    "externeUrl" : "https://www.get-in-it.de/jobsuche/p258356?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-premium"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Lead Software Developer (m/w/d) - Service Now",
+    "refnr" : "12336-a24f1108j0394819-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "E.ON Grid Solutions GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-15",
+    "modifikationsTimestamp" : "2024-06-15T07:04:48.449",
+    "eintrittsdatum" : "2024-06-15",
+    "externeUrl" : "https://jobs.jobspreader.com/viewjob-5yphz?utm_source=jsba-premium&utm_medium=n-a&utm_campaign=it&utm_term=lead-software-developer-m-w-d-service-now"
+  }, {
+    "beruf" : "Kundendienstberater/in",
+    "titel" : "Support and Software Consultant (Dortmund) (m/w/d) [Kziff. RS8503]",
+    "refnr" : "10001-1000100700-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5148138,
+        "lon" : 7.4724045
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "L&W CONSOLIDATION GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-18",
+    "modifikationsTimestamp" : "2024-06-18T11:57:55.768",
+    "eintrittsdatum" : "2024-06-18",
+    "kundennummerHash" : "Em1sURBbF8mlIYnvUvh0szb0caE96dOsucyuJG3r5ko="
+  }, {
+    "beruf" : "IT-Systemadministrator/in",
+    "titel" : "Software Application Manager / Anwendungsbetreuer (w/m/d) HealthTec",
+    "refnr" : "13644-261375-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "IQVIA",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-06",
+    "modifikationsTimestamp" : "2024-06-06T08:49:41.849",
+    "eintrittsdatum" : "2024-06-06",
+    "externeUrl" : "https://www.get-in-it.de/jobsuche/p261375?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-basic"
+  }, {
+    "beruf" : "IT-Berater/in",
+    "titel" : "(Senior) Software Engineer .NET (m/w/d)",
+    "refnr" : "10000-1182488135-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5148138,
+        "lon" : 7.4724046
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Best Profile",
+    "aktuelleVeroeffentlichungsdatum" : "2024-04-29",
+    "modifikationsTimestamp" : "2024-05-07T16:55:57.202",
+    "eintrittsdatum" : "2024-04-29",
+    "kundennummerHash" : "JV32hN5ZeGHL5SDtvXpaVcedB9p_bLzizwqv4jq9Wyw="
+  }, {
+    "beruf" : "Anwendungssystemberater/in",
+    "titel" : "Software Systemtester Automotive (all gender)",
+    "refnr" : "10001-1000312767-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.51481389200006,
+        "lon" : 7.472404571000084
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "ALTEN GmbH Coburg",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-07",
+    "modifikationsTimestamp" : "2024-06-07T13:21:12.789",
+    "eintrittsdatum" : "2024-06-07",
+    "kundennummerHash" : "0FUlvexPnfNLVIHUGLueHGyp_NWFkd8YDmzWIFc3fug="
+  }, {
+    "beruf" : "IT-Systemadministrator/in",
+    "titel" : "Software Developer C# / Cloud Native (w/m/d)",
+    "refnr" : "13644-261869-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Remira",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-12",
+    "modifikationsTimestamp" : "2024-06-12T08:03:16.208",
+    "eintrittsdatum" : "2024-06-12",
+    "externeUrl" : "https://www.get-in-it.de/jobsuche/p261869?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-basic"
+  }, {
+    "beruf" : "Ingenieur/in - Elektrotechnik",
+    "titel" : "Entwicklungsingenieur Hard- & Software (m/w/d)",
+    "refnr" : "11070-1242483-1-S",
+    "arbeitsort" : {
+      "plz" : "44143",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5174951,
+        "lon" : 7.51132
+      },
+      "entfernung" : "3"
+    },
+    "arbeitgeber" : "KHS GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-14",
+    "modifikationsTimestamp" : "2024-06-14T13:07:53.976",
+    "eintrittsdatum" : "2024-06-15",
+    "externeUrl" : "https://www.jobstairs.de/de/stellenangebot-entwicklungsingenieur-hard-software-mwd-khs-gmbh-44143-dortmund--2105818.html"
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Senior Enterprise / IT Architekt (w/m/d)",
+    "refnr" : "17311-226011-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "adresszusatz" : "Dortmund, Deutschland",
+      "strasse" : "Löwenstraße 11a",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5095031,
+        "lon" : 7.4703631
+      },
+      "entfernung" : "0"
+    },
+    "arbeitgeber" : "Capgemini Deutschland GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-05",
+    "modifikationsTimestamp" : "2024-06-06T14:07:52.71",
+    "eintrittsdatum" : "2024-06-06",
+    "kundennummerHash" : "oWT74Mpbdj5YwZ5RocquNMW_kXPfYT21lJCUoSyvOdA="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Software Tester (m/w/d) - Software Test Engineer",
+    "refnr" : "11112-44452-1584698-0-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5127673,
+        "lon" : 7.4753817
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Ratbacher GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-03-27",
+    "modifikationsTimestamp" : "2024-06-20T07:01:48.408",
+    "eintrittsdatum" : "2024-06-21",
+    "externeUrl" : "https://deutschland-stellenmarkt.de/job_show.php?id=bfa$bfa_11112-44452-1584698-0-S"
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "IT-Architekt (m/w/d)",
+    "refnr" : "12336-a24f1042j0392584-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Westnetz GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-23",
+    "modifikationsTimestamp" : "2024-06-18T07:23:56.425",
+    "eintrittsdatum" : "2024-06-18",
+    "externeUrl" : "https://jobs.jobspreader.com/viewjob-6wgvp?utm_source=jsba-premium&utm_medium=n-a&utm_campaign=it&utm_term=it-architekt-m-w-d"
+  }, {
+    "beruf" : "Anwendungsprogrammierer/in",
+    "titel" : "Software Developer (m/w/d) C# .Net",
+    "refnr" : "13644-260353-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "MAXIMAGO",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-22",
+    "modifikationsTimestamp" : "2024-06-01T07:05:56.507",
+    "eintrittsdatum" : "2024-06-01",
+    "externeUrl" : "https://www.get-in-it.de/jobsuche/p260353?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-basic"
+  }, {
+    "beruf" : "Product Owner",
+    "titel" : "Product Owner Embedded Software - Automotive (all gender)",
+    "refnr" : "10001-1000312784-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.51481389200006,
+        "lon" : 7.472404571000084
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "ALTEN GmbH Coburg",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-07",
+    "modifikationsTimestamp" : "2024-06-07T13:23:46.966",
+    "eintrittsdatum" : "2024-06-07",
+    "kundennummerHash" : "0FUlvexPnfNLVIHUGLueHGyp_NWFkd8YDmzWIFc3fug="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Anwendungsentwickler /Software-Spezialist (m/w/d)",
+    "refnr" : "10000-1197737031-S",
+    "arbeitsort" : {
+      "plz" : "44263",
+      "ort" : "Dortmund",
+      "strasse" : "Karl-Harr-Str. 1",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4952766,
+        "lon" : 7.4983699
+      },
+      "entfernung" : "2"
+    },
+    "arbeitgeber" : "RGU GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-02-02",
+    "modifikationsTimestamp" : "2024-05-07T17:10:11.916",
+    "eintrittsdatum" : "2024-03-22",
+    "kundennummerHash" : "KBxi1LMwwCIJzIZlxIMnKOHOtDGr-RjuXr2jYRDm2Ng="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "IT Architekt Data Analytics/ Data Engineering (w/m/d)",
+    "refnr" : "17311-155104-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "adresszusatz" : "Düsseldorf, Deutschland",
+      "strasse" : "Löwenstraße 11a",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5095031,
+        "lon" : 7.4703631
+      },
+      "entfernung" : "0"
+    },
+    "arbeitgeber" : "Capgemini Deutschland GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-10",
+    "modifikationsTimestamp" : "2024-06-12T09:39:31.161",
+    "eintrittsdatum" : "2024-06-12",
+    "kundennummerHash" : "oWT74Mpbdj5YwZ5RocquNMW_kXPfYT21lJCUoSyvOdA="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Solution Architect Microsoft Dynamics 365 (w/m/d)",
+    "refnr" : "17311-235798-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "adresszusatz" : "Dortmund, Deutschland",
+      "strasse" : "Löwenstrasse 11a",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5095031,
+        "lon" : 7.4703631
+      },
+      "entfernung" : "0"
+    },
+    "arbeitgeber" : "Capgemini Deutschland GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-27",
+    "modifikationsTimestamp" : "2024-06-06T09:37:40.169",
+    "eintrittsdatum" : "2024-06-06",
+    "kundennummerHash" : "oWT74Mpbdj5YwZ5RocquNMW_kXPfYT21lJCUoSyvOdA="
+  }, {
+    "beruf" : "Anwendungsprogrammierer/in",
+    "titel" : "Software Engineer (m/w/d) für unternehmenseigene Softwarelösung",
+    "refnr" : "13644-258368-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "proLogistik",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-03",
+    "modifikationsTimestamp" : "2024-06-01T07:03:34.738",
+    "eintrittsdatum" : "2024-06-01",
+    "externeUrl" : "https://www.get-in-it.de/jobsuche/p258368?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-premium"
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "IT Architekt (w/m/d)",
+    "refnr" : "12336-a24f495j0294670-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Capgemini Deutschland",
+    "aktuelleVeroeffentlichungsdatum" : "2024-04-09",
+    "modifikationsTimestamp" : "2024-06-04T07:15:28.884",
+    "eintrittsdatum" : "2024-06-04",
+    "externeUrl" : "https://jobs.jobspreader.com/viewjob-nbdmn?utm_source=jsba-premium&utm_medium=n-a&utm_campaign=it&utm_term=it-architekt-w-m-d"
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Business/Enterprise IT Architekt Telekommunikation (w/m/d)",
+    "refnr" : "17311-164684-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "adresszusatz" : "Dortmund, Deutschland",
+      "strasse" : "Löwenstraße 11a",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5095031,
+        "lon" : 7.4703631
+      },
+      "entfernung" : "0"
+    },
+    "arbeitgeber" : "Capgemini Deutschland GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-05",
+    "modifikationsTimestamp" : "2024-06-06T13:53:20.341",
+    "eintrittsdatum" : "2024-06-06",
+    "kundennummerHash" : "oWT74Mpbdj5YwZ5RocquNMW_kXPfYT21lJCUoSyvOdA="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "(Senior) Software Developer im SAP CloudUmfeld",
+    "refnr" : "11956-1780531717970401-S",
+    "arbeitsort" : {
+      "plz" : "44139",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4988346,
+        "lon" : 7.4619711
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "NTT DATA Business Solutions Global Managed Services GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-10",
+    "modifikationsTimestamp" : "2024-06-20T07:07:15.982",
+    "eintrittsdatum" : "2024-06-20",
+    "externeUrl" : "https://www.empfehlungsbund.de/job/178053"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Studentische Hilfskraft - Softwareentwicklung (m/w/d)",
+    "refnr" : "14225-213199_3591c20-S",
+    "arbeitsort" : {
+      "plz" : "44147",
+      "ort" : "Dortmund",
+      "strasse" : "Speicherstr. 6",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.525715,
+        "lon" : 7.445372
+      },
+      "entfernung" : "3"
+    },
+    "arbeitgeber" : "Fraunhofer-Institut für Software- und Systemtechnik ISST",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-20",
+    "modifikationsTimestamp" : "2024-06-20T07:47:14.99",
+    "eintrittsdatum" : "2024-06-20",
+    "externeUrl" : "https://www.jobvector.de/jobs-stellenangebote/x/x/x-213199.html?utm_source=arbeitsagentur&utm_medium=partner&utm_campaign=tmcfdae_job_jid213199&utm_content=b2c&utm_term=tmf8eca_uic3591c20"
+  }, {
+    "beruf" : "Datenbankadministrator/in",
+    "titel" : "Data Scientist - Projektmanagement (m/w/d)",
+    "refnr" : "14225-213704_bc9a7f6-S",
+    "arbeitsort" : {
+      "plz" : "44147",
+      "ort" : "Dortmund",
+      "strasse" : "Speicherstraße 6",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.525715,
+        "lon" : 7.445372
+      },
+      "entfernung" : "3"
+    },
+    "arbeitgeber" : "Fraunhofer-Institut für Software- und Systemtechnik ISST",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-20",
+    "modifikationsTimestamp" : "2024-06-20T07:45:41.87",
+    "eintrittsdatum" : "2024-06-20",
+    "externeUrl" : "https://www.jobvector.de/jobs-stellenangebote/x/x/x-213704.html?utm_source=arbeitsagentur&utm_medium=partner&utm_campaign=tmcfdae_job_jid213704&utm_content=b2c&utm_term=tmf8eca_uicbc9a7f6"
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Cloud Solution Architekt (m/w/d)",
+    "refnr" : "12336-a24f1042j0379878-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Westnetz GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-23",
+    "modifikationsTimestamp" : "2024-06-18T07:23:35.026",
+    "eintrittsdatum" : "2024-06-18",
+    "externeUrl" : "https://jobs.jobspreader.com/viewjob-s6bf5?utm_source=jsba-premium&utm_medium=n-a&utm_campaign=it&utm_term=cloud-solution-architekt-m-w-d"
+  }, {
+    "beruf" : "IT-Entwickler/in (Weiterbildung/Ausbildung)",
+    "titel" : "Lead Software Developer (m/w/d) - Service Now",
+    "refnr" : "12728-42593882-613-S",
+    "arbeitsort" : {
+      "plz" : "44139",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.498834613223245,
+        "lon" : 7.461971135637377
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "E.ON SE",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-14",
+    "modifikationsTimestamp" : "2024-06-13T09:51:53.476",
+    "eintrittsdatum" : "2024-06-14",
+    "kundennummerHash" : "GEhs3p-5hErGm5cC8YXdVxgMhnzHQfUFdsPo2vQnjmo="
+  }, {
+    "beruf" : "Ingenieur/in - Elektrotechnik",
+    "titel" : "Automatisierungstechniker Software (w/m/d)",
+    "refnr" : "12362-TR-233494_495855LS-S",
+    "arbeitsort" : {
+      "plz" : "59174",
+      "ort" : "Kamen, Westfalen",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.58036066364199,
+        "lon" : 7.666076278971966
+      },
+      "entfernung" : "16"
+    },
+    "arbeitgeber" : "Brunel GmbH NL Bochum",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-17",
+    "modifikationsTimestamp" : "2024-06-17T07:52:13.531",
+    "eintrittsdatum" : "2024-06-17",
+    "kundennummerHash" : "Q-0tyrf2hvLWMUPGdfGF5KRtojZmyQVaP8kSQK_Kh24="
+  }, {
+    "beruf" : "Ingenieur/in - Automatisierungstechnik",
+    "titel" : "Controls Software Engineer (m/f/d)",
+    "refnr" : "13645-236672-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Swisslog",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-08",
+    "modifikationsTimestamp" : "2024-06-01T07:03:20.722",
+    "eintrittsdatum" : "2024-06-01",
+    "externeUrl" : "https://www.get-in-engineering.de/jobsuche/p236672?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-basic"
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Senior IT Architekt Industrie 4.0 (w/m/d)",
+    "refnr" : "17311-142430-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "adresszusatz" : "Dortmund, Deutschland",
+      "strasse" : "Löwenstraße 11a",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5095031,
+        "lon" : 7.4703631
+      },
+      "entfernung" : "0"
+    },
+    "arbeitgeber" : "Capgemini Deutschland GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-04T12:16:44.595",
+    "eintrittsdatum" : "2024-06-05",
+    "kundennummerHash" : "oWT74Mpbdj5YwZ5RocquNMW_kXPfYT21lJCUoSyvOdA="
+  }, {
+    "beruf" : "Anwendungsprogrammierer/in",
+    "titel" : "Software Engineer Java (m/w/d) für unsere Lagerverwaltungssoftware",
+    "refnr" : "13644-258370-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "proLogistik",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-03",
+    "modifikationsTimestamp" : "2024-06-01T07:03:35.226",
+    "eintrittsdatum" : "2024-06-01",
+    "externeUrl" : "https://www.get-in-it.de/jobsuche/p258370?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-premium"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Java Software Developer (m/w/d) - Java Entwickler",
+    "refnr" : "11112-44266-1580200-0-S",
+    "arbeitsort" : {
+      "plz" : "44141",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.503396,
+        "lon" : 7.4987872
+      },
+      "entfernung" : "2"
+    },
+    "arbeitgeber" : "Ratbacher GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-03-13",
+    "modifikationsTimestamp" : "2024-05-30T17:37:03.159",
+    "eintrittsdatum" : "2024-05-31",
+    "externeUrl" : "https://deutschland-stellenmarkt.de/job_show.php?id=bfa$bfa_11112-44266-1580200-0-S"
+  }, {
+    "beruf" : "Fachinformatiker/in - Anwendungsentwicklung",
+    "titel" : "Software Product Quality Manager SAP (f/m/d)",
+    "refnr" : "11956-2420731717970401-S",
+    "arbeitsort" : {
+      "plz" : "44139",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4988346,
+        "lon" : 7.4619711
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "NTT DATA Business Solutions Global Managed Services GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-10",
+    "modifikationsTimestamp" : "2024-06-20T07:06:53.604",
+    "eintrittsdatum" : "2024-06-20",
+    "externeUrl" : "https://www.empfehlungsbund.de/job/242073"
+  }, {
+    "beruf" : "Projektleiter/in",
+    "titel" : "Software- Projektmanager (m/w/d)",
+    "refnr" : "10001-1000312192-S",
+    "arbeitsort" : {
+      "plz" : "44799",
+      "ort" : "Bochum",
+      "strasse" : "Wasserstr. 223",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.46064612300006,
+        "lon" : 7.223507672000039
+      },
+      "entfernung" : "18"
+    },
+    "arbeitgeber" : "common solutions GmbH & Co KG",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-07",
+    "modifikationsTimestamp" : "2024-06-07T13:53:25.276",
+    "eintrittsdatum" : "2024-06-07",
+    "kundennummerHash" : "YACDeJn-jnrSfBnmzEkICTnLsRxEKM4Y-7-uEaw0ivs="
+  }, {
+    "beruf" : "Ingenieur/in - Elektrotechnik",
+    "titel" : "Embedded Software Ingenieur (m/w/d)",
+    "refnr" : "10000-1192252732-S",
+    "arbeitsort" : {
+      "plz" : "58638",
+      "ort" : "Iserlohn",
+      "strasse" : "Kalkofen 6",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.373469,
+        "lon" : 7.6646496
+      },
+      "entfernung" : "20"
+    },
+    "arbeitgeber" : "HQ-Europe GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-17",
+    "modifikationsTimestamp" : "2024-06-17T15:49:13.377",
+    "eintrittsdatum" : "2024-06-17",
+    "kundennummerHash" : "j3DF38FT_nINsh7-MHWkqrXK90wIRnjopxyKe1VBwiY="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Solution Architect Oracle - Robotron eCount (m/w/d)",
+    "refnr" : "12728-42530053-523-S",
+    "arbeitsort" : {
+      "plz" : "44139",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.498834613223245,
+        "lon" : 7.461971135637377
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "E.ON SE",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-24",
+    "modifikationsTimestamp" : "2024-05-23T10:51:06.105",
+    "eintrittsdatum" : "2024-05-24",
+    "kundennummerHash" : "GEhs3p-5hErGm5cC8YXdVxgMhnzHQfUFdsPo2vQnjmo="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Solution Architect Oracle - Robotron eCount (m/w/d)",
+    "refnr" : "12336-a24f1108j0386723-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "E.ON Grid Solutions GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-29",
+    "modifikationsTimestamp" : "2024-05-29T07:01:58.36",
+    "eintrittsdatum" : "2024-05-29",
+    "externeUrl" : "https://jobs.jobspreader.com/viewjob-bseq6?utm_source=jsba-premium&utm_medium=n-a&utm_campaign=it&utm_term=solution-architect-oracle-robotron-ecount-m-w-d"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Software Teamleiter* Embedded Systems",
+    "refnr" : "10000-1194539126-S",
+    "arbeitsort" : {
+      "plz" : "44227",
+      "ort" : "Dortmund",
+      "strasse" : "Emil-Figge-Str. 85",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4931589,
+        "lon" : 7.4031958
+      },
+      "entfernung" : "5"
+    },
+    "arbeitgeber" : "Smart Mechatronics GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-03",
+    "modifikationsTimestamp" : "2024-06-03T12:08:18.533",
+    "eintrittsdatum" : "2024-06-03",
+    "kundennummerHash" : "vfpMuM1-LHPgaVDJ6txpB5YSGl--7oimwiEPEJbAL9M="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Senior Consultant / IT Architect SAP Master Data Governance (w/m/d)",
+    "refnr" : "17311-153201-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "adresszusatz" : "Dortmund, Deutschland",
+      "strasse" : "Löwenstraße 11a",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5095031,
+        "lon" : 7.4703631
+      },
+      "entfernung" : "0"
+    },
+    "arbeitgeber" : "Capgemini Deutschland GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-06",
+    "modifikationsTimestamp" : "2024-06-11T12:35:15.514",
+    "eintrittsdatum" : "2024-06-10",
+    "kundennummerHash" : "oWT74Mpbdj5YwZ5RocquNMW_kXPfYT21lJCUoSyvOdA="
+  }, {
+    "beruf" : "Buchhalter/in",
+    "titel" : "Consultant ERP-Software (m/w/d) - Einstiegschance für Buchhalter/Steuerfachangestellte",
+    "refnr" : "13635-657176f1_JB4341758-S",
+    "arbeitsort" : {
+      "plz" : "44269",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.484653,
+        "lon" : 7.5246796
+      },
+      "entfernung" : "5"
+    },
+    "arbeitgeber" : "tegosgroup",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-14",
+    "modifikationsTimestamp" : "2024-06-14T14:12:54.147",
+    "eintrittsdatum" : "2024-06-18",
+    "externeUrl" : "https://www.jobexport.de/job/4341758.html?exp=81&cid=657176f1-0dc1-476a-b935-87859d31ca05"
+  }, {
+    "beruf" : "ERP-Systembetreuer/in",
+    "titel" : "Berater / Consultant ERP-Software (m/w/d)",
+    "refnr" : "17195-k58839.1346-S",
+    "arbeitsort" : {
+      "plz" : "44269",
+      "ort" : "Dortmund",
+      "strasse" : "Freie-Vogel-Straße 391",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.506398186407345,
+        "lon" : 7.53169688865783
+      },
+      "entfernung" : "4"
+    },
+    "arbeitgeber" : "KUMAVISION AG",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-13",
+    "modifikationsTimestamp" : "2024-06-03T18:30:54.978",
+    "eintrittsdatum" : "2024-06-04",
+    "kundennummerHash" : "3jAmxtt4FSumADhlqk8nAHS7Snq-A5hURSeLkdE0yhs="
+  }, {
+    "beruf" : "Kaufmann/-frau - Einzelhandel (Bürowirtschaft)",
+    "titel" : "Pfandkredit, Vertragsgestealtung, Bedienung hauseigener Software, Teilzeit, Vollzeit",
+    "refnr" : "10001-1000327281-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "strasse" : "Brückstr. 56",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.517050468000036,
+        "lon" : 7.465133407000053
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Leihhaus Alonso GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-12",
+    "modifikationsTimestamp" : "2024-06-12T11:37:51.88",
+    "eintrittsdatum" : "2024-06-12",
+    "kundennummerHash" : "o-m_vgJRmd8pp_XzFAS0S2tY7Xw-6hbBjK2R3GZQst8="
+  }, {
+    "beruf" : "Kaufmann/-frau - Einzelhandel (Bürowirtschaft)",
+    "titel" : "Pfandkredit, Vertragsgestaltung, Bedienung hauseigener Software, Mini Job",
+    "refnr" : "10001-1000327107-S",
+    "arbeitsort" : {
+      "plz" : "44135",
+      "ort" : "Dortmund",
+      "strasse" : "Brückstr. 56",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.517050468000036,
+        "lon" : 7.465133407000053
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Leihhaus Alonso GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-12",
+    "modifikationsTimestamp" : "2024-06-12T11:37:00.657",
+    "eintrittsdatum" : "2024-06-12",
+    "kundennummerHash" : "o-m_vgJRmd8pp_XzFAS0S2tY7Xw-6hbBjK2R3GZQst8="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Solution Architect Microsoft Dynamics 365 (w/m/d)",
+    "refnr" : "12336-a24f495j0391821-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Capgemini Deutschland",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-08",
+    "modifikationsTimestamp" : "2024-06-05T07:02:52.035",
+    "eintrittsdatum" : "2024-06-05",
+    "externeUrl" : "https://jobs.jobspreader.com/viewjob-3555d?utm_source=jsba-premium&utm_medium=n-a&utm_campaign=it&utm_term=solution-architect-microsoft-dynamics-365-w-m-d"
+  }, {
+    "beruf" : "Ingenieur/in - Informations-, Kommunikationstechnik",
+    "titel" : "Full-Stack Software Engineer (m/w/d)",
+    "refnr" : "13645-236521-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "SQLI Deutschland",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-07",
+    "modifikationsTimestamp" : "2024-06-01T07:03:10.673",
+    "eintrittsdatum" : "2024-06-01",
+    "externeUrl" : "https://www.get-in-engineering.de/jobsuche/p236521?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-basic"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Software Developer (m/w/d) Frontend, MAXIMAGO GmbH",
+    "refnr" : "12811-1426569-S",
+    "arbeitsort" : {
+      "plz" : "44263",
+      "ort" : "Dortmund",
+      "strasse" : "Phoenixseestraße 12",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4885729,
+        "lon" : 7.5105459
+      },
+      "entfernung" : "4"
+    },
+    "arbeitgeber" : "MAXIMAGO GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-04T18:11:34.532",
+    "eintrittsdatum" : "2024-06-04",
+    "externeUrl" : "https://www.finest-jobs.com/Stellenanzeige/Software-Developer-D-Frontend-989894?cp=BA"
+  }, {
+    "beruf" : "Techniker/in - Elektrotechnik (ohne Schwerpunkt)",
+    "titel" : "Elektrotechniker (m/w/d) – Unbefristet in Vollzeit",
+    "refnr" : "12688-24658473-RJA-S",
+    "arbeitsort" : {
+      "plz" : "44149",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4999624,
+        "lon" : 7.3972453
+      },
+      "entfernung" : "5"
+    },
+    "arbeitgeber" : "Planets Software GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-17",
+    "modifikationsTimestamp" : "2024-06-17T09:20:31.33",
+    "eintrittsdatum" : "2024-06-17",
+    "externeUrl" : "https://www.dortmunder-jobanzeiger.de/job/planets-software-gmbh/24658473/?utm_campaign=free&utm_source=bundesagentur&utm_medium=unpaid-partner"
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "DevOps Engineer (m/w/d) Continuous Delivery Pipelines",
+    "refnr" : "10001-1000330752-S",
+    "arbeitsort" : {
+      "plz" : "44263",
+      "ort" : "Dortmund",
+      "strasse" : "Phoenixseestr. 6",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4888848,
+        "lon" : 7.5087678
+      },
+      "entfernung" : "3"
+    },
+    "arbeitgeber" : "Lovion GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-13",
+    "modifikationsTimestamp" : "2024-06-13T09:04:34.871",
+    "eintrittsdatum" : "2024-06-13",
+    "kundennummerHash" : "iMRlMJo8POgzv2grG_BdYmfwUd0cBBRtzujjxcXlV6A="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Senior Embedded Engineer* Connectivity Software",
+    "refnr" : "10001-1000033395-S",
+    "arbeitsort" : {
+      "plz" : "44227",
+      "ort" : "Dortmund",
+      "strasse" : "Emil-Figge-Str. 85",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.493158934000064,
+        "lon" : 7.403195842000059
+      },
+      "entfernung" : "5"
+    },
+    "arbeitgeber" : "Smart Mechatronics GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-03",
+    "modifikationsTimestamp" : "2024-06-03T12:12:10.469",
+    "eintrittsdatum" : "2024-06-03",
+    "kundennummerHash" : "vfpMuM1-LHPgaVDJ6txpB5YSGl--7oimwiEPEJbAL9M="
+  }, {
+    "beruf" : "Ingenieur/in - technische Informatik",
+    "titel" : "Engineer* Embedded Software",
+    "refnr" : "10000-1193226660-S",
+    "arbeitsort" : {
+      "plz" : "44227",
+      "ort" : "Dortmund",
+      "strasse" : "Emil-Figge-Str. 85",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.493159,
+        "lon" : 7.4031958
+      },
+      "entfernung" : "5"
+    },
+    "arbeitgeber" : "Smart Mechatronics GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-03",
+    "modifikationsTimestamp" : "2024-06-03T12:06:32.553",
+    "eintrittsdatum" : "2024-06-03",
+    "kundennummerHash" : "vfpMuM1-LHPgaVDJ6txpB5YSGl--7oimwiEPEJbAL9M="
+  }, {
+    "beruf" : "IT-Tester/in",
+    "titel" : "Testautomatisierer/Software-Tester (m/w/d)",
+    "refnr" : "12288-3674096468-S",
+    "arbeitsort" : {
+      "plz" : "44787",
+      "ort" : "Bochum",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4824976,
+        "lon" : 7.2161591
+      },
+      "entfernung" : "18"
+    },
+    "arbeitgeber" : "WeMatch.",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-13",
+    "modifikationsTimestamp" : "2024-06-13T07:38:12.557",
+    "eintrittsdatum" : "2024-06-14",
+    "externeUrl" : "https://www.persy.jobs/persy/l/job-ddjf5-b"
+  }, {
+    "beruf" : "Ingenieur/in - Fahrzeugtechnik",
+    "titel" : "Testingenieur für ECU Software- und Integrationstest (m/w/d)",
+    "refnr" : "12634-694630_JB4344839-S",
+    "arbeitsort" : {
+      "plz" : "44803",
+      "ort" : "Bochum",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.469570096972745,
+        "lon" : 7.258578722666337
+      },
+      "entfernung" : "15"
+    },
+    "arbeitgeber" : "Akkodis Germany Tech Experts GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-18",
+    "modifikationsTimestamp" : "2024-06-18T08:40:24.17",
+    "eintrittsdatum" : "2024-06-22",
+    "kundennummerHash" : "XEADyYOVZQR_SKn3pgT-BM75psI31uWH3h7NxJFOaks="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Software Engineer Web (w/m/d)",
+    "refnr" : "10001-1000076950-S",
+    "arbeitsort" : {
+      "plz" : "58313",
+      "ort" : "Herdecke, Ruhr",
+      "strasse" : "Gahlenfeldstraße 25",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.422156,
+        "lon" : 7.4396299
+      },
+      "entfernung" : "10"
+    },
+    "arbeitgeber" : "avanCode GmbH Adam Nowak u. Andreas Vogel",
+    "aktuelleVeroeffentlichungsdatum" : "2024-04-08",
+    "modifikationsTimestamp" : "2024-06-13T10:39:20.656",
+    "eintrittsdatum" : "2024-06-13",
+    "kundennummerHash" : "ZfLUE2OcDri0iRq-wHVVJQVc_seE7ByiZGP92aWi0YE="
+  }, {
+    "beruf" : "IT-Trainer/in",
+    "titel" : "IT- und Software-Solution-Trainer (m/w/d)",
+    "refnr" : "10001-1000278499-S",
+    "arbeitsort" : {
+      "plz" : "44801",
+      "ort" : "Bochum",
+      "ortsteil" : "Querenburg",
+      "strasse" : "Merianstr. 30",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4532176,
+        "lon" : 7.2639093
+      },
+      "entfernung" : "16"
+    },
+    "arbeitgeber" : "Genius Bytes Software Solutions GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-29",
+    "modifikationsTimestamp" : "2024-05-31T08:14:49.48",
+    "eintrittsdatum" : "2024-05-31",
+    "kundennummerHash" : "8f8POXNKGsOS_TLqUFEAoPPvAIgU6nYZKGS9VzN18NY="
+  }, {
+    "beruf" : "ERP-Systembetreuer/in",
+    "titel" : "Consultant ERP-Software Customer Service (m/w/d)",
+    "refnr" : "17195-k58839.1361-S",
+    "arbeitsort" : {
+      "plz" : "44269",
+      "ort" : "Dortmund",
+      "strasse" : "Freie-Vogel-Straße 391",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.506398186407345,
+        "lon" : 7.53169688865783
+      },
+      "entfernung" : "4"
+    },
+    "arbeitgeber" : "KUMAVISION AG",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-17",
+    "modifikationsTimestamp" : "2024-06-06T18:16:31.105",
+    "eintrittsdatum" : "2024-06-07",
+    "kundennummerHash" : "3jAmxtt4FSumADhlqk8nAHS7Snq-A5hURSeLkdE0yhs="
+  }, {
+    "beruf" : "DevOps Engineer",
+    "titel" : "Senior Software Engineer Java (m/w/d)",
+    "refnr" : "12288-3683609671-S",
+    "arbeitsort" : {
+      "plz" : "44801",
+      "ort" : "Bochum",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4482897,
+        "lon" : 7.2598516
+      },
+      "entfernung" : "16"
+    },
+    "arbeitgeber" : "WeMatch.",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-19",
+    "modifikationsTimestamp" : "2024-06-19T07:21:49.819",
+    "eintrittsdatum" : "2024-06-20",
+    "externeUrl" : "https://www.persy.jobs/persy/l/job-dertb-b"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Software Developer (m/w/d) C# .Net, MAXIMAGO GmbH",
+    "refnr" : "12811-1426571-S",
+    "arbeitsort" : {
+      "plz" : "44263",
+      "ort" : "Dortmund",
+      "strasse" : "Phoenixseestraße 12",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4885729,
+        "lon" : 7.5105459
+      },
+      "entfernung" : "4"
+    },
+    "arbeitgeber" : "MAXIMAGO GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-04T18:11:34.808",
+    "eintrittsdatum" : "2024-06-04",
+    "externeUrl" : "https://www.finest-jobs.com/Stellenanzeige/Software-Developer-D-C-Net-989898?cp=BA"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Senior Software Engineer (m/w/d) Frontend, MAXIMAGO GmbH",
+    "refnr" : "12811-1426540-S",
+    "arbeitsort" : {
+      "plz" : "44263",
+      "ort" : "Dortmund",
+      "strasse" : "Phoenixseestraße 12",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4885729,
+        "lon" : 7.5105459
+      },
+      "entfernung" : "4"
+    },
+    "arbeitgeber" : "MAXIMAGO GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-04T18:11:33.899",
+    "eintrittsdatum" : "2024-06-04",
+    "externeUrl" : "https://www.finest-jobs.com/Stellenanzeige/Senior-Software-Engineer-D-Frontend-989836?cp=BA"
+  }, {
+    "beruf" : "Web Developer",
+    "titel" : "Software Developer (m/w/d) SAP",
+    "refnr" : "12288-3681460171-S",
+    "arbeitsort" : {
+      "plz" : "59199",
+      "ort" : "Bönen",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5950029,
+        "lon" : 7.7681132
+      },
+      "entfernung" : "23"
+    },
+    "arbeitgeber" : "ProPlacement GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-18",
+    "modifikationsTimestamp" : "2024-06-18T07:30:58.956",
+    "eintrittsdatum" : "2024-06-19",
+    "externeUrl" : "https://www.persy.jobs/persy/l/job-deend-b"
+  }, {
+    "beruf" : "Informatiker/in (Hochschule)",
+    "titel" : "IT-Berater:in – Software-Architektur",
+    "refnr" : "10000-1191347760-S",
+    "arbeitsort" : {
+      "plz" : "44149",
+      "ort" : "Dortmund",
+      "strasse" : "Sebrathweg 7",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4932275,
+        "lon" : 7.3973916
+      },
+      "entfernung" : "5"
+    },
+    "arbeitgeber" : "Viadee AG-Münster-",
+    "aktuelleVeroeffentlichungsdatum" : "2022-12-14",
+    "modifikationsTimestamp" : "2024-05-07T16:56:07.18",
+    "eintrittsdatum" : "2022-12-14",
+    "kundennummerHash" : "ze09QsDO0k5ZqvEmGPIUJpRfuFEuQGzTmE_vInalH8k="
+  }, {
+    "beruf" : "ERP-Berater/in - ERP-Consultant",
+    "titel" : "Product Consultant ERP-Software Medizintechnik (m/w/d)",
+    "refnr" : "17195-k58839.1342-S",
+    "arbeitsort" : {
+      "plz" : "44269",
+      "ort" : "Dortmund",
+      "strasse" : "Freie-Vogel-Straße 391",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.506398186407345,
+        "lon" : 7.53169688865783
+      },
+      "entfernung" : "4"
+    },
+    "arbeitgeber" : "KUMAVISION AG",
+    "aktuelleVeroeffentlichungsdatum" : "2024-04-29",
+    "modifikationsTimestamp" : "2024-06-10T18:27:13.958",
+    "eintrittsdatum" : "2024-06-11",
+    "kundennummerHash" : "3jAmxtt4FSumADhlqk8nAHS7Snq-A5hURSeLkdE0yhs="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Software Engineer (m/w/d)",
+    "refnr" : "10000-1194151486-S",
+    "arbeitsort" : {
+      "plz" : "44793",
+      "ort" : "Bochum",
+      "ortsteil" : "Innenstadt",
+      "strasse" : "Alleestr. 80",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4795143,
+        "lon" : 7.203136
+      },
+      "entfernung" : "19"
+    },
+    "arbeitgeber" : "Setlog GmbH Bochum",
+    "aktuelleVeroeffentlichungsdatum" : "2023-05-03",
+    "modifikationsTimestamp" : "2024-06-13T07:46:32.612",
+    "eintrittsdatum" : "2024-04-03",
+    "kundennummerHash" : "Y-stuUmLLtW_Ry8CAYp43uCPPl5NKTyqnNhWYSxnVug="
+  }, {
+    "beruf" : "Qualitätsmanager/in",
+    "titel" : "Software Qualitätsmanager (m/w/d) im agilen Umfeld",
+    "refnr" : "11858-11719552-ITJ-S",
+    "arbeitsort" : {
+      "plz" : "45699",
+      "ort" : "Herten, Westfalen",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5843951,
+        "lon" : 7.1472474
+      },
+      "entfernung" : "24"
+    },
+    "arbeitgeber" : "PROSOZ Herten GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-10",
+    "modifikationsTimestamp" : "2024-06-10T08:04:42.592",
+    "eintrittsdatum" : "2024-06-10",
+    "externeUrl" : "https://it-jobs.de/_itj-11719552/?utm_source=bundesagentur&utm_medium=unpaid-partner&utm_campaign=itj_single&pja_cmp=bundesagentur_000"
+  }, {
+    "beruf" : "Application-Engineer/-Manager/in",
+    "titel" : "Application Manager Software Anwendungsbetreuer (w/m/d) HealthTec / Remote",
+    "refnr" : "10001-1000007901-S",
+    "arbeitsort" : {
+      "plz" : "44227",
+      "ort" : "Dortmund",
+      "strasse" : "Hauert 8",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4918584,
+        "lon" : 7.4020471
+      },
+      "entfernung" : "5"
+    },
+    "arbeitgeber" : "Comline GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-03-21",
+    "modifikationsTimestamp" : "2024-04-24T16:47:22.38",
+    "eintrittsdatum" : "2024-03-21",
+    "kundennummerHash" : "I6AKm7IMS1CFlfrKukfAQounUzheSNCasNfKONQoobQ="
+  }, {
+    "beruf" : "Fachinformatiker/in - Anwendungsentwicklung",
+    "titel" : "Ausbildung zum Fachinformatiker – Anwendungsentwicklung    (all genders)",
+    "refnr" : "10000-1198265081-S",
+    "arbeitsort" : {
+      "plz" : "44139",
+      "ort" : "Dortmund",
+      "strasse" : "Ruhrallee 9",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5081394,
+        "lon" : 7.4675843
+      },
+      "entfernung" : "0"
+    },
+    "arbeitgeber" : "OpusCapita Software GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-03-07",
+    "modifikationsTimestamp" : "2024-04-24T17:04:14.497",
+    "eintrittsdatum" : "2024-08-01",
+    "kundennummerHash" : "CmrUIf0CldULmc_gb5veikSow5BznnbdyN-AsCFk-v4="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Senior Software Developer C#.NET (m/w/d) - Hybrid - Remote",
+    "refnr" : "17338-122f97bcfb894bf973-S",
+    "arbeitsort" : {
+      "plz" : "44263",
+      "ort" : "Dortmund",
+      "strasse" : "Phoenixseestraße 12",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4885729,
+        "lon" : 7.5105459
+      },
+      "entfernung" : "4"
+    },
+    "arbeitgeber" : "MAXIMAGO",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-31",
+    "modifikationsTimestamp" : "2024-05-31T07:39:23.006",
+    "eintrittsdatum" : "2024-05-31",
+    "externeUrl" : "https://germantechjobs.de/jobs/MAXIMAGO-Senior-Software-Developer-CNET-mwd?utm_source=ba_int&utm_medium=ba_int&utm_campaign=ba_int"
+  }, {
+    "beruf" : "IT-Vertriebsbeauftragte/r",
+    "titel" : "(Senior) IT Key Account Manager Sector Public w/m/d",
+    "refnr" : "10000-1193784643-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.51481389200006,
+        "lon" : 7.472404571000084
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Computacenter AG & Co. oHG",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-04T15:30:37.077",
+    "eintrittsdatum" : "2024-06-04",
+    "kundennummerHash" : "HJym_zLlKOpczjUd3YuIqcO4eQdrO4DM9YcVzXh-EtU="
+  }, {
+    "beruf" : "IT-Berater/in",
+    "titel" : "IT Consultant Datacenter Storage w/m/d",
+    "refnr" : "10000-1194957357-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.51481389200006,
+        "lon" : 7.472404571000084
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Computacenter AG & Co. oHG",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-03",
+    "modifikationsTimestamp" : "2024-06-03T13:11:49.096",
+    "eintrittsdatum" : "2024-06-03",
+    "kundennummerHash" : "HJym_zLlKOpczjUd3YuIqcO4eQdrO4DM9YcVzXh-EtU="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Softwareentwickler Java/Web w/m/d",
+    "refnr" : "10000-1194320987-S",
+    "arbeitsort" : {
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.51481389200006,
+        "lon" : 7.472404571000084
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "Computacenter AG & Co. oHG",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-03",
+    "modifikationsTimestamp" : "2024-06-03T10:27:42.073",
+    "eintrittsdatum" : "2024-06-03",
+    "kundennummerHash" : "HJym_zLlKOpczjUd3YuIqcO4eQdrO4DM9YcVzXh-EtU="
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Senior Embedded Engineer* Softwarearchitektur & Requirements",
+    "refnr" : "10000-1195502827-S",
+    "arbeitsort" : {
+      "plz" : "44227",
+      "ort" : "Dortmund",
+      "strasse" : "Emil-Figge-Str. 85",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4931589,
+        "lon" : 7.4031959
+      },
+      "entfernung" : "5"
+    },
+    "arbeitgeber" : "Smart Mechatronics GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-03",
+    "modifikationsTimestamp" : "2024-06-03T12:11:45.541",
+    "eintrittsdatum" : "2024-06-03",
+    "kundennummerHash" : "vfpMuM1-LHPgaVDJ6txpB5YSGl--7oimwiEPEJbAL9M="
+  }, {
+    "beruf" : "Ingenieur/in - Elektrotechnik",
+    "titel" : "Software Developer Classic AUTOSAR (m/f/d)",
+    "refnr" : "13319-764895/1_495211LS-S",
+    "arbeitsort" : {
+      "ort" : "Bochum",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.470931842395295,
+        "lon" : 7.227454922498544
+      },
+      "entfernung" : "17"
+    },
+    "arbeitgeber" : "Hays Professional Solutions GmbH Standort Dortmund",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-17",
+    "modifikationsTimestamp" : "2024-06-17T10:40:17.397",
+    "eintrittsdatum" : "2024-06-17",
+    "kundennummerHash" : "KZDDngOGhfNkt7rUUuwG-n1h4N-0k81d2YH3v3bQVV8="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Junior Backend Software Engineer C#.NET (w/m/d)",
+    "refnr" : "17338-488fc68113abfbd82d-S",
+    "arbeitsort" : {
+      "plz" : "58095",
+      "ort" : "Hagen, Westfalen",
+      "strasse" : "Elberfelder Straße 91",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.3593715,
+        "lon" : 7.462985
+      },
+      "entfernung" : "17"
+    },
+    "arbeitgeber" : "DOUGLAS",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-18",
+    "modifikationsTimestamp" : "2024-06-18T17:34:37.696",
+    "eintrittsdatum" : "2024-06-18",
+    "externeUrl" : "https://germantechjobs.de/jobs/DOUGLAS-Junior-Backend-Software-Engineer-CNET-wmd?utm_source=ba_int&utm_medium=ba_int&utm_campaign=ba_int"
+  }, {
+    "beruf" : "Ingenieur/in - Systems Engineering",
+    "titel" : "Embedded Systems Software-Developer in Automotive (m/w/d)",
+    "refnr" : "12288-3681488188-S",
+    "arbeitsort" : {
+      "plz" : "44807",
+      "ort" : "Bochum",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5094944,
+        "lon" : 7.2232405
+      },
+      "entfernung" : "17"
+    },
+    "arbeitgeber" : "Platri IT GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-18",
+    "modifikationsTimestamp" : "2024-06-18T07:38:45.195",
+    "eintrittsdatum" : "2024-06-19",
+    "externeUrl" : "https://www.persy.jobs/persy/l/job-deex1-b"
+  }, {
+    "beruf" : "DevOps Engineer",
+    "titel" : "Software Engineer Embedded Java in Automotive (m/w/d)",
+    "refnr" : "12288-3681332283-S",
+    "arbeitsort" : {
+      "plz" : "44807",
+      "ort" : "Bochum",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5094944,
+        "lon" : 7.2232405
+      },
+      "entfernung" : "17"
+    },
+    "arbeitgeber" : "Platri IT GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-18",
+    "modifikationsTimestamp" : "2024-06-18T07:28:33.964",
+    "eintrittsdatum" : "2024-06-19",
+    "externeUrl" : "https://www.persy.jobs/persy/l/job-dedi2-b"
+  }, {
+    "beruf" : "DevOps Engineer",
+    "titel" : "Software Engineer für Cyber Security in Automotive (m/w/d)!",
+    "refnr" : "12288-3681322698-S",
+    "arbeitsort" : {
+      "plz" : "44807",
+      "ort" : "Bochum",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5094944,
+        "lon" : 7.2232405
+      },
+      "entfernung" : "17"
+    },
+    "arbeitgeber" : "Platri IT GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-18",
+    "modifikationsTimestamp" : "2024-06-18T07:28:06.85",
+    "eintrittsdatum" : "2024-06-19",
+    "externeUrl" : "https://www.persy.jobs/persy/l/job-dedfj-b"
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Lead Software Engineer (m/w/d) Angular/ React, MAXIMAGO GmbH",
+    "refnr" : "12811-1426535-S",
+    "arbeitsort" : {
+      "plz" : "44263",
+      "ort" : "Dortmund",
+      "strasse" : "Phoenixseestraße 12",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4885729,
+        "lon" : 7.5105459
+      },
+      "entfernung" : "4"
+    },
+    "arbeitgeber" : "MAXIMAGO GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-04T18:11:33.626",
+    "eintrittsdatum" : "2024-06-04",
+    "externeUrl" : "https://www.finest-jobs.com/Stellenanzeige/Lead-Software-Engineer-D-Angular-React-989831?cp=BA"
+  }, {
+    "beruf" : "Software-Architect",
+    "titel" : "Lead Software Engineer (m/w/d) .Net Blazor, MAXIMAGO GmbH",
+    "refnr" : "12811-1426531-S",
+    "arbeitsort" : {
+      "plz" : "44263",
+      "ort" : "Dortmund",
+      "strasse" : "Phoenixseestraße 12",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4885729,
+        "lon" : 7.5105459
+      },
+      "entfernung" : "4"
+    },
+    "arbeitgeber" : "MAXIMAGO GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-04",
+    "modifikationsTimestamp" : "2024-06-04T18:11:33.342",
+    "eintrittsdatum" : "2024-06-04",
+    "externeUrl" : "https://www.finest-jobs.com/Stellenanzeige/Lead-Software-Engineer-D-Net-Blazor-989826?cp=BA"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Backend Software Developer (m/w/d)",
+    "refnr" : "10001-1000189844-S",
+    "arbeitsort" : {
+      "plz" : "44787",
+      "ort" : "Bochum",
+      "strasse" : "Kortumstr. 16",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4767717,
+        "lon" : 7.2168074
+      },
+      "entfernung" : "18"
+    },
+    "arbeitgeber" : "Gudat Solutions GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-06",
+    "modifikationsTimestamp" : "2024-06-04T07:38:22.611",
+    "eintrittsdatum" : "2024-05-07",
+    "kundennummerHash" : "baQMrv8-_ugrUDGVoFdcI_Y9x--FnNBL0re8xsYY3_g="
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Software Engineer .Net/C#",
+    "refnr" : "10000-1192873786-S",
+    "arbeitsort" : {
+      "plz" : "58313",
+      "ort" : "Herdecke, Ruhr",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4127959,
+        "lon" : 7.4203428
+      },
+      "entfernung" : "11"
+    },
+    "aktuelleVeroeffentlichungsdatum" : "2024-02-15",
+    "modifikationsTimestamp" : "2024-05-07T17:00:46.115",
+    "eintrittsdatum" : "2024-03-01"
+  }, {
+    "beruf" : "Softwareentwickler/in",
+    "titel" : "Junior Software Engineer (m/w/d)",
+    "refnr" : "10000-1194157095-S",
+    "arbeitsort" : {
+      "plz" : "44793",
+      "ort" : "Bochum",
+      "ortsteil" : "Innenstadt",
+      "strasse" : "Alleestr. 80",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4795143,
+        "lon" : 7.203136
+      },
+      "entfernung" : "19"
+    },
+    "arbeitgeber" : "Setlog GmbH Bochum",
+    "aktuelleVeroeffentlichungsdatum" : "2023-05-03",
+    "modifikationsTimestamp" : "2024-06-13T07:46:32.783",
+    "eintrittsdatum" : "2024-05-31",
+    "kundennummerHash" : "Y-stuUmLLtW_Ry8CAYp43uCPPl5NKTyqnNhWYSxnVug="
+  }, {
+    "beruf" : "IT-Systemadministrator/in",
+    "titel" : "IT-Operator / IT-Administrator (m/w) für den Kundensupport",
+    "refnr" : "13644-259647-S",
+    "arbeitsort" : {
+      "plz" : "44137",
+      "ort" : "Dortmund",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.5080895,
+        "lon" : 7.4506275
+      },
+      "entfernung" : "1"
+    },
+    "arbeitgeber" : "RIB Software",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-14",
+    "modifikationsTimestamp" : "2024-06-01T07:04:58.436",
+    "eintrittsdatum" : "2024-06-01",
+    "externeUrl" : "https://www.get-in-it.de/jobsuche/p259647?utm_source=arbeitsagentur&utm_medium=cpc&utm_campaign=launch-basic"
+  }, {
+    "beruf" : "Ingenieur/in - technische Informatik",
+    "titel" : "Engineer* C++ Software Development (all levels)",
+    "refnr" : "10001-1000290104-S",
+    "arbeitsort" : {
+      "plz" : "44227",
+      "ort" : "Dortmund",
+      "strasse" : "Emil-Figge-Str. 85",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.493159,
+        "lon" : 7.4031958
+      },
+      "entfernung" : "5"
+    },
+    "arbeitgeber" : "Smart Mechatronics GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-06-03",
+    "modifikationsTimestamp" : "2024-06-03T12:10:51.763",
+    "eintrittsdatum" : "2024-06-03",
+    "kundennummerHash" : "vfpMuM1-LHPgaVDJ6txpB5YSGl--7oimwiEPEJbAL9M="
+  }, {
+    "beruf" : "Web Developer",
+    "titel" : "Senior Software Developer (m/w/d) C# .Net, MAXIMAGO GmbH",
+    "refnr" : "12811-1426525-S",
+    "arbeitsort" : {
+      "plz" : "44263",
+      "ort" : "Dortmund",
+      "strasse" : "Phoenixseestraße 12",
+      "region" : "Nordrhein-Westfalen",
+      "land" : "Deutschland",
+      "koordinaten" : {
+        "lat" : 51.4885729,
+        "lon" : 7.5105459
+      },
+      "entfernung" : "4"
+    },
+    "arbeitgeber" : "MAXIMAGO GmbH",
+    "aktuelleVeroeffentlichungsdatum" : "2024-05-22",
+    "modifikationsTimestamp" : "2024-06-04T18:11:33.155",
+    "eintrittsdatum" : "2024-06-04",
+    "externeUrl" : "https://www.finest-jobs.com/Stellenanzeige/Senior-Software-Developer-D-C-Net-989813?cp=BA"
+  } ],
+  "maxErgebnisse" : 927,
+  "page" : 1,
+  "size" : 100,
+  "woOutput" : {
+    "bereinigterOrt" : "Dortmund",
+    "suchmodus" : "UMKREISSUCHE",
+    "koordinaten" : [ {
+      "lat" : 51.50805395,
+      "lon" : 7.4698868
+    } ]
+  },
+  "facetten" : {
+    "befristung" : {
+      "counts" : {
+        "1" : 40,
+        "2" : 538,
+        "3" : 349
+      },
+      "maxCount" : 927
+    },
+    "externestellenboersen" : {
+      "counts" : {
+        "false" : 870,
+        "true" : 57
+      },
+      "maxCount" : 927
+    },
+    "behinderung" : {
+      "counts" : {
+        "false" : 511,
+        "true" : 3
+      },
+      "maxCount" : 927
+    },
+    "pav" : {
+      "counts" : {
+        "false" : 853,
+        "true" : 74
+      },
+      "maxCount" : 927
+    },
+    "berufsfeld" : {
+      "counts" : {
+        "Arzt- und Praxishilfe" : 5,
+        "Bauplanung und -überwachung, Architektur" : 11,
+        "Biologie" : 2,
+        "Bodenverlegung" : 1,
+        "Büro und Sekretariat" : 55,
+        "Chemie" : 6,
+        "Drucktechnik, Buchbinderei" : 2,
+        "Einkauf und Vertrieb" : 31,
+        "Elektrotechnik" : 62,
+        "Energietechnik" : 19,
+        "Ernährungs- und Gesundheitsberatung" : 1,
+        "Erziehung, Sozialarbeit, Heilerziehungspflege" : 5,
+        "Fahrzeug-, Luft-, Raumfahrt- und Schiffbautechnik" : 6,
+        "Farb- und Lacktechnik" : 1,
+        "Feinwerk- und Werkzeugtechnik" : 1,
+        "Fototechnik und Fotografie" : 1,
+        "Gartenbau" : 2,
+        "Geologie, Geografie und Meteorologie" : 3,
+        "Handel" : 10,
+        "Hochbau" : 1,
+        "Holzbe- und -verarbeitung" : 1,
+        "Human- und Zahnmedizin" : 1,
+        "IT-Netzwerktechnik, -Administration, -Organisation" : 67,
+        "IT-Systemanalyse, -Anwendungsberatung und -Vertrieb" : 57,
+        "Immobilienwirtschaft und Facility-Management" : 6,
+        "Informatik" : 138,
+        "Kaufleute - Verkehr und Logistik" : 10,
+        "Klempnerei, Sanitär-, Heizungs- und Klimatechnik" : 13,
+        "Krankenpflege, Rettungsdienst und Geburtshilfe" : 3,
+        "Lagerwirtschaft, Post und Zustellung, Güterumschlag" : 17,
+        "Lehr- und Forschungstätigkeit an Hochschulen" : 3,
+        "Lehrtätigkeit an außerschulischen Bildungseinrichtungen" : 1,
+        "Maler, Stuckateure, Bautenschutz" : 2,
+        "Maschinenbau- und Betriebstechnik" : 14,
+        "Mathematik und Statistik" : 3,
+        "Mechatronik und Automatisierungstechnik" : 22,
+        "Medizin-, Orthopädie- und Rehatechnik" : 3,
+        "Metallbau und Schweißtechnik" : 1,
+        "Metallbearbeitung" : 5,
+        "Objekt-, Personen-, Brandschutz, Arbeitssicherheit" : 3,
+        "Personalwesen und -dienstleistung" : 9,
+        "Physik" : 5,
+        "Psychologie, nichtärztliche Psychotherapie" : 1,
+        "Rechnungswesen, Controlling und Revision" : 17,
+        "Rechtsberatung, -sprechung und -ordnung" : 10,
+        "Redaktion und Journalismus" : 1,
+        "Softwareentwicklung und Programmierung" : 142,
+        "Sprach- und Literaturwissenschaften" : 7,
+        "Steuerberatung" : 17,
+        "Technische Forschung und Entwicklung" : 8,
+        "Technische Mediengestaltung" : 4,
+        "Technische Produktionsplanung und -steuerung" : 9,
+        "Technisches Zeichnen, Konstruktion und Modellbau" : 29,
+        "Tiefbau" : 4,
+        "Tourismus und Sport" : 1,
+        "Unternehmensorganisation und -strategie" : 23,
+        "Veranstaltungs-, Kamera-, Tontechnik" : 5,
+        "Veranstaltungsservice und -management" : 1,
+        "Verkauf (ohne Produktspezialisierung)" : 4,
+        "Verkauf Bekleidung, Elektro, KFZ, Hartwaren" : 6,
+        "Verlags- und Medienwirtschaft" : 1,
+        "Vermessung und Kartografie" : 7,
+        "Versicherungs- und Finanzdienstleistungen" : 3,
+        "Verwaltung" : 5,
+        "Werbung und Marketing" : 10,
+        "Öffentlichkeitsarbeit" : 2
+      },
+      "maxCount" : 927
+    },
+    "arbeitsort" : {
+      "counts" : {
+        "Bochum" : 222,
+        "Sprockhövel" : 8,
+        "Herten, Westfalen" : 9,
+        "Werne" : 8,
+        "Lünen" : 43,
+        "Unna" : 13,
+        "Castrop-Rauxel" : 12,
+        "Dortmund" : 377,
+        "Hagen, Westfalen" : 39,
+        "Waltrop" : 6,
+        "Herdecke, Ruhr" : 5,
+        "Selm" : 4,
+        "Herne, Westfalen" : 36,
+        "Wetter (Ruhr)" : 7,
+        "Nachrodt-Wiblingwerde" : 2,
+        "Menden (Sauerland)" : 14,
+        "Schwerte" : 21,
+        "Kamen, Westfalen" : 9,
+        "Oer-Erkenschwick" : 4,
+        "Holzwickede" : 7,
+        "Witten" : 28,
+        "Recklinghausen, Westfalen" : 30,
+        "Bönen" : 5,
+        "Iserlohn" : 21,
+        "Hattingen, Ruhr" : 9,
+        "Bergkamen" : 3
+      },
+      "maxCount" : 927
+    },
+    "ausbildungsart" : {
+      "counts" : {
+        "0" : 160,
+        "1" : 7,
+        "2" : 1
+      },
+      "maxCount" : 927
+    },
+    "veroeffentlichtseit" : {
+      "counts" : {
+        "0" : 3,
+        "1" : 25,
+        "14" : 281,
+        "28" : 492,
+        "7" : 154,
+        "alle" : 927
+      },
+      "maxCount" : 927
+    },
+    "schulbildung" : {
+      "counts" : {
+        "0" : 13,
+        "1" : 1,
+        "12" : 6,
+        "2" : 16,
+        "3" : 75,
+        "4" : 43,
+        "5" : 5,
+        "6" : 19
+      },
+      "maxCount" : 927
+    },
+    "arbeitsort_plz" : {
+      "counts" : {
+        "01067" : 4,
+        "01097" : 1,
+        "01237" : 1,
+        "01445" : 1,
+        "02625" : 1,
+        "04109" : 1,
+        "04821" : 1,
+        "06780" : 1,
+        "07745" : 2,
+        "08523" : 1,
+        "09117" : 1,
+        "09247" : 6,
+        "10117" : 2,
+        "10178" : 20,
+        "10179" : 1,
+        "10365" : 1,
+        "10625" : 2,
+        "10785" : 19,
+        "10969" : 6,
+        "12681" : 1,
+        "14469" : 2,
+        "14473" : 1,
+        "14532" : 1,
+        "16540" : 1,
+        "18055" : 5,
+        "20095" : 3,
+        "20097" : 17,
+        "20148" : 1,
+        "20354" : 4,
+        "20457" : 2,
+        "20537" : 3,
+        "22085" : 2,
+        "22087" : 19,
+        "22844" : 1,
+        "23556" : 1,
+        "23560" : 6,
+        "24118" : 1,
+        "25524" : 1,
+        "26135" : 1,
+        "28195" : 2,
+        "28209" : 2,
+        "30159" : 2,
+        "30161" : 6,
+        "30163" : 19,
+        "30173" : 15,
+        "30453" : 3,
+        "30457" : 3,
+        "31224" : 1,
+        "33098" : 5,
+        "33104" : 1,
+        "33142" : 9,
+        "33605" : 2,
+        "33607" : 1,
+        "33609" : 1,
+        "33649" : 1,
+        "34117" : 1,
+        "34127" : 1,
+        "35719" : 1,
+        "36251" : 1,
+        "37081" : 1,
+        "38100" : 2,
+        "38350" : 3,
+        "40210" : 16,
+        "40212" : 3,
+        "40231" : 5,
+        "40468" : 18,
+        "40885" : 3,
+        "41236" : 2,
+        "42103" : 2,
+        "44135" : 53,
+        "44137" : 27,
+        "44139" : 15,
+        "44141" : 31,
+        "44143" : 9,
+        "44147" : 11,
+        "44149" : 14,
+        "44227" : 25,
+        "44263" : 65,
+        "44265" : 6,
+        "44269" : 15,
+        "44287" : 5,
+        "44309" : 15,
+        "44319" : 6,
+        "44339" : 2,
+        "44357" : 2,
+        "44379" : 8,
+        "44388" : 3,
+        "44534" : 10,
+        "44536" : 32,
+        "44575" : 5,
+        "44579" : 6,
+        "44623" : 3,
+        "44625" : 3,
+        "44628" : 3,
+        "44629" : 13,
+        "44652" : 2,
+        "44653" : 5,
+        "44787" : 14,
+        "44789" : 37,
+        "44791" : 2,
+        "44793" : 6,
+        "44795" : 6,
+        "44799" : 21,
+        "44801" : 51,
+        "44803" : 16,
+        "44805" : 5,
+        "44807" : 7,
+        "44809" : 6,
+        "44866" : 9,
+        "44867" : 11,
+        "44879" : 4,
+        "45127" : 8,
+        "45128" : 4,
+        "45527" : 8,
+        "45549" : 8,
+        "45657" : 9,
+        "45659" : 13,
+        "45661" : 6,
+        "45699" : 9,
+        "45731" : 6,
+        "45739" : 4,
+        "45891" : 2,
+        "46045" : 2,
+        "46399" : 5,
+        "47051" : 2,
+        "47441" : 2,
+        "47829" : 5,
+        "48143" : 2,
+        "48147" : 12,
+        "48301" : 3,
+        "50667" : 7,
+        "50668" : 23,
+        "50670" : 4,
+        "50679" : 19,
+        "50996" : 3,
+        "51063" : 2,
+        "52066" : 5,
+        "53111" : 2,
+        "55116" : 2,
+        "57074" : 5,
+        "58089" : 6,
+        "58093" : 11,
+        "58095" : 8,
+        "58097" : 4,
+        "58099" : 3,
+        "58135" : 2,
+        "58239" : 20,
+        "58256" : 3,
+        "58300" : 7,
+        "58313" : 5,
+        "58452" : 3,
+        "58453" : 5,
+        "58454" : 11,
+        "58455" : 4,
+        "58456" : 3,
+        "58509" : 4,
+        "58636" : 2,
+        "58638" : 3,
+        "58640" : 5,
+        "58642" : 7,
+        "58675" : 2,
+        "58706" : 8,
+        "58708" : 5,
+        "58769" : 2,
+        "59174" : 9,
+        "59192" : 3,
+        "59199" : 5,
+        "59368" : 5,
+        "59379" : 4,
+        "59423" : 5,
+        "59425" : 7,
+        "59439" : 7,
+        "60311" : 4,
+        "60322" : 15,
+        "60327" : 19,
+        "64283" : 2,
+        "65183" : 6,
+        "66111" : 5,
+        "69126" : 2,
+        "69190" : 2,
+        "70173" : 8,
+        "70174" : 15,
+        "70771" : 2,
+        "76133" : 29,
+        "79100" : 4,
+        "80331" : 5,
+        "80637" : 14,
+        "81829" : 9,
+        "84036" : 3,
+        "85049" : 12,
+        "85560" : 2,
+        "89073" : 5,
+        "90402" : 11,
+        "90443" : 5,
+        "90478" : 6,
+        "90489" : 15,
+        "93049" : 3,
+        "97072" : 5,
+        "97080" : 3,
+        "99084" : 23
+      },
+      "maxCount" : 927
+    },
+    "arbeitgeber" : {
+      "counts" : {
+        "AIDA-FRANKE Wolfram Franke" : 3,
+        "ALTEN GmbH Coburg" : 14,
+        "ALUMINIUMWERK UNNA AG" : 3,
+        "APS Lüdinghausen GmbH" : 3,
+        "AUREA GmbH" : 2,
+        "Aida Orga Dortmund GmbH" : 7,
+        "Akkodis Germany Tech Experts GmbH" : 8,
+        "Amprion GmbH" : 3,
+        "Anonymer Arbeitgeber" : 4,
+        "BKW Engineering SE Europa AG" : 2,
+        "BV Bestseller Verlag GmbH" : 3,
+        "Bechtle AG" : 6,
+        "Best Profile" : 5,
+        "Brunel GmbH NL Bochum" : 2,
+        "Brunel GmbH NL Dortmund" : 2,
+        "Bundesagentur für Arbeit IT-Systemhaus Nürnberg" : 6,
+        "Bürostudio Leidheuser GmbH" : 2,
+        "Capgemini Deutschland" : 2,
+        "Capgemini Deutschland GmbH" : 19,
+        "Comline GmbH" : 4,
+        "Computacenter AG & Co. oHG" : 3,
+        "Concord Blue Engineering GmbH" : 2,
+        "Coscom Computer GmbH" : 2,
+        "DEC Handels GmbH Groschen Hausrat Discount" : 3,
+        "DEVK Geschäftsstelle Volker Clausmeyer" : 2,
+        "DG timework GmbH" : 2,
+        "Daniel Diaz" : 3,
+        "Deutsche Post AG Zentrale Zentrale" : 5,
+        "Diprotec GmbH" : 3,
+        "Dortmunder Stadtwerke AG DSW21" : 4,
+        "E-systems Ihr Systemhaus GmbH & Co. KG" : 8,
+        "E.ON Grid Solutions GmbH" : 3,
+        "E.ON SE" : 3,
+        "ETAMIO GmbH" : 4,
+        "Epi Elektrotechnische und Pneumatische Installation GmbH" : 3,
+        "Extrovert Personalverm. UG (haftungsbeschränkt)" : 3,
+        "FERCHAU GmbH Zentrale" : 9,
+        "FISHER SCIENTIFIC GmbH" : 4,
+        "Fleischhacker GmbH & Co. KG" : 3,
+        "Fraunhofer-Gesellschaft e.V. Zentrale München" : 4,
+        "GOLDBECK GmbH" : 4,
+        "Gantner Electronic GmbH Deutschland" : 4,
+        "Gilenberg & Baumgart GmbH" : 4,
+        "Hays Professional Solutions GmbH Standort Dortmund" : 7,
+        "IKS Engineering GmbH" : 3,
+        "ISAP AG" : 9,
+        "ITS Informationstechnik Service GmbH" : 16,
+        "InfoTech Gesellschaft für Informations- und Datentechnik mbH" : 4,
+        "Jan Schreiner Arbitex Private Personal- und Arbeitsvermittlung" : 7,
+        "JobAtlas GmbH" : 3,
+        "KAPA Computer GmbH" : 3,
+        "KERN AG, Sprachendienste" : 3,
+        "KEVOX Michael Hagelganz" : 8,
+        "KUMAVISION AG" : 5,
+        "Kinderhaus Rasselbande gGmbH" : 3,
+        "L&W CONSOLIDATION GmbH" : 5,
+        "Leihhaus Alonso GmbH" : 4,
+        "Lenkzeit Kraftfahrer & Logistik Personalleas. GmbH" : 4,
+        "Lovion GmbH" : 5,
+        "MAXIMAGO" : 3,
+        "MAXIMAGO GmbH" : 6,
+        "Materna Information & Communications SE" : 4,
+        "Mendel Verlag GmbH & Co. KG" : 15,
+        "Mesalvo Freiburg GmbH" : 4,
+        "Mönninghoff GmbH & Co. KG" : 3,
+        "Oehmichen & Bürgers Industrieplanung GmbH" : 5,
+        "Pickard GmbH Steuerberatungsgesellschaft" : 5,
+        "Platri IT GmbH" : 5,
+        "QuinScape GmbH" : 4,
+        "R.iT GmbH" : 5,
+        "REMONDIS IT Services GmbH & Co. KG" : 23,
+        "RGU GmbH" : 3,
+        "Ruhr-Universität Bochum" : 14,
+        "STAFFXPERTS GmbH" : 3,
+        "SVA System Vertrieb Alexander" : 5,
+        "Setlog GmbH Bochum" : 6,
+        "Siegfried Scharff - jobs4people.de" : 4,
+        "SkySystems IT GmbH" : 3,
+        "Smart Mechatronics GmbH" : 11,
+        "StratOz GmbH Strategic Organizations analysis & consulting" : 3,
+        "Stüer Software & Consulting GmbH" : 4,
+        "T & A SYSTEME GmbH" : 4,
+        "TEDi GmbH & Co. KG" : 6,
+        "TEMPTON Next Level Experts GmbH" : 3,
+        "Triumph Adler GmbH NLHamburg" : 3,
+        "Viadee AG-Münster-" : 12,
+        "Vonovia SE" : 3,
+        "WILO SE" : 3,
+        "alfatraining Bildungszentrum GmbH" : 15,
+        "auto.mates solutions GmbH" : 4,
+        "common solutions GmbH & Co KG" : 3,
+        "endigo GmbH" : 3,
+        "hulle24 GmbH" : 3,
+        "merkarion GmbH Software" : 3,
+        "pb Consult GmbH" : 3,
+        "proLogistik" : 4,
+        "simplecon GmbH" : 3,
+        "tetraeder.services GmbH" : 3,
+        "think about IT GmbH" : 21,
+        "thyssenkrupp nucera Management AG" : 3
+      },
+      "maxCount" : 927
+    },
+    "beruf" : {
+      "counts" : {
+        "Account-Manager/in" : 2,
+        "Anlagenmechaniker/in - Sanitär-, Heizungs- und Klimatechnik" : 12,
+        "Anwendungsprogrammierer/in" : 7,
+        "Anwendungssystemberater/in" : 2,
+        "Application-Engineer/-Manager/in" : 3,
+        "Architekt/in" : 5,
+        "Backend-Entwickler/in" : 2,
+        "Bauzeichner/in" : 4,
+        "Bauzeichner/in - Ingenieurbau" : 2,
+        "Beleuchter/in" : 2,
+        "Betriebswirt/in (Hochschule) - Marketing" : 2,
+        "Bilanzbuchhalter/in/B. Prof. Bilanzbuchhaltung" : 2,
+        "Biologisch-technische/r Assistent/in" : 2,
+        "Buchhalter/in" : 4,
+        "Business-Analyst/in" : 3,
+        "Bürokaufmann/-frau" : 13,
+        "Chemielaborant/in" : 4,
+        "Cyber-Security-Consultant" : 2,
+        "Datenbankadministrator/in" : 2,
+        "Datenbankentwickler/in" : 2,
+        "DevOps Engineer" : 5,
+        "EDV-Fachkraft" : 3,
+        "EDV-Sachbearbeiter/in" : 2,
+        "ERP-Berater/in - ERP-Consultant" : 5,
+        "ERP-Systembetreuer/in" : 3,
+        "Elektroinstallateur/in" : 3,
+        "Elektroniker/in - Automatisierungstechnik" : 2,
+        "Elektroniker/in - Betriebstechnik" : 7,
+        "Elektroniker/in - Energie- und Gebäudetechnik" : 4,
+        "Elektroniker/in - Gebäudesystemintegration" : 2,
+        "Elektroniker/in - Informations- und Systemtechnik" : 2,
+        "Embedded-Systems-Entwickler/in" : 6,
+        "Erzieher/in" : 3,
+        "Fachberater/in - Softwaretechniken" : 2,
+        "Fachberater/in - Vertrieb" : 3,
+        "Fachinformatiker/in - Anwendungsentwicklung" : 31,
+        "Fachinformatiker/in - Daten- und Prozessanalyse" : 2,
+        "Fachinformatiker/in - Digitale Vernetzung" : 3,
+        "Fachinformatiker/in - Systemintegration" : 55,
+        "Fachkraft - Lagerlogistik" : 9,
+        "Fachlagerist/in" : 3,
+        "Finanzbuchhalter/in" : 5,
+        "First-Level-Supporter/in" : 4,
+        "Forschungs- und Entwicklungsingenieur/in" : 3,
+        "Fullstack-Entwickler/in" : 3,
+        "Geoinformatiker/in" : 2,
+        "Geowissenschaftler/in" : 2,
+        "Gärtnermeister/in - Garten- und Landschaftsbau" : 2,
+        "Helfer/in - Büro, Verwaltung" : 3,
+        "Helfer/in - Lagerwirtschaft, Transport" : 5,
+        "IT-Administrator/in" : 7,
+        "IT-Berater/in" : 16,
+        "IT-Entwickler/in (Weiterbildung/Ausbildung)" : 4,
+        "IT-Kundenbetreuer/in" : 6,
+        "IT-Projektkoordinator/in" : 3,
+        "IT-Projektleiter/in (Weiterbildung/Ausbildung)" : 5,
+        "IT-System-Elektroniker/in" : 9,
+        "IT-Systemadministrator/in" : 22,
+        "IT-Tester/in" : 3,
+        "Immobilienkaufmann/-frau" : 4,
+        "Industrieelektriker/in - Betriebstechnik" : 3,
+        "Industriekaufmann/-frau" : 4,
+        "Informatiker/in (Hochschule)" : 44,
+        "Informationselektroniker/in" : 5,
+        "Ingenieur/in - Automatisierungstechnik" : 3,
+        "Ingenieur/in - Elektrotechnik" : 27,
+        "Ingenieur/in - Fahrzeugtechnik" : 3,
+        "Ingenieur/in - Maschinenbau" : 8,
+        "Ingenieur/in - technische Informatik" : 3,
+        "Kaufmann/-frau - Büromanagement" : 22,
+        "Kaufmann/-frau - Digitalisierungsmanagement" : 7,
+        "Kaufmann/-frau - E-Commerce" : 3,
+        "Kaufmann/-frau - Einzelhandel (Bürowirtschaft)" : 3,
+        "Kaufmann/-frau - IT-System-Management" : 13,
+        "Kaufmann/-frau - Spedition und Logistikdienstleistung" : 4,
+        "Kaufmännische Fachkraft" : 6,
+        "Konstrukteur/in" : 3,
+        "Konstruktionsingenieur/in" : 3,
+        "Lohn- und Gehaltsbuchhalter/in" : 3,
+        "Mechatroniker/in" : 14,
+        "Personaldisponent/in" : 3,
+        "Projektingenieur/in" : 3,
+        "Projektleiter/in" : 4,
+        "Rechtsanwaltsfachangestellte/r" : 6,
+        "Sales-Manager/in" : 10,
+        "Servicetechniker/in - IT" : 7,
+        "Software-Architect" : 27,
+        "Softwareentwickler/in" : 69,
+        "Steuerfachangestellte/r" : 14,
+        "Technische/r Systemplaner/in - Elektrotechnische Systeme" : 3,
+        "Technische/r Zeichner/in - Maschinen- und Anlagentechnik" : 3,
+        "Telefonist/in" : 3,
+        "Tiefbauingenieur/in" : 3,
+        "Vermessungstechniker/in - Vermessung" : 3,
+        "Vertriebsassistent/in" : 5,
+        "Vertriebsberater/in" : 4,
+        "Verwaltungsfachangestellte/r - Kommunalverwaltung" : 3,
+        "Web Developer" : 3,
+        "Wirtschaftsinformatiker/in (Hochschule)" : 6,
+        "Wissenschaftliche/r Mitarbeiter/in" : 3
+      },
+      "maxCount" : 927
+    },
+    "branche" : {
+      "counts" : {
+        "1" : 89,
+        "10" : 7,
+        "11" : 210,
+        "12" : 2,
+        "13" : 94,
+        "14" : 27,
+        "15" : 43,
+        "16" : 1,
+        "17" : 1,
+        "18" : 12,
+        "19" : 3,
+        "2" : 10,
+        "21" : 16,
+        "22" : 14,
+        "23" : 1,
+        "24" : 1,
+        "25" : 7,
+        "27" : 41,
+        "28" : 97,
+        "29" : 12,
+        "3" : 21,
+        "4" : 34,
+        "5" : 3,
+        "6" : 15,
+        "7" : 16,
+        "8" : 1,
+        "9" : 112
+      },
+      "maxCount" : 927
+    },
+    "arbeitszeit" : {
+      "counts" : {
+        "ho" : 56,
+        "mj" : 7,
+        "snw" : 10,
+        "tz" : 113,
+        "vz" : 840
+      },
+      "maxCount" : 927
+    },
+    "eintrittsdatum" : {
+      "counts" : {
+        "10_01_01-now" : 698,
+        "24_06_01-24_07_01" : 500,
+        "24_07_01-24_08_01" : 36,
+        "24_08_01-24_09_01" : 156,
+        "24_09_01-24_10_01" : 12,
+        "24_10_01-24_11_01" : 4,
+        "24_12_01-25_01_01" : 1,
+        "25_08_01-25_09_01" : 4
+      },
+      "maxCount" : 927
+    },
+    "zeitarbeit" : {
+      "counts" : {
+        "false" : 843,
+        "true" : 84
+      },
+      "maxCount" : 927
+    }
+  }
+}
