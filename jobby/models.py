@@ -149,6 +149,22 @@ class Stellenangebot(models.Model):
             # noinspection PyTypeChecker
             return f"{reverse('stellenangebot_add')}?{urlencode(_as_dict(self))}"
 
+    def has_user_data(self):
+        """Return whether a user has added additional data to this instance."""
+        local_user_data_fields = ["notizen"]
+        for local_field_name in local_user_data_fields:
+            field = self._meta.get_field(local_field_name)
+            value = field.value_from_object(self)
+            if value not in field.empty_values and value != field.default:
+                return True
+
+        related_names = ["urls", "kontakte"]
+        for related_name in related_names:
+            if getattr(self, related_name).exists():
+                return True
+
+        return False
+
 
 class StellenangebotURLs(models.Model):
     url = models.URLField()
@@ -183,7 +199,15 @@ class Watchlist(models.Model):
         return True
 
     def remove_watchlist_item(self, stellenangebot):
+        """
+        Remove the given Stellenangebot instance from the watchlist.
+
+        If the Stellenangebot does not have extra data added by the user,
+        delete the Stellenangebot instance.
+        """
         WatchlistItem.objects.filter(watchlist=self, stellenangebot=stellenangebot).delete()
+        if not stellenangebot.has_user_data():
+            stellenangebot.delete()
 
     def get_stellenangebote(self):
         return Stellenangebot.objects.filter(id__in=self.items.values_list("stellenangebot_id", flat=True))

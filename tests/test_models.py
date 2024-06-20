@@ -6,7 +6,7 @@ import pytest
 from django.db import models
 from django.urls import path
 from django.utils.timezone import make_aware
-from jobby.models import _as_dict, _update_stellenangebot
+from jobby.models import Stellenangebot, _as_dict, _update_stellenangebot
 
 from tests.factories import StellenangebotFactory
 
@@ -121,6 +121,29 @@ class TestStellenangebot:
         with patch("jobby.models._as_dict", new=Mock(return_value={"titel": "foo", "refnr": 1234})):
             assert stellenangebot.as_url() == "/foo/?titel=foo&refnr=1234"
 
+    def test_has_user_data(self, stellenangebot):
+        """
+        Assert that ``has_user_data`` returns False if the user has not added
+        any data to the user controlled fields or relations.
+        """
+        assert not stellenangebot.has_user_data()
+
+    def test_has_user_data_local_fields(self, stellenangebot):
+        """
+        Assert that ``has_user_data`` returns True if the instance has values
+        in any of the fields that the user controls.
+        """
+        stellenangebot.notizen = "Foo"
+        assert stellenangebot.has_user_data()
+
+    def test_has_user_data_has_url(self, stellenangebot):
+        """
+        Assert that ``has_user_data`` returns True if the instance has items in
+        the related sets that the user controls.
+        """
+        stellenangebot.urls.create(url="www.foobar.com")
+        assert stellenangebot.has_user_data()
+
 
 class TestWatchlist:
 
@@ -147,8 +170,29 @@ class TestWatchlist:
         Assert that ``remove_watchlist_item`` removes the given Stellenangebot
         instance from the watchlist.
         """
+        stellenangebot_pk = stellenangebot.pk
         watchlist.remove_watchlist_item(stellenangebot)
-        assert not watchlist.items.filter(stellenangebot=stellenangebot).exists()
+        assert not watchlist.items.filter(stellenangebot_id=stellenangebot_pk).exists()
+
+    def test_remove_watchlist_item_deletes_stellenangebote(self, watchlist, watchlist_item, stellenangebot):
+        """
+        Assert that ``remove_watchlist_item`` deletes the Stellenangebot
+        instance if the user has not added extra data to it.
+        """
+        stellenangebot_pk = stellenangebot.pk
+        with patch.object(stellenangebot, "has_user_data", new=Mock(return_value=False)):
+            watchlist.remove_watchlist_item(stellenangebot)
+            assert not Stellenangebot.objects.filter(pk=stellenangebot_pk).exists()
+
+    def test_remove_watchlist_item_stellenangebot_has_user_data(self, watchlist, watchlist_item, stellenangebot):
+        """
+        Assert that ``remove_watchlist_item`` does not delete the Stellenangebot
+        instance if the user has added extra data to it.
+        """
+        stellenangebot_pk = stellenangebot.pk
+        with patch.object(stellenangebot, "has_user_data", new=Mock(return_value=True)):
+            watchlist.remove_watchlist_item(stellenangebot)
+            assert Stellenangebot.objects.filter(pk=stellenangebot_pk).exists()
 
     def test_get_stellenangebote(self, watchlist, watchlist_item, stellenangebot, django_assert_num_queries):
         """
