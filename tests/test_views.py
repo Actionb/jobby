@@ -12,6 +12,7 @@ from jobby.models import Stellenangebot, Watchlist
 from jobby.views import (
     DETAILS_BESCHREIBUNG_ID,
     PAGE_VAR,
+    PapierkorbView,
     StellenangebotView,
     SucheView,
     WatchlistView,
@@ -21,7 +22,7 @@ from jobby.views import (
     watchlist_toggle,
 )
 
-from tests.factories import StellenangebotFactory
+from tests.factories import StellenangebotFactory, WatchlistItemFactory
 
 pytestmark = [pytest.mark.django_db]
 
@@ -614,9 +615,9 @@ class TestGetBeschreibung:
         [
             (
                 """
-                    <div id="detail-beschreibung-extern">
-                    <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a></div>
-                """,
+                        <div id="detail-beschreibung-extern">
+                        <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a></div>
+                    """,
                 """Beschreibung auf externer Seite: <a href="www.foobar.com">www.foobar.com</a>""",
             )
         ],
@@ -627,3 +628,24 @@ class TestGetBeschreibung:
         descriptions.
         """
         assert get_beschreibung_response.content.decode("utf-8") == beschreibung_html
+
+
+class TestPapierkorbView:
+
+    @pytest.fixture
+    def view_class(self):
+        return PapierkorbView
+
+    @pytest.fixture
+    def watchlist_item(self, watchlist):
+        # Add a 'control' item that should not appear in the view's queryset.
+        return WatchlistItemFactory(watchlist=watchlist, stellenangebot=StellenangebotFactory())
+
+    def test_get_queryset(self, view, watchlist, watchlist_item, stellenangebot):
+        """
+        Assert that PapierkorbView.get_queryset returns all Stellenangebot
+        instances that are not on any watchlist.
+        """
+        queryset = view.get_queryset()
+        assert stellenangebot in queryset
+        assert watchlist_item.stellenangebot not in queryset

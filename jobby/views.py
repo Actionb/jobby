@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from django.contrib import messages
 from django.core.exceptions import BadRequest, ObjectDoesNotExist
 from django.core.paginator import Paginator
+from django.db.models import Exists, OuterRef
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -289,3 +290,21 @@ def get_beschreibung(request, refnr=""):
     except BadRequest:
         return HttpResponseBadRequest()
     return HttpResponse(beschreibung)
+
+
+class PapierkorbView(BaseMixin, ListView):
+    site_title = "Papierkorb"
+    template_name = "jobby/papierkorb.html"
+
+    def get_queryset(self):
+        return Stellenangebot.objects.exclude(Exists(WatchlistItem.objects.filter(stellenangebot_id=OuterRef("id"))))
+
+
+def delete_stellenangebot(request):
+    try:
+        pk = request.POST["pk"]
+    except KeyError:
+        return HttpResponseBadRequest()
+
+    Stellenangebot.objects.filter(pk=pk).delete()
+    return HttpResponse()

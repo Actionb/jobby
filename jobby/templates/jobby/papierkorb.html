@@ -1,0 +1,49 @@
+{% extends "jobby/base.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <script src="{% static 'jobby/js/delete.js' %}"></script>
+{% endblock extrahead %}
+
+{% block content %}
+<h1>Papierkorb</h1>
+<p>
+    Hier befinden sich gespeicherte Stellenangebote, die nicht mehr auf deiner Merkliste stehen, zu denen du aber weitere Daten hinzugefügt hast.
+    Um diese Daten nicht zu löschen, wurde das gemerkte Angebot beim Entfernen von der Merkliste in den Papierkorb geschoben.
+</p>
+<p>
+    Wenn ein Stellenangebot gelöscht werden kann, dann klicke auf den "Löschen" Knopf daneben.
+</p>
+
+<div class="trash-items-container">
+{% csrf_token %}
+<table class="table table-hover">
+    <thead>
+    <tr class="table-primary">
+        <th scope="col" class="sticky-top z-999">Stellenangebot</th>
+        <th scope="col" class="sticky-top z-999">Arbeitsort</th>
+        <th scope="col" class="sticky-top z-999">Arbeitgeber</th>
+        <th scope="col" class="sticky-top z-999">Eintrittsdatum</th>
+        <th scope="col" class="sticky-top z-999">Bewerbung</th>
+        <th scope="col" class="sticky-top z-999 text-center">Löschen</th>
+    </tr>
+    </thead>
+    <tbody class="trash-items-list">
+    {% for stellenangebot in stellenangebot_list %}
+    <tr class="trash-item">
+        <td><a href="{{ stellenangebot.as_url }}">{{ stellenangebot }}</a></td>
+        <td>{{ stellenangebot.arbeitsort }}</td>
+        <td>{{ stellenangebot.arbeitgeber }}</td>
+        <td>{{ stellenangebot.eintrittsdatum }}</td>
+        <td>{{ stellenangebot.bewerbungsstatus }}</td>
+        <td class="px-4">
+            <button class="btn text-danger w-100 p-0 delete-btn" title="Stellenangebot löschen" data-url="{% url 'delete_stellenangebot' %}" data-pk="{{ stellenangebot.pk }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock content %}

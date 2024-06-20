@@ -2,9 +2,11 @@ from django.shortcuts import redirect
 from django.urls import path, reverse_lazy
 
 from jobby.views import (
+    PapierkorbView,
     StellenangebotView,
     SucheView,
     WatchlistView,
+    delete_stellenangebot,
     get_beschreibung,
     watchlist_remove,
     watchlist_remove_all,
@@ -21,4 +23,6 @@ urlpatterns = [
     path("angebot/", StellenangebotView.as_view(extra_context={"add": True}), name="stellenangebot_add"),
     path("angebot/<int:id>/", StellenangebotView.as_view(extra_context={"add": False}), name="stellenangebot_edit"),
     path("fetch_description/<str:refnr>/", get_beschreibung, name="get_angebot_beschreibung"),
+    path("papierkorb/", PapierkorbView.as_view(), name="papierkorb"),
+    path("delete_stellenangebot/", delete_stellenangebot, name="delete_stellenangebot"),
 ]
