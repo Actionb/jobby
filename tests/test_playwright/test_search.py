@@ -10,14 +10,19 @@ pytestmark = [pytest.mark.django_db, pytest.mark.pw]
 
 
 @pytest.fixture(scope="session")
-def load_page_1():
-    with open(Path(__file__).parent / "search_results_page1.json") as f:
+def resource_path():
+    return Path(__file__).parent / "resources"
+
+
+@pytest.fixture(scope="session")
+def load_page_1(resource_path):
+    with open(resource_path / "search_results_page1.json") as f:
         return f.read()
 
 
 @pytest.fixture(scope="session")
-def load_page_2():
-    with open(Path(__file__).parent / "search_results_page2.json") as f:
+def load_page_2(resource_path):
+    with open(resource_path / "search_results_page2.json") as f:
         return f.read()
 
 
