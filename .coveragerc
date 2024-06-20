@@ -2,3 +2,4 @@
 omit =
     jobby/migrations/*
     */pycharm/*
+    */test_playwright/*
