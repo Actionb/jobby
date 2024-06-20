@@ -114,12 +114,12 @@
       // always toggle the 'on-watchlist' class
       if (data) {
         if (data.on_watchlist) {
-          btn.classList.remove('text-primary')
-          btn.classList.add('text-success')
+          btn.classList.remove('btn-outline-secondary')
+          btn.classList.add('btn-success')
           btn.classList.add('on-watchlist')
         } else {
-          btn.classList.add('text-primary')
-          btn.classList.remove('text-success')
+          btn.classList.add('btn-outline-secondary')
+          btn.classList.remove('btn-success')
           btn.classList.remove('on-watchlist')
         }
       }
