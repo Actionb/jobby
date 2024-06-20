@@ -9,7 +9,7 @@
 {% block content %}
 <div class="d-flex justify-content-between mb-3 ms-3">
     <div>
-        <h1>{{ form.titel.value|default:form.beruf.value }}</h1>
+        <h1 title="Stellenangebot Titel">{{ form.titel.value|default:form.beruf.value }}</h1>
         <span class="ms-3">{{ form.beruf.value }}</span>
     </div>
     {% if arge_link or form.externe_url.value %}
