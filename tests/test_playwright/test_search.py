@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import pytest
 from playwright.sync_api import expect
 
-pytestmark = pytest.mark.django_db
+pytestmark = [pytest.mark.django_db, pytest.mark.pw]
 
 
 @pytest.fixture(scope="session")

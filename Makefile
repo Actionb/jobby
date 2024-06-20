@@ -28,11 +28,11 @@ lint:
 
 .PHONY: test
 test:
-	pytest --cov --cov-branch --cov-report=term --cov-report=html tests/
+	pytest --cov --cov-branch --cov-report=term --cov-report=html  -m 'not pw' tests/
 
 .PHONY: test-pw
 test-pw:
-	pytest tests/test_playwright/
+	pytest -m pw tests/
 
 .PHONY: audit
 check:
