@@ -62,7 +62,7 @@ def search_result_count(search_results_parsed):
 @pytest.fixture(autouse=True)
 def get_jwt_mock():
     """Mock out retrieving a jwt token."""
-    with patch("jobby.search.get_jwt", new=Mock(return_value="")) as m:
+    with patch("jobby.apis.bundesagentur_api.get_jwt", new=Mock(return_value="")) as m:
         yield m
 
 

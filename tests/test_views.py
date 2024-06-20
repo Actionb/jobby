@@ -44,7 +44,7 @@ def search_response_mock(search_results):
 @pytest.fixture
 def search_mock(search_response_mock):
     """Mock the ``search`` function to return a mocked response."""
-    with patch("jobby.views.search") as m:
+    with patch("jobby.views.registry.search") as m:
         m.return_value = search_response_mock
         yield m
 

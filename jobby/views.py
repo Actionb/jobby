@@ -10,9 +10,9 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic import FormView, ListView, UpdateView
 from django.views.generic.base import ContextMixin
 
+from jobby.apis.registry import registry
 from jobby.forms import StellenangebotForm, SucheForm, WatchlistSearchForm
 from jobby.models import Stellenangebot, Watchlist, WatchlistItem
-from jobby.search import search
 
 PAGE_VAR = "page"
 PAGE_SIZE = 100
@@ -45,7 +45,7 @@ class SucheView(BaseMixin, FormView):
     def form_valid(self, form):
         ctx = self.get_context_data(form=form)
         try:
-            search_response = search(**form.cleaned_data)
+            search_response = registry.search(**form.cleaned_data)
         except Exception as e:
             self._send_error_message(e)
         else:
