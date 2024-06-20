@@ -1,6 +1,7 @@
 import re
 from datetime import date, datetime
 
+import playwright.sync_api
 import pytest
 from django.utils.formats import localize
 from django.utils.http import urlencode
@@ -143,20 +144,23 @@ def test_detail_page_add(detail_page, add, add_data):
 
 
 @pytest.mark.parametrize("add", [True])
-def test_add_page_fetches_jobdetails(
-    detail_page, add, add_data, requests_mock, jobdetails_url, job_description_text, get_url
-):
+def test_add_gets_jobdetails(detail_page, add, add_data, requests_mock, jobdetails_url, job_description_text, get_url):
     """
     Assert that the Stellenangebot add page automatically fetches the job
     description from the job's original detail page.
     """
+    try:
+        # Give the request some time to finish, if it hasn't yet.
+        def predicate(request):
+            return request.url == get_url("get_angebot_beschreibung", kwargs={"refnr": add_data["refnr"]})
 
-    def predicate(request):
-        return request.url == get_url("get_angebot_beschreibung", kwargs={"refnr": add_data["refnr"]})
-
-    with detail_page.expect_request_finished(predicate):
-        assert requests_mock.request_history[0].url == jobdetails_url + add_data["refnr"]
-        expect(detail_page.get_by_test_id("job-description")).to_contain_text(job_description_text)
+        with detail_page.expect_request_finished(predicate, timeout=2000):
+            pass
+    except playwright.sync_api.Error:
+        # Assume that the request had already finished.
+        pass
+    assert requests_mock.request_history[0].url == jobdetails_url + add_data["refnr"]
+    expect(detail_page.get_by_test_id("job-description")).to_contain_text(job_description_text)
 
 
 @pytest.mark.skip(reason="Not yet implemented.")
