@@ -106,3 +106,5 @@ BOOTSTRAP5 = {
 # silence this warning, or set the FORMS_URLFIELD_ASSUME_HTTPS transitional
 # setting to True to opt into using 'https' as the new default scheme.
 FORMS_URLFIELD_ASSUME_HTTPS = True
+
+MEDIA_URL = "/media/"
