@@ -186,6 +186,17 @@ class StellenangebotKontakt(models.Model):
     angebot = models.ForeignKey("jobby.Stellenangebot", on_delete=models.CASCADE, related_name="kontakte")
 
 
+class StellenangebotFiles(models.Model):
+
+    description = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Beschreibung", blank=True)
+    file = models.FileField(verbose_name="Datei", upload_to="uploads/")
+    angebot = models.ForeignKey("jobby.Stellenangebot", on_delete=models.CASCADE, related_name="files")
+
+    class Meta:
+        verbose_name = "Bewerbungsunterlagen"
+        verbose_name_plural = "Bewerbungsunterlagen"
+
+
 class Watchlist(models.Model):
     name = models.CharField(max_length=CHARFIELD_MAX, default="default")  # TODO: make unique?
 
