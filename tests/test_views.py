@@ -6,12 +6,13 @@ import pytest
 import requests
 from django.core.paginator import Paginator
 from django.db.models import QuerySet
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import path, reverse
 from jobby.models import Stellenangebot, Watchlist
 from jobby.views import (
     DETAILS_BESCHREIBUNG_ID,
     PAGE_VAR,
+    BaseMixin,
     PapierkorbView,
     StellenangebotView,
     SucheView,
@@ -689,3 +690,32 @@ class TestPapierkorbView:
         queryset = view.get_queryset()
         assert stellenangebot in queryset
         assert watchlist_item.stellenangebot not in queryset
+
+
+urlpatterns = [
+    path("suche/", lambda r: HttpResponse(), name="suche"),
+    path("not_suche/", lambda r: HttpResponse(), name="not_suche"),
+]
+
+
+@pytest.mark.urls(__name__)
+class TestBaseMixin:
+
+    @pytest.fixture
+    def client_request(self, client, request_path, request_data):
+        response = client.get(request_path, data=request_data)
+        return response.wsgi_request
+
+    @pytest.mark.parametrize("request_path", ["404/"])
+    def test_get_search_filters_no_match(self, client_request, request_path):
+        assert BaseMixin().get_search_filters(client_request) == ""
+
+    @pytest.mark.parametrize("request_path", ["/suche/"])
+    @pytest.mark.parametrize("request_data", [{"foo": "bar"}])
+    def test_get_search_filters_suche(self, client_request, request_path, request_data):
+        assert BaseMixin().get_search_filters(client_request) == "_search_filters=foo%3Dbar"
+
+    @pytest.mark.parametrize("request_path", ["/not_suche/"])
+    @pytest.mark.parametrize("request_data", [{"_search_filters": "foo=bar"}])
+    def test_get_search_filters_not_suche(self, client_request, request_path, request_data):
+        assert BaseMixin().get_search_filters(client_request) == "_search_filters=foo%3Dbar"

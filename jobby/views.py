@@ -8,6 +8,7 @@ from django.db.models import Exists, OuterRef
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import FormView, ListView, UpdateView
 from django.views.generic.base import ContextMixin
@@ -31,13 +32,31 @@ PAGE_SIZE = 100
 class BaseMixin(ContextMixin):
     site_title = ""
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):  # pragma: no cover
         ctx = super().get_context_data(**kwargs)
         ctx["site_title"] = self.site_title
         ctx["orphan_count"] = Stellenangebot.objects.exclude(
             Exists(WatchlistItem.objects.filter(stellenangebot_id=OuterRef("id")))
         ).count()
+        ctx["preserved_search_filters"] = self.get_search_filters(self.request)  # noqa
         return ctx
+
+    def get_search_filters(self, request):
+        """Return the search filters query string of the given request."""
+        match = request.resolver_match
+        if match:
+            if match.url_name == "suche":
+                # We're on the search page; the search filters are given by the
+                # GET parameters.
+                preserved_filters = request.GET.urlencode()
+            else:
+                # Not on the search page; the search filters are stored in the
+                # GET parameter _search_filters.
+                preserved_filters = request.GET.get("_search_filters")
+
+            if preserved_filters:
+                return urlencode({"_search_filters": preserved_filters})
+        return ""
 
 
 class SucheView(BaseMixin, FormView):
