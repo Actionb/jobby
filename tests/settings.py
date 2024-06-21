@@ -37,6 +37,7 @@ ALWAYS_INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "jobby",
     "django_bootstrap5",
+    "mizdb_inlines",
 ]
 
 TEST_APPS = [
