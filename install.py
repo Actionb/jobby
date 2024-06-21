@@ -32,7 +32,7 @@ MOUNT_POINT=/jobby
 DOCKER_ENV_FILE_TEMPLATE = """# Environment variables for docker compose.
 # (note that this file should live in the project root)
 
-DB_DATA_DIR = {data_dir}
+DATA_DIR = {data_dir}
 CONFIG_DIR = {app_config_dir}
 
 # Set UID and GID so we can specify the user for the postgres service and its
@@ -146,8 +146,8 @@ def get_data_home() -> Path:
 
 
 def get_data_directory() -> Path:
-    """Return the directory where the app's database data should be stored."""
-    return get_data_home() / "jobby" / "data"
+    """Return the directory where the app's persistent data should be stored."""
+    return get_data_home() / "jobby"
 
 
 def get_config_directory() -> Path:
@@ -156,11 +156,13 @@ def get_config_directory() -> Path:
 
 
 def setup_data_directory() -> Path:
-    """Create the directories for the database data."""
+    """Create the directories for the persistent data."""
     directory = get_data_directory()
     directory.mkdir(parents=True, exist_ok=True)
+    directory.joinpath("media").mkdir(exist_ok=True)
+    directory.joinpath("data").mkdir(exist_ok=True)
     with open(directory.parent / "README.txt", "w") as f:
-        f.write("This is where the database data of the jobby app is stored.")
+        f.write("This is where the file uploads and the database data of the jobby app are stored.")
     return directory
 
 
@@ -179,9 +181,9 @@ def install(password: str, allowedhosts: str, uid: int | None = None, gid: int |
     docker containers.
     """
     print("This sets up directories for persistent storage and config files.")
-    print(f"Database data directory: {get_data_directory()}")
+    print(f"Persistent data directory: {get_data_directory()}")
     print(f"Config directory: {get_config_directory()}")
-    print(f"Database password: {password}")
+    print(f"Database password: {password}\n")
     if input("Continue? [y/n]: ").lower().strip() not in ("y", "yes", "j", "ja", "ok"):
         print("Aborted.")
         return
@@ -198,7 +200,7 @@ def install(password: str, allowedhosts: str, uid: int | None = None, gid: int |
 
     # Start containers:
     print("Creating docker containers...")
-    subprocess.run(["docker", "compose", "up", "-d"])
+    subprocess.run(["docker", "compose", "up", "-d", "--build"])
     print("Running migrations...")
     subprocess.run(["docker", "exec", "-i", "jobby-app", "python3", "manage.py", "migrate"])
 
@@ -212,7 +214,7 @@ def uninstall():
     data_dir = get_data_directory()
     app_config_dir = get_config_directory()
 
-    print("This will delete the following directories and everything in it:")
+    print("This will delete the following directories and *everything* in it:")
     print(data_dir)
     print(app_config_dir)
     if input("Continue? [y/n]: ").lower().strip() not in ("y", "yes", "j", "ja", "ok"):

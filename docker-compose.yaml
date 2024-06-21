@@ -3,7 +3,7 @@ services:
     image: postgres:alpine
     container_name: jobby-postgres
     volumes:
-      - "$DB_DATA_DIR:/var/lib/postgresql/data"
+      - "$DATA_DIR/data:/var/lib/postgresql/data"
     environment:
       POSTGRES_DB: jobby
       POSTGRES_USER: jobby
@@ -28,7 +28,7 @@ services:
     container_name: jobby-app
     volumes:
       - "$CONFIG_DIR/.secrets:/jobby/.secrets:ro"
-      - "$DB_DATA_DIR/media:/jobby/media"
+      - "$DATA_DIR/media:/jobby/media"
     env_file:
       - "$CONFIG_DIR/.env"
     ports:
