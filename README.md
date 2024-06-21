@@ -3,7 +3,13 @@
 ## Installation
 
 This will install the app into a docker container on your system.
-After the installation is complete, the app should be accessible under: http://localhost/jobby/
+After the installation is complete, the app should be accessible under: http://localhost:8787/jobby/
+
+### Requirements
+
+Docker must be installed:  
+* Linux: https://docs.docker.com/engine/install/ (or use docker's own [convenience script](https://get.docker.com/))
+* Windows: https://docs.docker.com/desktop/install/windows-install/ 
 
 ### Linux
 
