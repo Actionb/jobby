@@ -360,6 +360,7 @@ class PapierkorbView(BaseMixin, ListView):
 
 
 def delete_stellenangebot(request):
+    """Endpoint for delete requests made from the 'Papierkorb'."""
     try:
         pk = request.POST["pk"]
     except KeyError:
