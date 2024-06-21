@@ -24,6 +24,7 @@ from jobby.models import (
     Watchlist,
     WatchlistItem,
 )
+from jobby.templatetags.jobby import add_search_filters
 
 PAGE_VAR = "page"
 PAGE_SIZE = 100
@@ -172,10 +173,6 @@ class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
             initial.update(self.request.GET.dict())
         return initial
 
-    def get_success_url(self):  # pragma: no cover
-        # TODO: return to previous page (either suche or merkliste)
-        return reverse("stellenangebot_edit", kwargs={"id": self.object.pk})
-
     @property
     def site_title(self):
         if self.add:
@@ -204,6 +201,19 @@ class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
         response = super().form_valid(form)
         self.get_watchlist(self.request).add_watchlist_item(self.object)
         return response
+
+    def get_success_url(self):
+        """
+        Return the success_url that corresponds with the submit button that was
+        pressed.
+        """
+        if "submit_suche" in self.request.POST:
+            url = reverse("suche")
+        elif "submit_watchlist" in self.request.POST:
+            url = reverse("watchlist")
+        else:
+            url = reverse("stellenangebot_edit", kwargs={"id": self.object.pk})
+        return add_search_filters(context={"preserved_search_filters": self.get_search_filters(self.request)}, url=url)
 
 
 ################################################################################

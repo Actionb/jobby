@@ -484,6 +484,34 @@ class TestStellenangebotView:
                 view.form_valid(None)
                 add_mock.assert_called_with(stellenangebot)
 
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}, {"add": False}])
+    @pytest.mark.parametrize("request_data", [{"submit_suche": ""}])
+    def test_get_success_url_suche(self, view_post_request, view_extra_context, request_data):
+        """
+        Assert that ``get_success_url`` returns the URL for the 'suche' page if
+        'submit_suche' is in request.POST.
+        """
+        assert view_post_request.get_success_url() == reverse("suche")
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}, {"add": False}])
+    @pytest.mark.parametrize("request_data", [{"submit_watchlist": ""}])
+    def test_get_success_url_watchlist(self, view_post_request, view_extra_context, request_data):
+        """
+        Assert that ``get_success_url`` returns the URL for the 'watchlist' page
+        if 'submit_watchlist' is in request.POST.
+        """
+        assert view_post_request.get_success_url() == reverse("watchlist")
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": True}, {"add": False}])
+    @pytest.mark.parametrize("request_data", [{}])
+    def test_get_success_url_edit(self, view_post_request, view_extra_context, request_data, stellenangebot):
+        """
+        Assert that ``get_success_url`` returns the URL for the edit page if
+        request.POST does not contain 'submit_suche' or 'submit_watchlist'.
+        """
+        view_post_request.object = stellenangebot
+        assert view_post_request.get_success_url() == reverse("stellenangebot_edit", kwargs={"id": stellenangebot.pk})
+
 
 @pytest.mark.usefixtures("ignore_csrf_protection")
 class TestWatchlistRemove:
@@ -655,10 +683,9 @@ class TestGetBeschreibung:
         "details_html,beschreibung_html",
         [
             (
-                """
-                            <div id="detail-beschreibung-extern">
-                            <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a></div>
-                        """,
+                """<div id="detail-beschreibung-extern">
+                    <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a>
+                    </div>""",
                 """Beschreibung auf externer Seite: <a href="www.foobar.com">www.foobar.com</a>""",
             )
         ],
