@@ -64,7 +64,6 @@ def test_detail_page_edit(detail_page, add, stellenangebot):
     expect(detail_page.get_by_title("Eintrittsdatum")).to_contain_text(localize(stellenangebot.eintrittsdatum))
 
 
-@pytest.mark.skip(reason="Not yet implemented.")
 @pytest.mark.parametrize("add", [False])
 def test_edit_can_update(detail_page, add, stellenangebot, watchlist_item, watchlist):
     """
@@ -73,7 +72,7 @@ def test_edit_can_update(detail_page, add, stellenangebot, watchlist_item, watch
     """
     detail_page.get_by_label("Notizen").fill("Foo")
     with detail_page.expect_request_finished():
-        detail_page.get_by_role("button", name=re.compile("aktualisieren", re.IGNORECASE)).click()
+        detail_page.get_by_role("button", name=re.compile("suche", re.IGNORECASE)).click()
     stellenangebot.refresh_from_db()
     assert stellenangebot.notizen == "Foo"
     assert watchlist.on_watchlist(stellenangebot)
@@ -115,12 +114,11 @@ def test_edit_can_remove_from_watchlist_additional_user_data(
     assert Stellenangebot.objects.filter(pk=stellenangebot.pk).exists()
 
 
-@pytest.mark.skip(reason="Not yet implemented.")
 @pytest.mark.parametrize("add", [False])
 def test_edit_can_add_to_watchlist(detail_page, add, stellenangebot, watchlist, watchlist_url):
     """Assert that the user can add the Stellenangebot to the watchlist."""
     with detail_page.expect_request_finished():
-        detail_page.get_by_role("button", name=re.compile("merken", re.IGNORECASE)).click()
+        detail_page.get_by_role("button", name=re.compile("merkliste", re.IGNORECASE)).click()
     assert watchlist.on_watchlist(stellenangebot)
     assert detail_page.url == watchlist_url
 
@@ -179,23 +177,21 @@ def test_add_can_add_to_watchlist(detail_page, add, add_data, watchlist, get_url
     assert detail_page.url == get_url("stellenangebot_edit", kwargs={"id": stellenangebot.pk})
 
 
-@pytest.mark.skip(reason="Not yet implemented.")
 @pytest.mark.parametrize("add", [True])
 def test_add_and_back_to_search_results(detail_page, add, add_data, watchlist, get_url):
     """
-    Assert that the "Merken > Suche" save button sends the user
-    back to the search page.
+    Assert that the "Merken > Suche" save button sends the user back to the
+    search page.
     """
     with detail_page.expect_request_finished():
-        detail_page.get_by_role("button", name="Merken > Suche").click()
+        detail_page.get_by_role("button", name=re.compile("suche", re.IGNORECASE)).click()
     queryset = Stellenangebot.objects.filter(refnr=add_data["refnr"])
     assert queryset.exists()
     stellenangebot = queryset.get()
     assert watchlist.on_watchlist(stellenangebot)
-    assert detail_page.url == get_url("suche")  # TODO: check that the search params have been preserved?
+    assert detail_page.url == get_url("suche")
 
 
-@pytest.mark.skip(reason="Not yet implemented.")
 @pytest.mark.parametrize("add", [True])
 def test_add_and_to_watchlist(detail_page, add, add_data, watchlist, watchlist_url):
     """
@@ -203,7 +199,7 @@ def test_add_and_to_watchlist(detail_page, add, add_data, watchlist, watchlist_u
     watchlist page.
     """
     with detail_page.expect_request_finished():
-        detail_page.get_by_role("button", name="Merken > Suche").click()
+        detail_page.get_by_role("button", name=re.compile("merkliste", re.IGNORECASE)).click()
     queryset = Stellenangebot.objects.filter(refnr=add_data["refnr"])
     assert queryset.exists()
     stellenangebot = queryset.get()
