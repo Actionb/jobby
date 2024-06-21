@@ -17,10 +17,18 @@ services:
     user: "${UID:-1000}:${GID:-1000}"
 
   web:
-    build: .
+    build:
+      context: .
+      args:
+        # Pass the UID and GID to the Dockerfile, so we can create a user with
+        # the same UID and GID as the host. This is necessary for permissions
+        # on the media uploads directory.
+        UID: "${UID:-1000}"
+        GID: "${GID:-1000}"
     container_name: jobby-app
     volumes:
       - "$CONFIG_DIR/.secrets:/jobby/.secrets:ro"
+      - "$DB_DATA_DIR/media:/jobby/media"
     env_file:
       - "$CONFIG_DIR/.env"
     ports:
@@ -30,7 +38,8 @@ services:
         condition: service_healthy
     restart: unless-stopped
     entrypoint: [ "/jobby/docker-entrypoint.sh" ]
-    command: [ "/etc/jobby-server/apachectl", "start", "-DFOREGROUND" ]
+    command: [ "/jobby/jobby-server/apachectl", "start", "-DFOREGROUND" ]
+    user: "${UID:-1000}:${GID:-1000}"
 
 secrets:
   db_password:

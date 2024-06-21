@@ -16,6 +16,13 @@ RUN ["apk", "add", "libpq", "apache2"]
 
 COPY --from=build /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 
+ARG UID
+ARG GID
+RUN addgroup -g $GID jobby
+RUN adduser -HD -u $UID -G jobby jobby
+
+USER $UID:$GID
+
 WORKDIR /jobby
 RUN ["mkdir", "static"]
 COPY manage.py .
