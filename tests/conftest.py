@@ -69,15 +69,21 @@ def request_data():
 
 
 @pytest.fixture
-def get_request(rf, request_data):
-    """Return a GET request."""
-    return rf.get("", data=request_data)
+def request_path():
+    """The path argument for a http request."""
+    return ""
 
 
 @pytest.fixture
-def post_request(rf, request_data):
+def get_request(rf, request_path, request_data):
+    """Return a GET request."""
+    return rf.get(request_path, data=request_data)
+
+
+@pytest.fixture
+def post_request(rf, request_path, request_data):
     """Return a POST request."""
-    return rf.post("", data=request_data)
+    return rf.post(request_path, data=request_data)
 
 
 @pytest.fixture
@@ -91,6 +97,14 @@ def view(view_class, get_request, view_extra_context):
     """Instantiate the given view class with the request and context."""
     view = view_class(extra_context=view_extra_context)
     view.setup(get_request)
+    return view
+
+
+@pytest.fixture
+def view_post_request(view_class, post_request, view_extra_context):
+    """Instantiate the given view class with a POST request and the context."""
+    view = view_class(extra_context=view_extra_context)
+    view.setup(post_request)
     return view
 
 
