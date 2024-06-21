@@ -1,9 +1,10 @@
-from unittest.mock import Mock
-
 # noinspection PyPackageRequirements
 import pytest
 from django.core.paginator import Paginator
+from django.utils.formats import localize
 from jobby.forms import SucheForm
+
+pytestmark = [pytest.mark.django_db]
 
 
 @pytest.fixture
@@ -13,10 +14,10 @@ def form():
 
 
 @pytest.fixture
-def results():
+def results(stellenangebot):
     """Return the template context item for the search results."""
-    item = Mock(titel="Software Tester", arbeitsort="Dortmund", arbeitgeber="IHK Dortmund", eintrittsdatum="2024-05-31")
-    return [(item, True)]
+    # [(result_item, on_watchlist),...]
+    return [(stellenangebot, True)]
 
 
 @pytest.fixture
@@ -67,7 +68,7 @@ def test_results_rendering(results, rendered_results):
     assert rendered_results[0].h3.string == result.titel
     assert rendered_results[0].find("span", class_="arbeitsort").string == result.arbeitsort
     assert rendered_results[0].find("span", class_="arbeitgeber").string == result.arbeitgeber
-    assert rendered_results[0].find("span", class_="eintrittsdatum").string == result.eintrittsdatum
+    assert rendered_results[0].find("span", class_="eintrittsdatum").string == localize(result.eintrittsdatum)
 
 
 @pytest.mark.parametrize(
