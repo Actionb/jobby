@@ -5,6 +5,8 @@ from playwright.sync_api import expect
 
 from tests.factories import StellenangebotFactory
 
+pytestmark = [pytest.mark.django_db, pytest.mark.pw]
+
 
 @pytest.fixture
 def orphans():
