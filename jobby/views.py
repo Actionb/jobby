@@ -15,7 +15,14 @@ from mizdb_inlines.views import InlineFormsetMixin
 
 from jobby.apis.registry import registry
 from jobby.forms import StellenangebotForm, SucheForm, WatchlistSearchForm
-from jobby.models import Stellenangebot, StellenangebotKontakt, StellenangebotURLs, Watchlist, WatchlistItem
+from jobby.models import (
+    Stellenangebot,
+    StellenangebotFiles,
+    StellenangebotKontakt,
+    StellenangebotURLs,
+    Watchlist,
+    WatchlistItem,
+)
 
 PAGE_VAR = "page"
 PAGE_SIZE = 100
@@ -93,6 +100,17 @@ class SucheView(BaseMixin, FormView):
         }
 
 
+def inlineformset_factory(parent, model, tabular=True):
+    """
+    Small wrapper around the formset factory that adds the attribute
+    ``is_tabular`` to the resulting formset class, which tells the template
+    how to render the formset.
+    """
+    formset_class = forms.inlineformset_factory(parent, model, fields=forms.ALL_FIELDS, extra=1)
+    formset_class.is_tabular = tabular
+    return formset_class
+
+
 class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
     model = Stellenangebot
     form_class = StellenangebotForm
@@ -100,8 +118,9 @@ class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
     pk_url_kwarg = "id"
 
     formset_classes = [
-        forms.inlineformset_factory(Stellenangebot, StellenangebotURLs, fields=forms.ALL_FIELDS, extra=1),
-        forms.inlineformset_factory(Stellenangebot, StellenangebotKontakt, fields=forms.ALL_FIELDS, extra=1),
+        inlineformset_factory(Stellenangebot, StellenangebotURLs),
+        inlineformset_factory(Stellenangebot, StellenangebotKontakt),
+        inlineformset_factory(Stellenangebot, StellenangebotFiles),
     ]
 
     def __init__(self, *args, **kwargs):

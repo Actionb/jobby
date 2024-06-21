@@ -68,13 +68,17 @@
 {% endblock angebot_details %}
 <hr>
 <h2>Eigene Daten:</h2>
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form_errors form %}
     {% bootstrap_form form layout="floating" %}
     {# TODO: wrap formsets in an accordion #}
     {% for formset in formsets %}
-        {% tabular_inline_formset formset %}
+        {% if formset.is_tabular %}
+            {% tabular_inline_formset formset %}
+        {% else %}
+            {% inline_formset formset %}
+        {% endif %}
     {% endfor %}
     <button type="submit" class="btn btn-success">{% if object.id %}Aktualisieren{% else %}Merken{% endif %}</button>
 </form>
