@@ -29,7 +29,8 @@
 python manage.py runmodwsgi \
   --setup-only \
   --server-root=/jobby/jobby-server \
-  --mount-point "$MOUNT_POINT"
+  --mount-point "$MOUNT_POINT" \
+  --url-alias /media media
 
 # Collect static files
 python manage.py collectstatic --clear --noinput --skip-checks --verbosity 0
