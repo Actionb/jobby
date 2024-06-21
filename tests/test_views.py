@@ -524,6 +524,26 @@ class TestWatchlistRemove:
         response = watchlist_remove(post_request)
         assert response.status_code == 200
 
+    def test_deletes_stellenangebot_without_user_data(self, post_request, watchlist_item, watchlist, stellenangebot):
+        """
+        Assert that a Stellenangebot without extra user data is deleted if
+        removed from the watchlist via ``watchlist_remove``.
+        """
+        stellenangebot_pk = stellenangebot.pk
+        watchlist_remove(post_request)
+        assert not Stellenangebot.objects.filter(pk=stellenangebot_pk).exists()
+
+    def test_deletes_stellenangebot_with_user_data(self, post_request, watchlist_item, watchlist, stellenangebot):
+        """
+        Assert that a Stellenangebot without extra user data is deleted if
+        removed from the watchlist via ``watchlist_remove``.
+        """
+        stellenangebot.notizen = "Foo"
+        stellenangebot.save()
+        stellenangebot_pk = stellenangebot.pk
+        watchlist_remove(post_request)
+        assert Stellenangebot.objects.filter(pk=stellenangebot_pk).exists()
+
 
 @pytest.mark.usefixtures("ignore_csrf_protection")
 class TestWatchlistRemoveAll:
@@ -549,6 +569,26 @@ class TestWatchlistRemoveAll:
         """
         response = watchlist_remove_all(post_request)
         assert response.status_code == 200
+
+    def test_deletes_stellenangebot_without_user_data(self, post_request, watchlist_item, watchlist, stellenangebot):
+        """
+        Assert that a Stellenangebot without extra user data is deleted if
+        removed from the watchlist via ``watchlist_remove_all``.
+        """
+        stellenangebot_pk = stellenangebot.pk
+        watchlist_remove_all(post_request)
+        assert not Stellenangebot.objects.filter(pk=stellenangebot_pk).exists()
+
+    def test_deletes_stellenangebot_with_user_data(self, post_request, watchlist_item, watchlist, stellenangebot):
+        """
+        Assert that a Stellenangebot without extra user data is deleted if
+        removed from the watchlist via ``watchlist_remove_all``.
+        """
+        stellenangebot.notizen = "Foo"
+        stellenangebot.save()
+        stellenangebot_pk = stellenangebot.pk
+        watchlist_remove_all(post_request)
+        assert Stellenangebot.objects.filter(pk=stellenangebot_pk).exists()
 
 
 class TestGetBeschreibung:
@@ -615,9 +655,9 @@ class TestGetBeschreibung:
         [
             (
                 """
-                        <div id="detail-beschreibung-extern">
-                        <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a></div>
-                    """,
+                            <div id="detail-beschreibung-extern">
+                            <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a></div>
+                        """,
                 """Beschreibung auf externer Seite: <a href="www.foobar.com">www.foobar.com</a>""",
             )
         ],

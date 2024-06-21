@@ -257,7 +257,8 @@ def watchlist_remove_all(request):
         # exist.
         pass
     else:
-        watchlist.items.all().delete()
+        for item in watchlist.items.all():
+            watchlist.remove_watchlist_item(item.stellenangebot)
     return JsonResponse({})
 
 
