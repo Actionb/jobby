@@ -85,7 +85,7 @@ class SucheModel(models.Model):
 
     # Query specific options
     page = models.PositiveSmallIntegerField(blank=True, null=True, default=1)
-    size = models.PositiveSmallIntegerField(blank=True, null=True, default=100)
+    size = models.PositiveSmallIntegerField(blank=True, null=True, default=50)
 
     class Meta:
         verbose_name = "Such-Parameter"
