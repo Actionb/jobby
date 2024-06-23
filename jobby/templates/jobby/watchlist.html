@@ -1,5 +1,5 @@
 {% extends "jobby/base.html" %}
-{% load static django_bootstrap5 %}
+{% load static django_bootstrap5 jobby %}
 
 
 {% block extrahead %}
@@ -39,7 +39,7 @@
     <tbody class="watchlist-items-list">
     {% for stellenangebot in stellenangebot_list %}
     <tr class="watchlist-item">
-        <td><a href="{{ stellenangebot.as_url }}">{{ stellenangebot }}</a></td>
+        <td><a href="{% add_search_filters stellenangebot.as_url %}">{{ stellenangebot }}</a></td>
         <td>{{ stellenangebot.arbeitsort }}</td>
         <td>{{ stellenangebot.arbeitgeber }}</td>
         <td>{{ stellenangebot.eintrittsdatum }}</td>
