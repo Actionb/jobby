@@ -8,7 +8,7 @@ from django.utils.timezone import make_aware
 class BaseAPI(ABC):
 
     @abstractmethod
-    def search(self) -> "SearchResponse": ...
+    def search(self, **params) -> "SearchResponse": ...
 
 
 class SearchResponse(ABC):
