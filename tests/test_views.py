@@ -4,6 +4,7 @@ from unittest.mock import Mock, patch
 # noinspection PyPackageRequirements
 import pytest
 import requests
+from django.core.exceptions import BadRequest
 from django.core.paginator import Paginator
 from django.db.models import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
@@ -280,9 +281,27 @@ class TestWatchlistView:
 class TestWatchlistToggle:
 
     @pytest.fixture
-    def request_data(self, stellenangebot, watchlist_name):
+    def beschreibung(self):
+        return "foo"
+
+    @pytest.fixture
+    def includes_beschreibung(self):
+        """Return whether the POST data contains a 'beschreibung'."""
+        return True
+
+    @pytest.fixture
+    def request_data(self, stellenangebot, watchlist_name, includes_beschreibung, beschreibung):
         """Return the data for the request."""
-        return {"titel": stellenangebot.titel, "refnr": stellenangebot.refnr, "watchlist_name": watchlist_name}
+        data = {"titel": stellenangebot.titel, "refnr": stellenangebot.refnr, "watchlist_name": watchlist_name}
+        if includes_beschreibung:
+            data["beschreibung"] = beschreibung
+        return data
+
+    @pytest.fixture
+    def get_beschreibung_mock(self, beschreibung):
+        with patch("jobby.views._get_beschreibung") as m:
+            m.return_value = beschreibung
+            yield m
 
     def test_watchlist_toggle_not_on_watchlist(self, post_request, watchlist, stellenangebot):
         """
@@ -316,6 +335,45 @@ class TestWatchlistToggle:
         assert Stellenangebot.objects.filter(refnr=stellenangebot.refnr).exists()
         saved_angebot = Stellenangebot.objects.get(refnr=stellenangebot.refnr)
         assert watchlist.items.filter(stellenangebot=saved_angebot).exists()
+
+    @pytest.mark.parametrize("stellenangebot", [StellenangebotFactory.build()])
+    @pytest.mark.parametrize("includes_beschreibung", [False])
+    def test_watchlist_toggle_new_angebot_beschreibung(
+        self,
+        post_request,
+        stellenangebot,
+        includes_beschreibung,
+        beschreibung,
+        get_beschreibung_mock,
+    ):
+        """
+        Assert that a 'beschreibung' is added to new Stellenangebot objects
+        when they are being added to the watchlist via the toggle.
+        """
+        response = watchlist_toggle(post_request)
+        assert response.status_code == 200
+        get_beschreibung_mock.assert_called_with(stellenangebot.refnr)
+        saved_angebot = Stellenangebot.objects.get(refnr=stellenangebot.refnr)
+        assert saved_angebot.beschreibung == beschreibung
+
+    @pytest.mark.parametrize("stellenangebot", [StellenangebotFactory.build()])
+    @pytest.mark.parametrize("includes_beschreibung", [False])
+    def test_watchlist_toggle_new_angebot_beschreibung_bad_request(
+        self,
+        post_request,
+        stellenangebot,
+        includes_beschreibung,
+        get_beschreibung_mock,
+    ):
+        """
+        Assert that no 'beschreibung' is added to new Stellenangebot objects if
+        ``_get_beschreibung`` raises a BadRequest during the toggle process.
+        """
+        get_beschreibung_mock.side_effect = BadRequest
+        response = watchlist_toggle(post_request)
+        assert response.status_code == 200
+        saved_angebot = Stellenangebot.objects.get(refnr=stellenangebot.refnr)
+        assert not saved_angebot.beschreibung
 
     @pytest.mark.parametrize("request_data", [{}])
     def test_watchlist_toggle_no_refnr(self, post_request, request_data):
