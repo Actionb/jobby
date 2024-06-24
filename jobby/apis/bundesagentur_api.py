@@ -2,7 +2,7 @@ import requests
 from django.conf import settings
 
 from jobby.apis.base import BaseAPI, SearchResponse
-from jobby.apis.registry import register
+from jobby.apis.decorator import register
 from jobby.models import Stellenangebot, _update_stellenangebot
 
 

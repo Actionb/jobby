@@ -60,12 +60,3 @@ class APIRegistry:
 
 
 registry = APIRegistry()
-
-
-def register(api_cls):
-    from jobby.apis.base import BaseAPI
-
-    assert issubclass(api_cls, BaseAPI)
-    # TODO: how to instantiate the apis?
-    registry.register(api_cls())
-    return api_cls
