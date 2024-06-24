@@ -86,6 +86,8 @@ class BundesagenturResponse(SearchResponse):
 @register
 class BundesagenturAPI(BaseAPI):
 
+    name = "bundesagentur"
+
     def _get_jwt(self):  # pragma: no cover
         """Fetch the jwt token object."""
         headers = {

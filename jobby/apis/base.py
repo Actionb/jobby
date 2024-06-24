@@ -9,6 +9,11 @@ from jobby.models import Stellenangebot
 
 
 class BaseAPI(ABC):
+    name: str
+
+    def __init__(self):
+        if not self.name:
+            self.name = str(self.__class__)
 
     @abstractmethod
     def search(self, **params) -> "SearchResponse":
