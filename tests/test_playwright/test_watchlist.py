@@ -52,7 +52,7 @@ def test_remove_all(watchlist_items, watchlist_page, watchlist):
 
 def test_can_search(watchlist_items, watchlist_page):
     """Assert that the user can filter the watchlist items."""
-    watchlist_page.get_by_label("Titel").fill(watchlist_items.first().titel)
+    watchlist_page.get_by_label("Textsuche").fill(watchlist_items.first().titel)
     with watchlist_page.expect_request_finished():
         watchlist_page.get_by_role("button", name="Suche").click()
     expect(get_watchlist_items(watchlist_page)).to_have_count(1)

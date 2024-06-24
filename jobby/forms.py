@@ -89,7 +89,7 @@ class StellenangebotForm(forms.ModelForm):
 
 class WatchlistSearchForm(forms.Form):
     # TODO: add watchlist select once multiple watchlists are supported
-    titel__icontains = forms.CharField(required=False, label="Titel")
+    q = forms.CharField(required=False, label="Textsuche")
     bewerbungsstatus = forms.ChoiceField(choices=Stellenangebot.BewerbungChoices, required=False)
 
     def get_filter_params(self, cleaned_data):

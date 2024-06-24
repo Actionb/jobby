@@ -233,12 +233,14 @@ class WatchlistView(BaseMixin, ListView):
         return watchlist
 
     def get_queryset(self):
-        # TODO: implement text search
         queryset = self.get_watchlist(self.request).get_stellenangebote()
         search_form = WatchlistSearchForm(data=self.request.GET.dict())
         if search_form.is_valid():
             filters = search_form.get_filter_params(search_form.cleaned_data)
+            q = filters.pop("q", None)
             queryset = queryset.filter(**filters)
+            if q:
+                queryset = queryset.search(q)
         return queryset
 
     def get_watchlist_names(self):
