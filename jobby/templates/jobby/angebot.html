@@ -16,9 +16,9 @@
         <h1 title="Stellenangebot Titel">{{ form.titel.value|default:form.beruf.value }}</h1>
         <span class="ms-3">{{ form.beruf.value }}</span>
     </div>
-    {% if arge_link or form.externe_url.value %}
+    {% if details_url or form.externe_url.value %}
     <div>
-        {% if arge_link %}<div><a href="{{ arge_link }}" target="_blank">Zum Angebot auf arbeitsagentur.de</a></div>{% endif %}
+        {% if details_url %}<div><a href="{{ details_url }}" target="_blank">Zum Angebot auf arbeitsagentur.de</a></div>{% endif %}
         {% if form.externe_url.value %}<div><a href="{{ form.externe_url.value }}" target="_blank">Externer Link</a></div>{% endif %}
     </div>
     {% endif %}

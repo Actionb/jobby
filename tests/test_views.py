@@ -493,40 +493,40 @@ class TestStellenangebotView:
 
     @pytest.mark.parametrize("request_data", [{"refnr": "1234"}])
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
-    def test_get_arge_link_request_has_refnr(self, view, view_extra_context, request_data):
+    def test_get_details_url_request_has_refnr(self, view, view_extra_context, request_data):
         """
-        Assert that ``get_arge_link`` returns a URL to the details page of the
+        Assert that ``get_details_url`` returns a URL to the details page of the
         refnr given in the 'add' view's request data.
         """
-        assert view.get_arge_link() == f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{request_data['refnr']}"
+        assert view.get_details_url() == f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{request_data['refnr']}"
 
     @pytest.mark.parametrize("request_data", [{}])
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
-    def test_get_arge_link_request_does_not_have_refnr(self, view, view_extra_context, request_data):
+    def test_get_details_url_request_does_not_have_refnr(self, view, view_extra_context, request_data):
         """
-        Assert that ``get_arge_link`` returns None if the request data for an
+        Assert that ``get_details_url`` returns None if the request data for an
         'add' view does not contain a refnr.
         """
-        assert not view.get_arge_link()
+        assert not view.get_details_url()
 
     @pytest.mark.parametrize("view_extra_context", [{"add": False}])
-    def test_get_arge_link_edit(self, view, view_extra_context, stellenangebot, refnr):
+    def test_get_details_url_edit(self, view, view_extra_context, stellenangebot, refnr):
         """
-        Assert that ``get_arge_link`` returns the URL to the details page of the
+        Assert that ``get_details_url`` returns the URL to the details page of the
         edit view's Stellenangebot instance.
         """
         view.object = stellenangebot
-        assert view.get_arge_link() == f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}"
+        assert view.get_details_url() == f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}"
 
     @pytest.mark.parametrize("refnr", [""])
     @pytest.mark.parametrize("view_extra_context", [{"add": False}])
-    def test_get_arge_link_edit_no_refnr(self, view, view_extra_context, stellenangebot, refnr):
+    def test_get_details_url_edit_no_refnr(self, view, view_extra_context, stellenangebot, refnr):
         """
-        Assert that ``get_arge_link`` returns None if the edit view's instance
+        Assert that ``get_details_url`` returns None if the edit view's instance
         does not have a refnr set.
         """
         view.object = stellenangebot
-        assert not view.get_arge_link()
+        assert not view.get_details_url()
 
     @pytest.mark.parametrize("view_extra_context", [{"add": True}, {"add": False}])
     def test_get_watchlist(self, view, view_extra_context, post_request, watchlist):

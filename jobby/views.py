@@ -184,7 +184,8 @@ class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
         else:
             return self.object.titel or "Stellenangebot"
 
-    def get_arge_link(self):
+    def get_details_url(self):
+        """Return the URL to the external details page of this Stellenangebot."""
         if self.add:
             refnr = self.request.GET.get("refnr", None)
         else:
@@ -194,7 +195,7 @@ class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
 
     def get_context_data(self, **kwargs):  # pragma: no cover
         ctx = super().get_context_data(**kwargs)
-        ctx["arge_link"] = self.get_arge_link()
+        ctx["details_url"] = self.get_details_url()
         return ctx
 
     def get_watchlist(self, request):
