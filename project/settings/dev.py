@@ -1,3 +1,4 @@
+import getpass
 from pathlib import Path
 
 from .base import *  # noqa
@@ -11,8 +12,12 @@ DEBUG = True
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "jobby",
+        # Utilize the peer authentication method to connect to the database.
+        # This way, we don't have to create an extra user for the dev database.
+        # https://www.postgresql.org/docs/current/auth-peer.html
+        "USER": getpass.getuser(),
     }
 }
 

@@ -21,31 +21,39 @@ python install.py --uid="$(id -u)" --gid="$(id -g)" --password=supersecret
 
 ## Development
 
+### Requirements
+
+Postgres must be installed: https://www.postgresql.org/download/
+
 ### Install project
 1. Clone repository:
-	```commandline
-	git clone https://github.com/Actionb/jobby.git
-	cd jobby
-	```
+    ```commandline
+    git clone https://github.com/Actionb/jobby.git
+    cd jobby
+    ```
 2. Activate virtual environment:
-	```commandline
-	python3 -m venv .venv && source .venv/bin/activate
-	```
+    ```commandline
+    python3 -m venv .venv && source .venv/bin/activate
+    ```
 3. Install dependencies:
-	```commandline
-	pip install -r requirements/dev.txt
-	```
-4. Run migrations:
-	```commandline
-	python manage.py migrate
-	```
-5. (optional) Install pre-commit hooks (see: [pipx](https://pipx.pypa.io/latest/installation/#installing-pipx) and [pre-commit](https://pre-commit.com/#install)):
-	```commandline
-	python3 -m pip install --user pipx
-	python3 -m pipx ensurepath
-	pipx install pre-commit
-	pre-commit install
-	```
+    ```commandline
+    pip install -r requirements/dev.txt
+    ```
+4. Create development database:
+    ```commandline
+    createdb jobby
+    ```
+5. Run migrations:
+    ```commandline
+    python manage.py migrate
+    ```
+6. (optional) Install pre-commit hooks (see: [pipx](https://pipx.pypa.io/latest/installation/#installing-pipx) and [pre-commit](https://pre-commit.com/#install)):
+    ```commandline
+    python3 -m pip install --user pipx
+    python3 -m pipx ensurepath
+    pipx install pre-commit
+    pre-commit install
+    ```
  
 ### Development server
 
