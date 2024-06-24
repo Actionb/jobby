@@ -59,6 +59,7 @@ class StellenangebotForm(forms.ModelForm):
             "modified": forms.HiddenInput(),
             "externe_url": forms.HiddenInput(),
             "beschreibung": forms.HiddenInput(),
+            "api": forms.HiddenInput(),
         }
 
     def get_initial_for_field(self, field, field_name):

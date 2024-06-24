@@ -138,6 +138,7 @@ class Stellenangebot(models.Model):
     modified = models.DateTimeField(blank=True, null=True, verbose_name="Zuletzt verändert am")
     externe_url = models.URLField(blank=True, null=True, verbose_name="Externe URL")
     beschreibung = models.TextField(blank=True, verbose_name="Beschreibung")
+    api = models.CharField(max_length=CHARFIELD_MAX, blank=True)
 
     bewerbungsstatus = models.CharField(
         max_length=CHARFIELD_MAX,
