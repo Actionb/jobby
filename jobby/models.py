@@ -206,9 +206,12 @@ class StellenangebotKontakt(models.Model):
     kontakt_daten = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Daten")
     angebot = models.ForeignKey("jobby.Stellenangebot", on_delete=models.CASCADE, related_name="kontakte")
 
+    class Meta:
+        verbose_name = "Kontaktdaten"
+        verbose_name_plural = "Kontaktdaten"
+
 
 class StellenangebotFiles(models.Model):
-
     description = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Beschreibung", blank=True)
     file = models.FileField(verbose_name="Datei", upload_to="uploads/")
     angebot = models.ForeignKey("jobby.Stellenangebot", on_delete=models.CASCADE, related_name="files")
