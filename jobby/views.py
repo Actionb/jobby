@@ -120,14 +120,18 @@ class SucheView(BaseMixin, FormView):
         }
 
 
-def inlineformset_factory(parent, model, tabular=True):
+def inlineformset_factory(parent, model, title="", tabular=True):
     """
-    Small wrapper around the formset factory that adds the attribute
-    ``is_tabular`` to the resulting formset class, which tells the template
-    how to render the formset.
+    Small wrapper around the formset factory that adds some attributes to the
+    resulting formset class.
+
+    The attributes added are:
+        - ``title`` the title given to the rendered formset
+        - ``is_tabular`` which tells the template how to render the formset
     """
     formset_class = forms.inlineformset_factory(parent, model, fields=forms.ALL_FIELDS, extra=1)
     formset_class.is_tabular = tabular
+    formset_class.title = title or getattr(model, "_meta").verbose_name_plural
     return formset_class
 
 

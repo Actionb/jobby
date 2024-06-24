@@ -74,6 +74,7 @@
     {% bootstrap_form form layout="floating" %}
     {# TODO: wrap formsets in an accordion #}
     {% for formset in formsets %}
+        {% if formset.title %}<h3>{{ formset.title }}</h3>{% endif %}
         {% if formset.is_tabular %}
             {% tabular_inline_formset formset %}
         {% else %}
