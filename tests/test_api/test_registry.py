@@ -4,6 +4,8 @@ import pytest
 from jobby.apis.base import BaseAPI, SearchResponse
 from jobby.apis.registry import APIRegistry, RegistryResponse
 
+pytestmark = [pytest.mark.django_db]
+
 
 @pytest.fixture
 def registry():
@@ -28,9 +30,10 @@ def get_search_response_mock(search_results, status_code, result_count):
     return m
 
 
-def get_api_mock(search_response_mock):
+def get_api_mock(search_response_mock, api_name):
     m = create_autospec(BaseAPI)
     m.search.return_value = search_response_mock
+    m.name = api_name
     return m
 
 
@@ -83,15 +86,27 @@ def response_api_two(results_api_two, status_code_api_two, result_count_api_two)
 
 
 @pytest.fixture
-def api_one(response_api_one):
-    """Create an API Mock 'API One'."""
-    return get_api_mock(response_api_one)
+def name_api_one():
+    """Return the name for API One."""
+    return "API One"
 
 
 @pytest.fixture
-def api_two(response_api_two):
+def name_api_two():
+    """Return the name for API Two."""
+    return "API Two"
+
+
+@pytest.fixture
+def api_one(response_api_one, name_api_one):
+    """Create an API Mock 'API One'."""
+    return get_api_mock(response_api_one, name_api_one)
+
+
+@pytest.fixture
+def api_two(response_api_two, name_api_two):
     """Create an API Mock 'API Two'."""
-    return get_api_mock(response_api_two)
+    return get_api_mock(response_api_two, name_api_two)
 
 
 @pytest.fixture
@@ -158,6 +173,15 @@ class TestAPIRegistry:
         assert set(results_api_one).issubset(registry_response.results)
         assert set(results_api_two).issubset(registry_response.results)
 
+    def test_get_details_url(self, registry, set_apis, refnr, name_api_two, api_one, api_two):
+        """
+        Assert ``get_details_url`` calls the get_details_url method of the API
+        with the name that corresponds to the value of Stellenangebot.api.
+        """
+        registry.get_details_url(name_api_two, refnr)
+        api_two.get_details_url.assert_called_with(refnr)
+        api_one.get_details_url.assert_not_called()
+
 
 class TestRegistryResponse:
 
@@ -175,7 +199,7 @@ class TestRegistryResponse:
         assert set(results_api_two).issubset(registry_response.results)
 
     @pytest.mark.parametrize("status_code_api_one", [400])
-    def test_results_response_not_ok(self, registry_response, results_api_one, results_api_two):
+    def test_results_response_not_ok(self, registry_response, results_api_one, results_api_two, status_code_api_one):
         """
         Assert that the results of a response are not included in the results
         if the response status was not ok.

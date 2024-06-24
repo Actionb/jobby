@@ -58,5 +58,13 @@ class APIRegistry:
             search_responses.append(api_response)
         return RegistryResponse(*search_responses)
 
+    def get_details_url(self, api_name, refnr):
+        """Return the URL to the details page for the given API and refnr."""
+        for api in self._apis:
+            if api.name == api_name:
+                return api.get_details_url(refnr)
+        else:  # pragma: no cover
+            return ""
+
 
 registry = APIRegistry()
