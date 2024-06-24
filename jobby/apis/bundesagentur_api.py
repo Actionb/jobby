@@ -143,4 +143,4 @@ class BundesagenturAPI(BaseAPI):
 
     def search(self, **params) -> SearchResponse:
         response = self._search(**params)
-        return BundesagenturResponse(response)
+        return BundesagenturResponse(response, self)

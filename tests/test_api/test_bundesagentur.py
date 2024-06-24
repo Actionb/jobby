@@ -1,60 +1,11 @@
-from datetime import datetime
 from unittest.mock import Mock, PropertyMock, patch
 
 # noinspection PyPackageRequirements
 import pytest
-import requests
 from jobby.apis.bundesagentur_api import BundesagenturAPI, BundesagenturResponse
 from jobby.models import Stellenangebot
 
 pytestmark = [pytest.mark.django_db]
-
-
-@pytest.fixture
-def search_result(refnr):
-    """Return a single search result in the form of a dictionary."""
-    return {
-        "titel": "Software Entwickler",
-        "refnr": refnr,
-        "beruf": "Informatiker",
-        "arbeitgeber": "IHK Dortmund",
-        "arbeitsort": {"ort": "Dortmund", "plz": "44263", "region": "NRW"},
-        "eintrittsdatum": "2024-07-01",
-        "aktuelleVeroeffentlichungsdatum": "2024-05-30",
-        "modifikationsTimestamp": "2024-05-22T09:00:15.099",
-        "kundennummerHash": "a78er879s124mre",
-        "externeUrl": "www.google.de",
-    }
-
-
-@pytest.fixture
-def search_results(search_result):
-    """Return the list of search results."""
-    return [search_result]
-
-
-@pytest.fixture
-def response_status_code():
-    """Return the status code of a response."""
-    return requests.codes["ok"]
-
-
-@pytest.fixture
-def response_data(search_results):
-    """Return the data of a response."""
-    return {
-        "maxErgebnisse": len(search_results),
-        "stellenangebote": search_results,
-    }
-
-
-@pytest.fixture()
-def response_mock(response_status_code, response_data):
-    """Return a mocked response with the given status code and data."""
-    r = Mock()
-    r.status_code = response_status_code
-    r.json.return_value = response_data
-    return r
 
 
 @pytest.fixture
@@ -69,9 +20,9 @@ def search_mock(response_mock, api):
 
 
 @pytest.fixture
-def search_response(response_mock):
+def search_response(response_mock, api):
     """Return a SearchResponse instance with the given response."""
-    return BundesagenturResponse(response_mock)
+    return BundesagenturResponse(response_mock, api)
 
 
 @pytest.fixture
@@ -86,7 +37,7 @@ class TestBundesagenturAPI:
         assert isinstance(api.search(), BundesagenturResponse)
 
 
-class TestSearchResponse:
+class TestBundesagenturResponse:
 
     def test_get_results(self, search_response):
         """
@@ -97,6 +48,10 @@ class TestSearchResponse:
         assert len(results) == 1
         assert isinstance(results[0], Stellenangebot)
         assert results[0].titel == "Software Entwickler"
+
+    def test_results_api_set(self, search_response):
+        """Assert that the results have their api set to 'bundesagentur'."""
+        assert search_response.results[0].api == "bundesagentur"
 
     @pytest.mark.parametrize("search_results", [[1]])
     def test_has_results(self, search_response, search_results):
@@ -188,19 +143,3 @@ class TestSearchResponse:
     def test_parse_arbeitsort(self, search_response, ort_data, expected):
         """Assert that ``_parse_arbeitsort`` returns the expected strings."""
         assert search_response._parse_arbeitsort(ort_data) == expected
-
-    def test_make_aware(self, search_response):
-        """
-        Assert that ``_make_aware`` returns the expected timezone-aware
-        datetime object.
-        """
-        dt = search_response._make_aware("2024-05-22T09:00:15.099")
-        assert isinstance(dt, datetime)
-        assert dt.tzinfo is not None
-
-    def test_make_aware_invalid_datetime(self, search_response):
-        """
-        Assert that ``_make_aware`` returns an empty string if the
-        datetime_string argument is not a valid datetime.
-        """
-        assert search_response._make_aware("") == ""

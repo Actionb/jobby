@@ -22,9 +22,10 @@ class BaseAPI(ABC):
 
 class SearchResponse(ABC):
 
-    def __init__(self, response: Response):
+    def __init__(self, response: Response, api: BaseAPI):
         self.response: Response = response
         self.data: dict = response.json()
+        self.api = api
 
     @property
     def status_code(self) -> int:  # pragma: no cover
@@ -32,7 +33,7 @@ class SearchResponse(ABC):
 
     @cached_property
     def results(self) -> list[Stellenangebot]:  # pragma: no cover
-        return self._get_results(self.data)
+        return self._set_api_on_results(self._get_results(self.data))
 
     @property
     def result_count(self) -> int:  # pragma: no cover
@@ -55,3 +56,10 @@ class SearchResponse(ABC):
             return make_aware(datetime.fromisoformat(datetime_string))
         except ValueError:
             return ""
+
+    def _set_api_on_results(self, results: list[Stellenangebot]) -> list[Stellenangebot]:
+        """Set the value for Stellenangebot.api field on each result."""
+        for result in results:
+            if not result.api:
+                result.api = self.api.name
+        return results
