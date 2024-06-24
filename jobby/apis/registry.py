@@ -2,7 +2,7 @@ from functools import cached_property
 
 import requests
 
-from jobby.apis.base import SearchResponse
+from jobby.apis.base import BaseAPI, SearchResponse
 from jobby.models import Stellenangebot
 
 
@@ -32,14 +32,14 @@ class RegistryResponse:
 class APIRegistry:
 
     def __init__(self):
-        self._apis = []
+        self._apis: list[BaseAPI] = []
 
-    def register(self, api):
+    def register(self, api: "BaseAPI"):
         """Register an API with this registry."""
         if api not in self._apis:
             self._apis.append(api)
 
-    def unregister(self, api):
+    def unregister(self, api: "BaseAPI"):
         """Unregister an API from this registry."""
         if api in self._apis:
             self._apis.remove(api)

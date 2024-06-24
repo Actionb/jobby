@@ -9,12 +9,12 @@ from jobby.models import Stellenangebot, _update_stellenangebot
 class BundesagenturResponse(SearchResponse):
 
     @property
-    def has_results(self):
+    def has_results(self) -> bool:
         # NOTE: some queries return responses without "stellenangebote" data
         #  (f.ex. Angebotsart=Ausbildung)
         return self._get_total_result_count(self.data) > 0 and "stellenangebote" in self.data
 
-    def _get_results(self, data):
+    def _get_results(self, data: dict) -> list[Stellenangebot]:
         if not self.has_results:
             return []
 
@@ -38,7 +38,7 @@ class BundesagenturResponse(SearchResponse):
             results.append(stellenangebot)
         return results
 
-    def _process_results(self, results):
+    def _process_results(self, results: list[dict]) -> list[Stellenangebot]:
         """
         Walk through the dictionaries of search results and return them as
         Stellenangebot instances.
@@ -63,7 +63,7 @@ class BundesagenturResponse(SearchResponse):
         return processed
 
     @staticmethod
-    def _parse_arbeitsort(arbeitsort_dict):
+    def _parse_arbeitsort(arbeitsort_dict: dict) -> str:
         """
         Return a string for the 'arbeitsort' field from the given data from a
         search result.
@@ -76,10 +76,10 @@ class BundesagenturResponse(SearchResponse):
             return ort
 
     @staticmethod
-    def _get_existing(refs):
+    def _get_existing(refs: set[str]):
         return Stellenangebot.objects.filter(refnr__in=refs)
 
-    def _get_total_result_count(self, data):
+    def _get_total_result_count(self, data: dict) -> int:
         return data.get("maxErgebnisse", 0)
 
 
@@ -139,6 +139,6 @@ class BundesagenturAPI(BaseAPI):
             kwargs["verify"] = False
         return requests.get(**kwargs)
 
-    def search(self, **params):
+    def search(self, **params) -> SearchResponse:
         response = self._search(**params)
         return BundesagenturResponse(response)
