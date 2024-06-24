@@ -45,11 +45,17 @@ def search_response_mock(search_results):
 
 
 @pytest.fixture
-def search_mock(search_response_mock):
-    """Mock the ``search`` function to return a mocked response."""
-    with patch("jobby.views.registry.search") as m:
-        m.return_value = search_response_mock
+def registry_mock():
+    with patch("jobby.views.registry") as m:
         yield m
+
+
+@pytest.fixture
+def search_mock(registry_mock, search_response_mock):
+    """Mock the ``search`` function to return a mocked response."""
+    search_mock = Mock(return_value=search_response_mock)
+    registry_mock.search = search_mock
+    yield search_mock
 
 
 @pytest.fixture
@@ -491,14 +497,15 @@ class TestStellenangebotView:
         response = view.get(get_request)
         assert response == super_get_mock
 
-    @pytest.mark.parametrize("request_data", [{"refnr": "1234"}])
+    @pytest.mark.parametrize("request_data", [{"refnr": "1234", "api": "api_mock"}])
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
-    def test_get_details_url_request_has_refnr(self, view, view_extra_context, request_data):
+    def test_get_details_url_request_has_refnr(self, registry_mock, view, view_extra_context, request_data):
         """
-        Assert that ``get_details_url`` returns a URL to the details page of the
-        refnr given in the 'add' view's request data.
+        Assert that ``get_details_url`` calls the registry's get_details_url
+        method if both refnr and api name are in the GET request data.
         """
-        assert view.get_details_url() == f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{request_data['refnr']}"
+        view.get_details_url()
+        registry_mock.get_details_url.assert_called_with(request_data["api"], request_data["refnr"])
 
     @pytest.mark.parametrize("request_data", [{}])
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
@@ -510,13 +517,14 @@ class TestStellenangebotView:
         assert not view.get_details_url()
 
     @pytest.mark.parametrize("view_extra_context", [{"add": False}])
-    def test_get_details_url_edit(self, view, view_extra_context, stellenangebot, refnr):
+    def test_get_details_url_edit(self, registry_mock, view, view_extra_context, stellenangebot, refnr):
         """
-        Assert that ``get_details_url`` returns the URL to the details page of the
-        edit view's Stellenangebot instance.
+        Assert that ``get_details_url`` calls the registry's get_details_url
+        method with the refnr and api name of the view object.
         """
         view.object = stellenangebot
-        assert view.get_details_url() == f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}"
+        view.get_details_url()
+        registry_mock.get_details_url.assert_called_with(stellenangebot.api, stellenangebot.refnr)
 
     @pytest.mark.parametrize("refnr", [""])
     @pytest.mark.parametrize("view_extra_context", [{"add": False}])
@@ -742,8 +750,8 @@ class TestGetBeschreibung:
         [
             (
                 """<div id="detail-beschreibung-extern">
-                    <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a>
-                    </div>""",
+                        <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a>
+                        </div>""",
                 """Beschreibung auf externer Seite: <a href="www.foobar.com">www.foobar.com</a>""",
             )
         ],

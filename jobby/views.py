@@ -188,10 +188,12 @@ class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
         """Return the URL to the external details page of this Stellenangebot."""
         if self.add:
             refnr = self.request.GET.get("refnr", None)
+            api_name = self.request.GET.get("api", None)
         else:
             refnr = self.object.refnr
-        if refnr:
-            return f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}"
+            api_name = self.object.api
+        if refnr and api_name:
+            return registry.get_details_url(api_name, refnr)
 
     def get_context_data(self, **kwargs):  # pragma: no cover
         ctx = super().get_context_data(**kwargs)

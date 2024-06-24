@@ -34,6 +34,7 @@ def stellenangebot(refnr, modified):
         eintrittsdatum="2024-07-01",
         veroeffentlicht="2024-05-30",
         modified=modified,
+        api="test_api",
     )
     obj.refresh_from_db()
     return obj
