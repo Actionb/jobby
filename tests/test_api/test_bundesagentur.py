@@ -36,6 +36,9 @@ class TestBundesagenturAPI:
         """Assert that ``search`` returns a SearchResponse instance."""
         assert isinstance(api.search(), BundesagenturResponse)
 
+    def test_get_details_url(self, search_mock, api, refnr):
+        assert api.get_details_url(refnr) == f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}"
+
 
 class TestBundesagenturResponse:
 

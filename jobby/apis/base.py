@@ -19,6 +19,10 @@ class BaseAPI(ABC):
     def search(self, **params) -> "SearchResponse":
         """Call the API with the given search parameters."""
 
+    @abstractmethod
+    def get_details_url(self, refnr: str) -> str:
+        """Return the URL to the details page of the given reference number."""
+
 
 class SearchResponse(ABC):
 

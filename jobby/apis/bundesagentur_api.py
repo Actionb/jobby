@@ -144,3 +144,6 @@ class BundesagenturAPI(BaseAPI):
     def search(self, **params) -> SearchResponse:
         response = self._search(**params)
         return BundesagenturResponse(response, self)
+
+    def get_details_url(self, refnr: str) -> str:
+        return f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}"
