@@ -1,4 +1,7 @@
+from django.contrib.postgres.search import TrigramWordSimilarity
 from django.db import models
+from django.db.models import QuerySet
+from django.db.models.functions import Greatest
 from django.forms import model_to_dict
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -92,6 +95,22 @@ class SucheModel(models.Model):
         verbose_name_plural = "Such-Parameter"
 
 
+class StellenangebotQuerySet(QuerySet):
+
+    def search(self, q):
+        annotation = Greatest(
+            TrigramWordSimilarity(q, "titel"),
+            TrigramWordSimilarity(q, "beschreibung"),
+            TrigramWordSimilarity(q, "arbeitgeber"),
+            TrigramWordSimilarity(q, "arbeitsort"),
+        )
+        return (
+            self.annotate(similarity=annotation)
+            .filter(similarity__gt=0.2)
+            .order_by("-similarity", *self.query.order_by)
+        )
+
+
 class Stellenangebot(models.Model):
     # TODO: set editable = False on all fields?
     class BewerbungChoices(models.TextChoices):
@@ -129,6 +148,8 @@ class Stellenangebot(models.Model):
         null=True,
     )
     notizen = models.TextField(verbose_name="Notizen", blank=True)
+
+    objects = StellenangebotQuerySet.as_manager()
 
     class Meta:
         verbose_name = "Stellenangebot"

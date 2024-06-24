@@ -3,7 +3,9 @@ from unittest.mock import Mock, patch
 
 # noinspection PyPackageRequirements
 import pytest
+from django.contrib.postgres.search import TrigramWordSimilarity
 from django.db import models
+from django.db.models.functions import Greatest
 from django.urls import path
 from django.utils.timezone import make_aware
 from jobby.models import Stellenangebot, _as_dict, _update_stellenangebot
@@ -145,6 +147,49 @@ class TestStellenangebot:
         assert stellenangebot.has_user_data()
 
 
+class TestStellenangebotQuerySet:
+
+    @pytest.fixture
+    def titel_obj(self):
+        """An object that should be found via its 'titel' field."""
+        return StellenangebotFactory(titel="Software Developer")
+
+    @pytest.fixture
+    def beschreibung_obj(self):
+        """An object that should be found via its 'beschreibung' field."""
+        return StellenangebotFactory(titel="Fensterputzer", beschreibung="Kein Software Tester")
+
+    @pytest.fixture
+    def arbeitgeber_obj(self):
+        """An object that should be found via its 'arbeitgeber' field."""
+        return StellenangebotFactory(titel="Verkäufer", arbeitgeber="Software Incorporated")
+
+    @pytest.fixture
+    def arbeitsort_obj(self):
+        """An object that should be found via its 'arbeitsort' field."""
+        return StellenangebotFactory(titel="Feuerwehrmann", arbeitsort="Software City")
+
+    @pytest.fixture
+    def not_found_obj(self):
+        """An object that should not appear in the search results."""
+        return StellenangebotFactory(titel="Pilot", beschreibung="Fliegt.")
+
+    @pytest.fixture
+    def search_string(self):
+        return "sftwr"
+
+    @pytest.fixture
+    def search_queryset(self, search_string):
+        return Stellenangebot.objects.search(search_string)
+
+    def test_search(self, titel_obj, beschreibung_obj, arbeitgeber_obj, not_found_obj, arbeitsort_obj, search_queryset):
+        assert titel_obj in search_queryset
+        assert beschreibung_obj in search_queryset
+        assert arbeitgeber_obj in search_queryset
+        assert arbeitsort_obj in search_queryset
+        assert not_found_obj not in search_queryset
+
+
 class TestWatchlist:
 
     def test_add_watchlist_item(self, watchlist, stellenangebot):
@@ -201,3 +246,56 @@ class TestWatchlist:
         """
         with django_assert_num_queries(1):
             assert stellenangebot in watchlist.get_stellenangebote()
+
+
+class TestTextSearch:
+
+    @pytest.fixture
+    def titel_obj(self):
+        """An object that should be found via its 'titel' field."""
+        return StellenangebotFactory(titel="Software Developer")
+
+    @pytest.fixture
+    def beschreibung_obj(self):
+        """An object that should be found via its 'beschreibung' field."""
+        return StellenangebotFactory(titel="Fensterputzer", beschreibung="Kein Software Tester")
+
+    @pytest.fixture
+    def arbeitgeber_obj(self):
+        """An object that should be found via its 'arbeitgeber' field."""
+        return StellenangebotFactory(titel="Verkäufer", arbeitgeber="Software Incorporated")
+
+    @pytest.fixture
+    def arbeitsort_obj(self):
+        """An object that should be found via its 'arbeitsort' field."""
+        return StellenangebotFactory(titel="Feuerwehrmann", arbeitsort="Software City")
+
+    @pytest.fixture
+    def not_found_obj(self):
+        """An object that should not appear in the search results."""
+        return StellenangebotFactory(titel="Pilot", beschreibung="Fliegt.")
+
+    @pytest.fixture
+    def search_string(self):
+        return "sftwr"
+
+    @pytest.fixture
+    def search_queryset(self, search_string):
+        annotation = Greatest(
+            TrigramWordSimilarity(search_string, "titel"),
+            TrigramWordSimilarity(search_string, "beschreibung"),
+            TrigramWordSimilarity(search_string, "arbeitgeber"),
+            TrigramWordSimilarity(search_string, "arbeitsort"),
+        )
+        return (
+            Stellenangebot.objects.annotate(similarity=annotation)
+            .filter(similarity__gt=0.2)
+            .order_by("-similarity", "-id")
+        )
+
+    def test(self, titel_obj, beschreibung_obj, arbeitgeber_obj, not_found_obj, arbeitsort_obj, search_queryset):
+        assert titel_obj in search_queryset
+        assert beschreibung_obj in search_queryset
+        assert arbeitgeber_obj in search_queryset
+        assert arbeitsort_obj in search_queryset
+        assert not_found_obj not in search_queryset
