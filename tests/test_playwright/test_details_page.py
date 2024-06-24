@@ -161,6 +161,28 @@ def test_add_gets_jobdetails(detail_page, add, add_data, requests_mock, jobdetai
     expect(detail_page.get_by_test_id("job-description")).to_contain_text(job_description_text)
 
 
+@pytest.mark.parametrize("add", [True])
+def test_add_saves_job_description(detail_page, add, add_data, jobdetails_url, job_description_html, get_url):
+    """
+    Assert that saving from the details page adds the fetched job description
+    to the Stellenangebot instance.
+    """
+    try:
+        # Give the request some time to finish, if it hasn't yet.
+        def predicate(request):
+            return request.url == get_url("get_angebot_beschreibung", kwargs={"refnr": add_data["refnr"]})
+
+        with detail_page.expect_request_finished(predicate, timeout=2000):
+            pass
+    except playwright.sync_api.Error:
+        # Assume that the request had already finished.
+        pass
+    with detail_page.expect_request_finished():
+        detail_page.get_by_role("button", name=re.compile("merken", re.IGNORECASE)).first.click()
+    saved = Stellenangebot.objects.get(refnr=add_data["refnr"])
+    assert saved.beschreibung == job_description_html
+
+
 @pytest.mark.skip(reason="Not yet implemented.")
 @pytest.mark.parametrize("add", [True])
 def test_add_can_add_to_watchlist(detail_page, add, add_data, watchlist, get_url):

@@ -43,12 +43,17 @@ def job_description_text():
     return "Job Description"
 
 
+@pytest.fixture
+def job_description_html(job_description_text):
+    return f"<p>{job_description_text}</p>"
+
+
 @pytest.fixture(autouse=True)
-def get_jobdetails_request_mock(requests_mock, jobdetails_url, job_description_text):
+def get_jobdetails_request_mock(requests_mock, jobdetails_url, job_description_html):
     """Provide a mock response for a request to fetch the details page of a job."""
     requests_mock.get(
         re.compile(jobdetails_url),
-        text=f"""<p id="{DETAILS_BESCHREIBUNG_ID}"><p>{job_description_text}</p></p>""",
+        text=f"""<p id="{DETAILS_BESCHREIBUNG_ID}">{job_description_html}</p>""",
     )
 
 
