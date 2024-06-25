@@ -6,8 +6,8 @@ from jobby.views import (
     StellenangebotView,
     SucheView,
     WatchlistView,
-    delete_stellenangebot,
     get_beschreibung,
+    papierkorb_delete,
     watchlist_remove,
     watchlist_remove_all,
     watchlist_toggle,
@@ -24,5 +24,5 @@ urlpatterns = [
     path("angebot/<int:id>/", StellenangebotView.as_view(extra_context={"add": False}), name="stellenangebot_edit"),
     path("fetch_description/<str:refnr>/", get_beschreibung, name="get_angebot_beschreibung"),
     path("papierkorb/", PapierkorbView.as_view(), name="papierkorb"),
-    path("delete_stellenangebot/", delete_stellenangebot, name="delete_stellenangebot"),
+    path("papierkorb/delete/", papierkorb_delete, name="papierkorb_delete"),
 ]

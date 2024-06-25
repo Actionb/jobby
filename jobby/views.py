@@ -369,7 +369,7 @@ class PapierkorbView(BaseMixin, ListView):
 
 
 @csrf_protect
-def delete_stellenangebot(request):
+def papierkorb_delete(request):
     """Endpoint for delete requests made from the 'Papierkorb'."""
     try:
         pk = request.POST["pk"]
