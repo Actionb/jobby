@@ -11,6 +11,8 @@
 
 {% block content %}
 <div class="mx-3">
+
+{% block angebot_title %}
 <div class="d-flex justify-content-between mb-3">
     <div>
         <h1 title="Stellenangebot Titel">{{ form.titel.value|default:form.beruf.value }}</h1>
@@ -23,6 +25,8 @@
     </div>
     {% endif %}
 </div>
+{% endblock %}
+
 {% block angebot_details %}
 <div id="details" class="mb-3">
     <div class="d-flex mb-3 gap-3">
@@ -50,78 +54,102 @@
             <span class="fw-bold">{{ form.eintrittsdatum.label}}: </span> {{ form.eintrittsdatum.value|localize }}
         </div>
     </div>
-    <div id="beschreibung" class="mb-3 border rounded p-3" data-testid="job-description">
+</div>
+{% endblock angebot_details %}
+
+{% block buttons_row %}
+<div class="submit-buttons d-flex justify-content-between m-3">
+    <button type="submit" form="user-data-form" class="btn btn-success" name="submit_suche">
+        <div class="d-flex">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rewind col-2 my-auto"><polygon points="11 19 2 12 11 5 11 19"></polygon><polygon points="22 19 13 12 22 5 22 19"></polygon></svg>
+        <span class="col">{% if object.id %}Aktualisieren{% else %}Merken{% endif %} & zur Suche</span>
+        </div>
+    </button>
+    {% if object.id %}<button class="btn btn-danger">Löschen</button>{% endif %}
+    <button type="submit" form="user-data-form" class="btn btn-success" name="submit_watchlist">
+        <div class="d-flex">
+        <span class="col">{% if object.id %}Aktualisieren{% else %}Merken{% endif %} & zur Merkliste</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-fast-forward col-2 my-auto"><polygon points="13 19 22 12 13 5 13 19"></polygon><polygon points="2 19 11 12 2 5 2 19"></polygon></svg>
+        </div>
+    </button>
+</div>
+{% endblock buttons_row %}
+
+{% block content_tabs %}
+<ul class="nav nav-tabs nav-fill flex-column flex-md-row bg-secondary bg-opacity-10 border border-bottom-0 rounded-top">
+    <li class="nav-item">
+        <button class="nav-link px-2 active" id="description-tab-btn" data-bs-toggle="tab" data-bs-target="#description-tab-pane" type="button" role="tab" aria-controls="description-tab-pane" aria-selected="true">Beschreibung</button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link px-2" id="user-data-tab-btn" data-bs-toggle="tab" data-bs-target="#user-data-tab-pane" type="button" role="tab" aria-controls="user-data-tab-pane" aria-selected="true">Eigene Daten</button>
+    </li>
+</ul>
+<div class="tab-content mb-3">
+    <div id="description-tab-pane" class="tab-pane pt-1 px-3 show active border border-top-0 rounded-bottom">
+    {% block description %}
+    <div id="beschreibung" class="mb-3 pt-1" data-testid="job-description" style="max-height: 67vh; overflow: auto;">
         {% if form.beschreibung.value %}
             {{ form.beschreibung.value|safe }}
         {% else %}
-          <div id="textBeschreibung" class="accordion-body" data-url="{% url 'get_angebot_beschreibung' refnr=form.refnr.value %}">
-              <div id="spinner" class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>
+          <div id="textBeschreibung" data-url="{% url 'get_angebot_beschreibung' refnr=form.refnr.value %}">
+              <div class="d-flex">
+                <div id="spinner" class="spinner-border my-3 mx-auto" role="status"><span class="visually-hidden">Loading...</span></div>
+              </div>
           </div>
         {% endif %}
     </div>
-    <div class="d-flex justify-content-around text-secondary">
-        <span>{{ form.veroeffentlicht.label }}: {{ form.veroeffentlicht.value|localize }}</span>
-        <span>{{ form.refnr.label }}: {{ form.refnr.value }}</span>
-        <span>{{ form.modified.label }}: {{ form.modified.value|localize }}</span>
+    {% endblock description %}
+    </div>
+
+    <div id="user-data-tab-pane" class="tab-pane pt-1 px-3 border border-top-0 rounded-bottom">
+    <p class="pt-1">Hier kannst du eigene Daten zu diesem Stellenangebot hinzufügen.</p>
+    <form id="user-data-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form_errors form %}
+        {% bootstrap_form form %}
+
+        <div class="formsets">
+        <ul class="nav nav-tabs nav-fill flex-column flex-md-row bg-secondary bg-opacity-10 border border-bottom-0 rounded-top">
+        {% for formset in formsets %}
+            {% formset_has_errors formset as formset_is_invalid %}
+            <li class="nav-item{% if formset_is_invalid %} invalid{% endif %}">
+                <button
+                        class="nav-link px-2{% if forloop.first%} active{% endif %}{% if formset_is_invalid %} me-4 border-invalid icon-invalid{% endif %}"
+                        id="{{formset.title}}-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#{{formset.title}}-tab-pane"
+                        type="button"
+                        role="tab"
+                        aria-controls="{{formset.title}}-tab-pane"
+                        aria-selected="true"
+                >
+                    {{formset.title}}
+                    <span class="badge bg-secondary ms-1">{% if formset.forms|length > 1%}{{formset.forms|length|add:"-1"}}{% else %}0{% endif %}</span>
+                </button>
+            </li>
+        {% endfor %}
+        </ul>
+        {% for formset in formsets %}
+        <div class="tab-content">
+            <div class="tab-pane pt-1 px-3{% if forloop.first%} show active{% endif %} border border-top-0 rounded-bottom mb-3" id="{{formset.title}}-tab-pane">
+            {% if formset.is_tabular %}
+                {% tabular_inline_formset formset %}
+            {% else %}
+                {% inline_formset formset %}
+            {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </form>
     </div>
 </div>
-{% endblock angebot_details %}
-<hr>
-<h2>Eigene Daten:</h2>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% bootstrap_form_errors form %}
-    {% bootstrap_form form %}
+{% endblock content_tabs %}
+<div class="d-flex justify-content-around text-secondary mb-3">
+    <span>{{ form.veroeffentlicht.label }}: {{ form.veroeffentlicht.value|localize }}</span>
+    <span>{{ form.refnr.label }}: {{ form.refnr.value }}</span>
+    <span>{{ form.modified.label }}: {{ form.modified.value|localize }}</span>
+</div>
 
-    <div class="formsets">
-    <ul class="nav nav-tabs nav-fill flex-column flex-md-row bg-secondary bg-opacity-10 border border-bottom-0 rounded-top">
-    {% for formset in formsets %}
-        {% formset_has_errors formset as formset_is_invalid %}
-        <li class="nav-item{% if formset_is_invalid %} invalid{% endif %}">
-            <button
-                    class="nav-link px-2{% if forloop.first%} active{% endif %}{% if formset_is_invalid %} me-4 border-invalid icon-invalid{% endif %}"
-                    id="{{formset.title}}-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#{{formset.title}}-tab-pane"
-                    type="button"
-                    role="tab"
-                    aria-controls="{{formset.title}}-tab-pane"
-                    aria-selected="true"
-            >
-                {{formset.title}}
-                <span class="badge bg-secondary ms-1">{% if formset.forms|length > 1%}{{formset.forms|length|add:"-1"}}{% else %}0{% endif %}</span>
-            </button>
-        </li>
-    {% endfor %}
-    </ul>
-    {% for formset in formsets %}
-    <div class="tab-content">
-        <div class="tab-pane pt-1 px-3{% if forloop.first%} show active{% endif %} border border-top-0 rounded-bottom" id="{{formset.title}}-tab-pane">
-        {% if formset.is_tabular %}
-            {% tabular_inline_formset formset %}
-        {% else %}
-            {% inline_formset formset %}
-        {% endif %}
-        </div>
-    </div>
-    {% endfor %}
-    </div>
-
-    <div class="submit-buttons d-flex justify-content-between m-3">
-        <button type="submit" class="btn btn-success" name="submit_suche">
-            <div class="d-flex">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rewind col-2 my-auto"><polygon points="11 19 2 12 11 5 11 19"></polygon><polygon points="22 19 13 12 22 5 22 19"></polygon></svg>
-            <span class="col">{% if object.id %}Aktualisieren{% else %}Merken{% endif %} & zur Suche</span>
-            </div>
-        </button>
-        {% if object.id %}<button class="btn btn-danger">Löschen</button>{% endif %}
-        <button type="submit" class="btn btn-success" name="submit_watchlist">
-            <div class="d-flex">
-            <span class="col">{% if object.id %}Aktualisieren{% else %}Merken{% endif %} & zur Merkliste</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-fast-forward col-2 my-auto"><polygon points="13 19 22 12 13 5 13 19"></polygon><polygon points="2 19 11 12 2 5 2 19"></polygon></svg>
-            </div>
-        </button>
-    </div>
-</form>
 </div>
 {% endblock content %}

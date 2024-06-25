@@ -50,6 +50,11 @@ def detail_page(page, add, add_url, edit_url, jobdetails_url):
     return page
 
 
+@pytest.fixture
+def form_pane(detail_page):
+    detail_page.get_by_role("tab", name="Eigene Daten").click()
+
+
 ################################################################################
 # EDIT PAGE
 ################################################################################
@@ -65,7 +70,7 @@ def test_detail_page_edit(detail_page, add, stellenangebot):
 
 
 @pytest.mark.parametrize("add", [False])
-def test_edit_can_update(detail_page, add, stellenangebot, watchlist_item, watchlist):
+def test_edit_can_update(detail_page, form_pane, add, stellenangebot, watchlist_item, watchlist):
     """
     Assert that the user can update the Stellenangebot without it being removed
     from the watchlist.
