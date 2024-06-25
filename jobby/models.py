@@ -180,7 +180,7 @@ class Stellenangebot(models.Model):
             if value not in field.empty_values and value != field.default:
                 return True
 
-        related_names = ["urls", "kontakte"]
+        related_names = ["urls", "kontakte", "files"]
         for related_name in related_names:
             if getattr(self, related_name).exists():
                 return True
