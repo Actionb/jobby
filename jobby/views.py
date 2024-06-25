@@ -368,6 +368,7 @@ class PapierkorbView(BaseMixin, ListView):
         return Stellenangebot.objects.exclude(Exists(WatchlistItem.objects.filter(stellenangebot_id=OuterRef("id"))))
 
 
+@csrf_protect
 def delete_stellenangebot(request):
     """Endpoint for delete requests made from the 'Papierkorb'."""
     try:
