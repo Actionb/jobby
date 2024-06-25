@@ -132,7 +132,7 @@ class Stellenangebot(models.Model):
     beruf = models.CharField(max_length=CHARFIELD_MAX, blank=True, verbose_name="Beruf")
     # TODO: arbeitgeber could be a relation?
     arbeitgeber = models.CharField(max_length=CHARFIELD_MAX, blank=True, verbose_name="Arbeitgeber")
-    arbeitsort = models.CharField(max_length=CHARFIELD_MAX, blank=True)
+    arbeitsort = models.CharField(max_length=CHARFIELD_MAX, blank=True, verbose_name="Arbeitsort")
     eintrittsdatum = models.DateField(blank=True, null=True, verbose_name="Eintrittsdatum")
     veroeffentlicht = models.DateField(blank=True, null=True, verbose_name="Veröffentlicht am")
     modified = models.DateTimeField(blank=True, null=True, verbose_name="Zuletzt verändert am")
@@ -148,7 +148,7 @@ class Stellenangebot(models.Model):
         blank=True,
         null=True,
     )
-    notizen = models.TextField(verbose_name="Notizen", blank=True)
+    notizen = models.TextField(blank=True, verbose_name="Notizen")
 
     objects = StellenangebotQuerySet.as_manager()
 
@@ -189,12 +189,12 @@ class Stellenangebot(models.Model):
 
 
 class StellenangebotURLs(models.Model):
-    url = models.URLField()
+    url = models.URLField(verbose_name="URL")
     angebot = models.ForeignKey("jobby.Stellenangebot", on_delete=models.CASCADE, related_name="urls")
 
     class Meta:
-        verbose_name = "URL"
-        verbose_name_plural = "URLs"
+        verbose_name = "Internet-Adresse"
+        verbose_name_plural = "Internet-Adressen"
 
 
 class StellenangebotKontakt(models.Model):
@@ -203,8 +203,8 @@ class StellenangebotKontakt(models.Model):
         TELEFON = "Telefon"
         ANSCHRIFT = "Anschrift"
 
-    kontakt_typ = models.CharField(max_length=CHARFIELD_MAX, choices=TypChoices, verbose_name="Art")
-    kontakt_daten = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Daten")
+    kontakt_typ = models.CharField(max_length=CHARFIELD_MAX, choices=TypChoices, verbose_name="Kontakt Art")
+    kontakt_daten = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Kontaktdaten")
     angebot = models.ForeignKey("jobby.Stellenangebot", on_delete=models.CASCADE, related_name="kontakte")
 
     class Meta:
@@ -213,7 +213,7 @@ class StellenangebotKontakt(models.Model):
 
 
 class StellenangebotFiles(models.Model):
-    description = models.CharField(max_length=CHARFIELD_MAX, verbose_name="Beschreibung", blank=True)
+    description = models.CharField(max_length=CHARFIELD_MAX, blank=True, verbose_name="Beschreibung")
     file = models.FileField(verbose_name="Datei", upload_to="uploads/")
     angebot = models.ForeignKey("jobby.Stellenangebot", on_delete=models.CASCADE, related_name="files")
 
