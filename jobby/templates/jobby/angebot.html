@@ -1,5 +1,5 @@
 {% extends "jobby/base.html" %}
-{% load l10n static django_bootstrap5 mizdb_inlines %}
+{% load l10n static django_bootstrap5 mizdb_inlines jobby %}
 
 {% block extrahead %}
     {{ block.super }}
@@ -71,17 +71,43 @@
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form_errors form %}
-    {% bootstrap_form form layout="floating" %}
-    {# TODO: wrap formsets in an accordion #}
+    {% bootstrap_form form %}
+
+    <div class="formsets">
+    <ul class="nav nav-tabs nav-fill flex-column flex-md-row bg-secondary bg-opacity-10 border border-bottom-0 rounded-top">
     {% for formset in formsets %}
-        {% if formset.title %}<h3>{{ formset.title }}</h3>{% endif %}
+        {% formset_has_errors formset as formset_is_invalid %}
+        <li class="nav-item{% if formset_is_invalid %} invalid{% endif %}">
+            <button
+                    class="nav-link px-2{% if forloop.first%} active{% endif %}{% if formset_is_invalid %} me-4 border-invalid icon-invalid{% endif %}"
+                    id="{{formset.title}}-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#{{formset.title}}-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="{{formset.title}}-tab-pane"
+                    aria-selected="true"
+            >
+                {{formset.title}}
+                <span class="badge bg-secondary ms-1">{% if formset.forms|length > 1%}{{formset.forms|length|add:"-1"}}{% else %}0{% endif %}</span>
+            </button>
+        </li>
+    {% endfor %}
+    </ul>
+    {% for formset in formsets %}
+    <div class="tab-content">
+        <div class="tab-pane pt-1 px-3{% if forloop.first%} show active{% endif %} border border-top-0 rounded-bottom" id="{{formset.title}}-tab-pane">
         {% if formset.is_tabular %}
             {% tabular_inline_formset formset %}
         {% else %}
             {% inline_formset formset %}
         {% endif %}
+        </div>
+    </div>
     {% endfor %}
-    <div class="d-flex justify-content-between m-3">
+    </div>
+
+    <div class="submit-buttons d-flex justify-content-between m-3">
         <button type="submit" class="btn btn-success" name="submit_suche">
             <div class="d-flex">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rewind col-2 my-auto"><polygon points="11 19 2 12 11 5 11 19"></polygon><polygon points="22 19 13 12 22 5 22 19"></polygon></svg>

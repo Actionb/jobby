@@ -57,3 +57,12 @@ def add_search_filters(context, url):
 
     parsed_url[4] = urlencode(merged_qs)
     return urlunparse(parsed_url)
+
+
+@register.simple_tag
+def formset_has_errors(formset):
+    """Return whether the formset data contains errors."""
+    if not formset.is_bound:
+        return False  # Data can't have errors if there is no data.
+    else:
+        return not formset.is_valid()
