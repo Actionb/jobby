@@ -14,7 +14,7 @@ from jobby.views import (
     watchlist_toggle,
 )
 
-urlpatterns = [
+urlpatterns = [  # pragma: no cover
     path("", lambda r: redirect(reverse_lazy("suche")), name="index"),  # TODO: add a dashboard
     path("suche/", SucheView.as_view(), name="suche"),
     path("merkliste/", WatchlistView.as_view(), name="watchlist"),
