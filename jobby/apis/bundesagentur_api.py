@@ -10,8 +10,6 @@ class BundesagenturResponse(SearchResponse):
 
     @property
     def has_results(self) -> bool:
-        # NOTE: some queries return responses without "stellenangebote" data
-        #  (f.ex. Angebotsart=Ausbildung)
         return self._get_total_result_count(self.data) > 0 and "stellenangebote" in self.data
 
     def _get_results(self, data: dict) -> list[Stellenangebot]:
@@ -43,7 +41,6 @@ class BundesagenturResponse(SearchResponse):
         Walk through the dictionaries of search results and return them as
         Stellenangebot instances.
         """
-        # TODO: include "externeUrl" data that is present on some results
         processed = []
         # TODO: use SearchResultForm here?
         for result in results:
@@ -53,7 +50,6 @@ class BundesagenturResponse(SearchResponse):
                 beruf=result.get("beruf", ""),
                 arbeitgeber=result.get("arbeitgeber", ""),
                 arbeitsort=self._parse_arbeitsort(result.get("arbeitsort", {})),
-                # TODO: parse into date and datetime:
                 eintrittsdatum=result.get("eintrittsdatum", ""),
                 veroeffentlicht=result.get("aktuelleVeroeffentlichungsdatum", ""),
                 modified=self._make_aware(result.get("modifikationsTimestamp", "")),

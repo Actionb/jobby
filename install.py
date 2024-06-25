@@ -204,9 +204,6 @@ def install(password: str, allowedhosts: str, uid: int | None = None, gid: int |
     print("Running migrations...")
     subprocess.run(["docker", "exec", "-i", "jobby-app", "python3", "manage.py", "migrate"])
 
-    # TODO: symlink to secrets directory from project root so that settings can
-    #  read from it? (i.e. open(BASE_DIR / ".secrets" / ".passwd"))
-
     print("\nDone! jobby should now be up at http://localhost:8787/jobby/")
 
 
@@ -229,7 +226,7 @@ def uninstall():
     shutil.rmtree(app_config_dir)
 
     # TODO: remove docker image?
-    # subprocess.run(["docker", "image", "rm", "jobby-web"])
+    # subprocess.run(["docker", "image", "rm", "jobby-web", "postgres:alpine"])
 
 
 if __name__ == "__main__":
