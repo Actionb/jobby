@@ -223,7 +223,7 @@ class StellenangebotFiles(models.Model):
 
 
 class Watchlist(models.Model):
-    name = models.CharField(max_length=CHARFIELD_MAX, default="default")  # TODO: make unique?
+    name = models.CharField(max_length=CHARFIELD_MAX, default="default", unique=True)
 
     def on_watchlist(self, stellenangebot):
         return self.items.filter(stellenangebot=stellenangebot).exists()
