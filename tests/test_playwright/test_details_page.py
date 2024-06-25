@@ -142,25 +142,26 @@ def test_edit_can_remove_from_watchlist(detail_page, add, stellenangebot, watchl
     with detail_page.expect_request_finished():
         remove_button.click()
     assert not watchlist.on_watchlist(stellenangebot)
-    assert detail_page.url == watchlist_url
     assert stellenangebot.pk
     assert not Stellenangebot.objects.filter(pk=stellenangebot.pk).exists()
+    assert detail_page.url == watchlist_url
 
 
-def test_edit_can_remove_additional_user_data(page, edit_url, stellenangebot, watchlist, watchlist_url, remove_button):
+@pytest.mark.parametrize("add", [False])
+@pytest.mark.parametrize("stellenangebot_extra_data", [{"notizen": "Foo"}])
+def test_edit_can_remove_additional_user_data(
+    detail_page, add, stellenangebot, stellenangebot_extra_data, watchlist, watchlist_url, remove_button
+):
     """
     Assert that the user can remove the Stellenangebot from the watchlist when
     the user has added additional data to the Stellenangebot object.
     """
-    stellenangebot.notizen = "Foo"
-    stellenangebot.save()
-    page.goto(edit_url)
-    with page.expect_request_finished():
+    with detail_page.expect_request_finished():
         remove_button.click()
     assert not watchlist.on_watchlist(stellenangebot)
-    assert page.url == watchlist_url
     # The Stellenangebot object should not have been deleted:
     assert Stellenangebot.objects.filter(pk=stellenangebot.pk).exists()
+    assert detail_page.url == watchlist_url
 
 
 ################################################################################

@@ -74,7 +74,15 @@
         </div>
     </button>
     </div>
-    <div>{% if object.id %}<button class="btn btn-danger py-2">Von der Merkliste entfernen</button>{% endif %}</div>
+    <div>
+        {% if on_watchlist %}
+        {% url 'stellenangebot_remove' object.id as remove_url %}
+        <form method="POST" action="{% add_search_filters remove_url %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger py-2">Von der Merkliste entfernen</button>
+        </form>
+        {% endif %}
+    </div>
 </div>
 {% endblock buttons_row %}
 

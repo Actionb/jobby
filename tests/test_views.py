@@ -19,6 +19,7 @@ from jobby.views import (
     SucheView,
     WatchlistView,
     get_beschreibung,
+    stellenangebot_remove,
     watchlist_remove,
     watchlist_remove_all,
     watchlist_toggle,
@@ -750,8 +751,8 @@ class TestGetBeschreibung:
         [
             (
                 """<div id="detail-beschreibung-extern">
-                        <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a>
-                        </div>""",
+                                <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a>
+                                </div>""",
                 """Beschreibung auf externer Seite: <a href="www.foobar.com">www.foobar.com</a>""",
             )
         ],
@@ -812,3 +813,33 @@ class TestBaseMixin:
     @pytest.mark.parametrize("request_data", [{"_search_filters": "foo=bar"}])
     def test_get_search_filters_not_suche(self, client_request, request_path, request_data):
         assert BaseMixin().get_search_filters(client_request) == "_search_filters=foo%3Dbar"
+
+
+@pytest.mark.usefixtures("ignore_csrf_protection")
+class TestStellenangebotRemove:
+
+    @pytest.fixture
+    def request_data(self, watchlist_name):
+        return {"watchlist_name": watchlist_name}
+
+    def test_stellenangebot_remove(self, post_request, stellenangebot, watchlist_item, watchlist):
+        """
+        Assert that ``stellenangebot_remove`` removes the Stellenangebot from
+        the watchlist.
+        """
+        stellenangebot_remove(post_request, stellenangebot.pk)
+        assert not watchlist.on_watchlist(stellenangebot)
+
+    @pytest.mark.parametrize("request_kwargs", [{"follow": True}])
+    def test_stellenangebot_remove_redirects(self, post_request, stellenangebot, request_kwargs):
+        """Assert that ``stellenangebot_remove`` redirects to the watchlist."""
+        response = stellenangebot_remove(post_request, stellenangebot.pk)
+        assert response.url == reverse("watchlist")
+
+    def test_stellenangebot_remove_object_does_not_exist(self, post_request):
+        """
+        Assert that ``stellenangebot_remove`` returns an OK response if no
+        Stellenangebot with the requested refnr exists.
+        """
+        response = stellenangebot_remove(post_request, 0)
+        assert response.status_code == 302

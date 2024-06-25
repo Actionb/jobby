@@ -198,6 +198,8 @@ class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
     def get_context_data(self, **kwargs):  # pragma: no cover
         ctx = super().get_context_data(**kwargs)
         ctx["details_url"] = self.get_details_url()
+        if not self.add:
+            ctx["on_watchlist"] = self.get_watchlist(self.request).on_watchlist(self.object)
         return ctx
 
     def get_watchlist(self, request):
@@ -293,7 +295,11 @@ def watchlist_toggle(request):
 
 @csrf_protect
 def watchlist_remove(request):
-    """Remove an item from the watchlist."""
+    """
+    Remove an item from the watchlist.
+
+    Used from the watchlist page.
+    """
     try:
         refnr = request.POST["refnr"]
     except KeyError:
@@ -378,3 +384,24 @@ def papierkorb_delete(request):
 
     Stellenangebot.objects.filter(pk=pk).delete()
     return HttpResponse()
+
+
+@csrf_protect
+def stellenangebot_remove(request, id):
+    """
+    Remove the Stellenangebot with the given id from the watchlist.
+
+    This view is called when the 'remove' button on the Stellenangebot details
+    page is pressed.
+    """
+    try:
+        watchlist = Watchlist.objects.get(name=request.POST.get("watchlist_name", "default"))
+        obj = Stellenangebot.objects.get(id=id)
+    except ObjectDoesNotExist:
+        # The Stellenangebot is not on the watchlist either because the
+        # Stellenangebot does not exist or because the watchlist itself does
+        # not exist. Job done!
+        pass
+    else:
+        watchlist.remove_watchlist_item(obj)
+    return redirect(reverse("watchlist"))

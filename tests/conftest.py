@@ -23,7 +23,12 @@ def modified():
 
 
 @pytest.fixture
-def stellenangebot(refnr, modified):
+def stellenangebot_extra_data():
+    return {}
+
+
+@pytest.fixture
+def stellenangebot(refnr, modified, stellenangebot_extra_data):
     """Create a Stellenangebot instance."""
     obj = StellenangebotFactory(
         titel="Software Developer",
@@ -35,6 +40,7 @@ def stellenangebot(refnr, modified):
         veroeffentlicht="2024-05-30",
         modified=modified,
         api="test_api",
+        **stellenangebot_extra_data,
     )
     obj.refresh_from_db()
     return obj
@@ -75,16 +81,22 @@ def request_path():
     return ""
 
 
+@pytest.fixture()
+def request_kwargs():
+    """Additional kwargs for the request factory call."""
+    return {}
+
+
 @pytest.fixture
-def get_request(rf, request_path, request_data):
+def get_request(rf, request_path, request_data, request_kwargs):
     """Return a GET request."""
-    return rf.get(request_path, data=request_data)
+    return rf.get(request_path, data=request_data, **request_kwargs)
 
 
 @pytest.fixture
-def post_request(rf, request_path, request_data):
+def post_request(rf, request_path, request_data, request_kwargs):
     """Return a POST request."""
-    return rf.post(request_path, data=request_data)
+    return rf.post(request_path, data=request_data, **request_kwargs)
 
 
 @pytest.fixture

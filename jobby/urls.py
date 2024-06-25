@@ -8,13 +8,14 @@ from jobby.views import (
     WatchlistView,
     get_beschreibung,
     papierkorb_delete,
+    stellenangebot_remove,
     watchlist_remove,
     watchlist_remove_all,
     watchlist_toggle,
 )
 
 urlpatterns = [
-    path("", lambda r: redirect(reverse_lazy("suche")), name="index"),
+    path("", lambda r: redirect(reverse_lazy("suche")), name="index"),  # TODO: add a dashboard
     path("suche/", SucheView.as_view(), name="suche"),
     path("merkliste/", WatchlistView.as_view(), name="watchlist"),
     path("merkliste/toggle/", watchlist_toggle, name="watchlist_toggle"),
@@ -25,4 +26,5 @@ urlpatterns = [
     path("fetch_description/<str:refnr>/", get_beschreibung, name="get_angebot_beschreibung"),
     path("papierkorb/", PapierkorbView.as_view(), name="papierkorb"),
     path("papierkorb/delete/", papierkorb_delete, name="papierkorb_delete"),
+    path("angebote/<int:id>/remove/", stellenangebot_remove, name="stellenangebot_remove"),
 ]
