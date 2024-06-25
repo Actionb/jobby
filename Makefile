@@ -35,5 +35,5 @@ test-pw:
 	pytest -m pw tests/
 
 .PHONY: audit
-check:
+audit:
 	pip-audit
