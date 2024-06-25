@@ -59,19 +59,22 @@
 
 {% block buttons_row %}
 <div class="submit-buttons d-flex justify-content-between m-3">
-    <button type="submit" form="user-data-form" class="btn btn-success" name="submit_suche">
+    <div>
+    <button type="submit" form="user-data-form" class="btn btn-success py-2">{% if object.id %}Speichern{% else %}Merken{% endif %}</button>
+    <button type="submit" form="user-data-form" class="btn btn-outline-success py-2" name="submit_suche">
         <div class="d-flex">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rewind col-2 my-auto"><polygon points="11 19 2 12 11 5 11 19"></polygon><polygon points="22 19 13 12 22 5 22 19"></polygon></svg>
-        <span class="col">{% if object.id %}Aktualisieren{% else %}Merken{% endif %} & zur Suche</span>
+        <span class="col">{% if object.id %}Speichern{% else %}Merken{% endif %} & zur Suche</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search col-1"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
     </button>
-    {% if object.id %}<button class="btn btn-danger">Löschen</button>{% endif %}
-    <button type="submit" form="user-data-form" class="btn btn-success" name="submit_watchlist">
+    <button type="submit" form="user-data-form" class="btn btn-outline-success py-2" name="submit_watchlist">
         <div class="d-flex">
-        <span class="col">{% if object.id %}Aktualisieren{% else %}Merken{% endif %} & zur Merkliste</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-fast-forward col-2 my-auto"><polygon points="13 19 22 12 13 5 13 19"></polygon><polygon points="2 19 11 12 2 5 2 19"></polygon></svg>
+        <span class="col">{% if object.id %}Speichern{% else %}Merken{% endif %} & zur Merkliste</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark col-1"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
         </div>
     </button>
+    </div>
+    <div>{% if object.id %}<button class="btn btn-danger py-2">Von der Merkliste entfernen</button>{% endif %}</div>
 </div>
 {% endblock buttons_row %}
 
