@@ -38,8 +38,11 @@
     </thead>
     <tbody class="watchlist-items-list">
     {% for stellenangebot in stellenangebot_list %}
-    <tr class="watchlist-item">
-        <td><a href="{% add_search_filters stellenangebot.as_url %}">{{ stellenangebot }}</a></td>
+    <tr class="watchlist-item{% if stellenangebot.expired%} expired opacity-25{% endif %}">
+        <td>
+            <a href="{% add_search_filters stellenangebot.as_url %}">{{ stellenangebot }}</a>
+            {% if stellenangebot.expired %}<span class="text-danger d-block">Stellenangebot nicht mehr verfügbar</span>{% endif %}
+        </td>
         <td>{{ stellenangebot.arbeitsort }}</td>
         <td>{{ stellenangebot.arbeitgeber }}</td>
         <td>{{ stellenangebot.eintrittsdatum }}</td>
