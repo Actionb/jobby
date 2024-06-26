@@ -9,8 +9,8 @@ pytestmark = [pytest.mark.django_db, pytest.mark.pw]
 
 
 @pytest.fixture
-def watchlist_items(watchlist):
-    watchlist.add_watchlist_item(StellenangebotFactory())
+def watchlist_items(watchlist, stellenangebot):
+    watchlist.add_watchlist_item(stellenangebot)
     watchlist.add_watchlist_item(StellenangebotFactory())
     return watchlist.get_stellenangebote()
 
@@ -56,3 +56,12 @@ def test_can_search(watchlist_items, watchlist_page):
     with watchlist_page.expect_request_finished():
         watchlist_page.get_by_role("button", name="Suche").click()
     expect(get_watchlist_items(watchlist_page)).to_have_count(1)
+
+
+@pytest.mark.parametrize("stellenangebot_extra_data", [{"expired": True}])
+def test_expired(watchlist_items, watchlist_page, stellenangebot_extra_data):
+    """Assert that expired watchlist items are marked as such."""
+    watchlist_item = get_watchlist_items(watchlist_page).first
+    expect(watchlist_item).to_have_class(re.compile("expired"))
+    expect(watchlist_item).to_have_class(re.compile("opacity-25"))
+    expect(watchlist_item).to_contain_text("Stellenangebot nicht mehr verfügbar")

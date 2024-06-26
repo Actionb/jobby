@@ -297,3 +297,40 @@ def test_save_and_to_watchlist(detail_page, add, add_data, watchlist, watchlist_
     with detail_page.expect_request_finished():
         save_button_merkliste.click()
     assert detail_page.url == watchlist_url
+
+
+@pytest.mark.parametrize("add", [False])
+@pytest.mark.parametrize("stellenangebot_extra_data", [{"expired": True}])
+def test_expired_message(detail_page, add, stellenangebot_extra_data):
+    """
+    Assert that the detail pages of an expired Stellenangebot provides a user
+    message.
+    """
+    expect(detail_page.locator("body")).to_contain_text("Dieses Stellenangebot ist nicht mehr verfügbar.")
+
+
+@pytest.mark.parametrize("add", [False])
+@pytest.mark.parametrize("stellenangebot_extra_data", [{"expired": True}])
+def test_expired_save_buttons_disabled(
+    detail_page, add, stellenangebot_extra_data, save_button, save_button_suche, save_button_merkliste
+):
+    """
+    Assert that the save buttons on the details page of an expired
+    Stellenangebot are disabled.
+    """
+    expect(save_button).to_have_class(re.compile("disabled"))
+    expect(save_button_suche).to_have_class(re.compile("disabled"))
+    expect(save_button_merkliste).to_have_class(re.compile("disabled"))
+
+
+@pytest.mark.parametrize("add", [False])
+def test_checks_if_expired(detail_page, add, wait_for_request, jobdetails_url, requests_mock, refnr):
+    """Assert that the details page checks if the Stellenangebot has expired."""
+    # TODO: the registry/API should generate this URL:
+    url = f"{jobdetails_url}{refnr}"
+
+    def predicate(request):
+        return request.url == url
+
+    wait_for_request(predicate)
+    assert requests_mock.request_history[0].url == url
