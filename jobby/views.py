@@ -374,6 +374,9 @@ def _get_beschreibung(refnr):
     Fetch the job details page of the job with the given refnr, and return the
     'beschreibung' part of the page.
     """
+    # TODO: this should get the details URL from the registry
+    #   Maybe the API implementations (i.e. BundesagenturAPI) should be
+    #   responsible for finding the description.
     response = requests.get(f"https://www.arbeitsagentur.de/jobsuche/jobdetail/{refnr}")
     if not response.status_code == 200:
         raise BadRequest
