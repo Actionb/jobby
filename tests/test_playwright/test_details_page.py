@@ -100,10 +100,14 @@ def remove_button(detail_page):
 
 
 @pytest.fixture
-def wait_for_request(detail_page):
+def wait_for_url(detail_page):
     """Try to wait for a request to finish, if it hasn't finished yet."""
 
-    def inner(predicate):
+    def inner(url):
+
+        def predicate(request):
+            return request.url == url
+
         try:
             with detail_page.expect_request_finished(predicate, timeout=2000):
                 pass
@@ -236,17 +240,13 @@ def test_add_gets_jobdetails(
     jobdetails_url,
     job_description_text,
     get_url,
-    wait_for_request,
+    wait_for_url,
 ):
     """
     Assert that the Stellenangebot add page automatically fetches the job
     description from the job's original detail page.
     """
-
-    def predicate(request):
-        return request.url == get_url("get_angebot_beschreibung", kwargs={"refnr": add_data["refnr"]})
-
-    wait_for_request(predicate)
+    wait_for_url(get_url("get_angebot_beschreibung", kwargs={"refnr": add_data["refnr"]}))
     assert requests_mock.request_history[0].url == jobdetails_url + add_data["refnr"]
     expect(detail_page.get_by_test_id("job-description")).to_contain_text(job_description_text)
 
@@ -259,18 +259,14 @@ def test_add_saves_job_description(
     jobdetails_url,
     job_description_html,
     get_url,
-    wait_for_request,
+    wait_for_url,
     save_button,
 ):
     """
     Assert that saving from the details page adds the fetched job description
     to the Stellenangebot instance.
     """
-
-    def predicate(request):
-        return request.url == get_url("get_angebot_beschreibung", kwargs={"refnr": add_data["refnr"]})
-
-    wait_for_request(predicate)
+    wait_for_url(get_url("get_angebot_beschreibung", kwargs={"refnr": add_data["refnr"]}))
     with detail_page.expect_request_finished():
         save_button.click()
     saved = Stellenangebot.objects.get(refnr=add_data["refnr"])
@@ -324,13 +320,9 @@ def test_expired_save_buttons_disabled(
 
 
 @pytest.mark.parametrize("add", [False])
-def test_checks_if_expired(detail_page, add, wait_for_request, jobdetails_url, requests_mock, refnr):
+def test_checks_if_expired(detail_page, add, wait_for_url, jobdetails_url, requests_mock, refnr):
     """Assert that the details page checks if the Stellenangebot has expired."""
     # TODO: the registry/API should generate this URL:
     url = f"{jobdetails_url}{refnr}"
-
-    def predicate(request):
-        return request.url == url
-
-    wait_for_request(predicate)
+    wait_for_url(url)
     assert requests_mock.request_history[0].url == url
