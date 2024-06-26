@@ -99,6 +99,21 @@ def remove_button(detail_page):
     return detail_page.get_by_role("button", name=re.compile("entfernen", re.IGNORECASE))
 
 
+@pytest.fixture
+def wait_for_request(detail_page):
+    """Try to wait for a request to finish, if it hasn't finished yet."""
+
+    def inner(predicate):
+        try:
+            with detail_page.expect_request_finished(predicate, timeout=2000):
+                pass
+        except playwright.sync_api.Error:
+            # Assume that the request had already finished.
+            pass
+
+    return inner
+
+
 ################################################################################
 # EDIT PAGE
 ################################################################################
@@ -150,7 +165,13 @@ def test_edit_can_remove_from_watchlist(detail_page, add, stellenangebot, watchl
 @pytest.mark.parametrize("add", [False])
 @pytest.mark.parametrize("stellenangebot_extra_data", [{"notizen": "Foo"}])
 def test_edit_can_remove_additional_user_data(
-    detail_page, add, stellenangebot, stellenangebot_extra_data, watchlist, watchlist_url, remove_button
+    detail_page,
+    add,
+    stellenangebot,
+    stellenangebot_extra_data,
+    watchlist,
+    watchlist_url,
+    remove_button,
 ):
     """
     Assert that the user can remove the Stellenangebot from the watchlist when
@@ -207,43 +228,51 @@ def test_detail_page_add_data(detail_page, add, add_data):
 
 
 @pytest.mark.parametrize("add", [True])
-def test_add_gets_jobdetails(detail_page, add, add_data, requests_mock, jobdetails_url, job_description_text, get_url):
+def test_add_gets_jobdetails(
+    detail_page,
+    add,
+    add_data,
+    requests_mock,
+    jobdetails_url,
+    job_description_text,
+    get_url,
+    wait_for_request,
+):
     """
     Assert that the Stellenangebot add page automatically fetches the job
     description from the job's original detail page.
     """
-    try:
-        # Give the request some time to finish, if it hasn't yet.
-        def predicate(request):
-            return request.url == get_url("get_angebot_beschreibung", kwargs={"refnr": add_data["refnr"]})
 
-        with detail_page.expect_request_finished(predicate, timeout=2000):
-            pass
-    except playwright.sync_api.Error:
-        # Assume that the request had already finished.
-        pass
+    def predicate(request):
+        return request.url == get_url("get_angebot_beschreibung", kwargs={"refnr": add_data["refnr"]})
+
+    wait_for_request(predicate)
     assert requests_mock.request_history[0].url == jobdetails_url + add_data["refnr"]
     expect(detail_page.get_by_test_id("job-description")).to_contain_text(job_description_text)
 
 
 @pytest.mark.parametrize("add", [True])
-def test_add_saves_job_description(detail_page, add, add_data, jobdetails_url, job_description_html, get_url):
+def test_add_saves_job_description(
+    detail_page,
+    add,
+    add_data,
+    jobdetails_url,
+    job_description_html,
+    get_url,
+    wait_for_request,
+    save_button,
+):
     """
     Assert that saving from the details page adds the fetched job description
     to the Stellenangebot instance.
     """
-    try:
-        # Give the request some time to finish, if it hasn't yet.
-        def predicate(request):
-            return request.url == get_url("get_angebot_beschreibung", kwargs={"refnr": add_data["refnr"]})
 
-        with detail_page.expect_request_finished(predicate, timeout=2000):
-            pass
-    except playwright.sync_api.Error:
-        # Assume that the request had already finished.
-        pass
+    def predicate(request):
+        return request.url == get_url("get_angebot_beschreibung", kwargs={"refnr": add_data["refnr"]})
+
+    wait_for_request(predicate)
     with detail_page.expect_request_finished():
-        detail_page.get_by_role("button", name=re.compile("merken", re.IGNORECASE)).first.click()
+        save_button.click()
     saved = Stellenangebot.objects.get(refnr=add_data["refnr"])
     assert saved.beschreibung == job_description_html
 
