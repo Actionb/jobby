@@ -60,6 +60,7 @@ class StellenangebotForm(forms.ModelForm):
             "externe_url": forms.HiddenInput(),
             "beschreibung": forms.HiddenInput(),
             "api": forms.HiddenInput(),
+            "expired": forms.HiddenInput(),
         }
 
     def get_initial_for_field(self, field, field_name):

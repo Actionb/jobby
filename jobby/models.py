@@ -139,6 +139,7 @@ class Stellenangebot(models.Model):
     externe_url = models.URLField(blank=True, null=True, verbose_name="Externe URL")
     beschreibung = models.TextField(blank=True, verbose_name="Beschreibung")
     api = models.CharField(max_length=CHARFIELD_MAX, blank=True)
+    expired = models.BooleanField(default=False)
 
     bewerbungsstatus = models.CharField(
         max_length=CHARFIELD_MAX,
