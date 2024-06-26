@@ -60,14 +60,14 @@
 {% block buttons_row %}
 <div class="submit-buttons d-flex justify-content-between m-3">
     <div>
-    <button type="submit" form="user-data-form" class="btn btn-success py-2">{% if object.id %}Speichern{% else %}Merken{% endif %}</button>
-    <button type="submit" form="user-data-form" class="btn btn-outline-success py-2" name="submit_suche">
+    <button type="submit" form="user-data-form" class="btn btn-success py-2{% if object.expired %} disabled{% endif %}">{% if object.id %}Speichern{% else %}Merken{% endif %}</button>
+    <button type="submit" form="user-data-form" class="btn btn-outline-success py-2{% if object.expired %} disabled{% endif %}" name="submit_suche">
         <div class="d-flex">
         <span class="col">{% if object.id %}Speichern{% else %}Merken{% endif %} & zur Suche</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search col-1"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
     </button>
-    <button type="submit" form="user-data-form" class="btn btn-outline-success py-2" name="submit_watchlist">
+    <button type="submit" form="user-data-form" class="btn btn-outline-success py-2{% if object.expired %} disabled{% endif %}" name="submit_watchlist">
         <div class="d-flex">
         <span class="col">{% if object.id %}Speichern{% else %}Merken{% endif %} & zur Merkliste</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark col-1"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
