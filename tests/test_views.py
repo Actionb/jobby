@@ -4,6 +4,7 @@ from unittest.mock import Mock, patch
 # noinspection PyPackageRequirements
 import pytest
 import requests
+from django.contrib import messages
 from django.core.exceptions import BadRequest
 from django.core.paginator import Paginator
 from django.db.models import QuerySet
@@ -419,13 +420,41 @@ class TestStellenangebotView:
         request_data["watchlist_name"] = watchlist_name
         return request_data
 
+    @pytest.fixture
+    def super_get_mock(self, view, view_extra_context, stellenangebot, super_mock):
+        """Mock out super().get() to return a mocked response."""
+
+        def get(*_args, **_kwargs):
+            if "add" in view_extra_context and not view_extra_context["add"]:
+                view.object = stellenangebot
+            else:
+                view.object = None
+            return response_mock
+
+        response_mock = Mock()
+        super_mock.return_value.get = Mock(side_effect=get)
+        return response_mock
+
+    @pytest.fixture
+    def is_expired_mock(self, view):
+        """Mock out the view's is_expired method."""
+        with patch.object(view, "is_expired") as m:
+            m.return_value = False
+            yield m
+
+    @pytest.fixture
+    def messages_mock(self):
+        """Mock out the django messages package."""
+        with patch("jobby.views.messages") as m:
+            yield m
+
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
     def test_get_object_add(self, view, view_extra_context):
         """Assert that ``get_object`` returns None if this is an 'add' view."""
         assert view.get_object() is None
 
     @pytest.mark.parametrize("view_extra_context", [{"add": False}])
-    def test_get_object_edit(self, view, view_extra_context, super_mock):
+    def test_get_object_edit(self, view, view_extra_context, super_mock, is_expired_mock):
         """
         Assert that ``get_object`` calls the super method if this is an 'edit'
         view.
@@ -454,18 +483,6 @@ class TestStellenangebotView:
         """
         super_mock.return_value.get_initial.return_value = {"foo": "bar"}
         assert view.get_initial() == {"foo": "bar"}
-
-    @pytest.fixture
-    def super_get_mock(self, view, super_mock):
-        """Mock out super().get() to return a mocked response."""
-
-        def get(*_args, **_kwargs):
-            view.object = None
-            return response_mock
-
-        response_mock = Mock()
-        super_mock.return_value.get = Mock(side_effect=get)
-        return response_mock
 
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
     def test_get_add_refnr_exists(self, view, get_request, stellenangebot, super_get_mock, view_extra_context):
@@ -578,6 +595,93 @@ class TestStellenangebotView:
         """
         view_post_request.object = stellenangebot
         assert view_post_request.get_success_url() == reverse("stellenangebot_edit", kwargs={"id": stellenangebot.pk})
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": False}])
+    def test_check_if_expired(
+        self,
+        view,
+        view_extra_context,
+        get_request,
+        stellenangebot,
+        is_expired_mock,
+        messages_mock,
+    ):
+        """
+        Assert that ``check_if_expired`` calls the is_expired method and
+        updates the view's Stellenangebot if it has expired.
+        """
+        view.object = stellenangebot
+        view.add = False
+        is_expired_mock.return_value = True
+        view.check_if_expired(get_request)
+        is_expired_mock.assert_called()
+        stellenangebot.refresh_from_db()
+        assert stellenangebot.expired
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": False}])
+    def test_is_expired(self, view, view_extra_context, requests_mock):
+        """
+        Assert that ``is_expired`` returns whether the response for the
+        external job details page was ok.
+        """
+        details_url = "http://foo.bar"
+        with patch.object(view, "get_details_url") as get_details_url_mock:
+            get_details_url_mock.return_value = details_url
+            requests_mock.get(details_url, status_code=404)
+            assert view.is_expired()
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": False}])
+    def test_is_expired_exception(self, view, view_extra_context):
+        """
+        Assert that ``is_expired`` catches exceptions raised by requests and
+        returns False instead.
+        """
+        with patch.object(view, "get_details_url"):
+            with patch("jobby.views.requests") as requests_mock:
+                requests_mock.get = Mock(side_effect=Exception)
+                assert not view.is_expired()
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": False}])
+    @pytest.mark.parametrize("stellenangebot_extra_data", [{"expired": True}, {"expired": False}])
+    def test_check_if_expired_sends_user_message_if_expired(
+        self,
+        view,
+        get_request,
+        view_extra_context,
+        stellenangebot,
+        stellenangebot_extra_data,
+        messages_mock,
+        is_expired_mock,
+    ):
+        """Assert that ``check_if_expired`` emits a user message if the view
+        object has expired.
+        """
+        view.object = stellenangebot
+        view.add = False
+        add_message_mock = Mock()
+        messages_mock.add_message = add_message_mock
+        messages_mock.ERROR = messages.ERROR
+
+        view.check_if_expired(get_request)
+        if stellenangebot_extra_data["expired"]:
+            add_message_mock.assert_called_with(
+                get_request, level=messages.ERROR, message="Dieses Stellenangebot ist nicht mehr verfügbar."
+            )
+        else:
+            add_message_mock.assert_not_called()
+
+    @pytest.mark.parametrize("view_extra_context", [{"add": False}, {"add": True}])
+    def test_get_calls_check_if_expired(self, view, view_extra_context, super_get_mock, get_request):
+        """
+        Assert that get calls the ``check_if_expired`` method if it is an edit
+        view.
+        """
+        with patch.object(view, "check_if_expired") as check_mock:
+            view.get(get_request)
+            if view_extra_context["add"]:
+                check_mock.assert_not_called()
+            else:
+                check_mock.assert_called()
 
 
 @pytest.mark.usefixtures("ignore_csrf_protection")

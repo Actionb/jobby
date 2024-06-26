@@ -165,6 +165,8 @@ class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
                 return redirect(reverse("stellenangebot_edit", kwargs={"id": obj.pk}))
             except Stellenangebot.DoesNotExist:  # noqa
                 pass
+        if not self.add and self.object:
+            self.check_if_expired(request)
         return response
 
     def get_object(self, queryset=None):
@@ -184,14 +186,15 @@ class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
         else:
             return self.object.titel or "Stellenangebot"
 
-    def get_details_url(self):
+    def get_details_url(self, obj=None):
         """Return the URL to the external details page of this Stellenangebot."""
         if self.add:
             refnr = self.request.GET.get("refnr", None)
             api_name = self.request.GET.get("api", None)
         else:
-            refnr = self.object.refnr
-            api_name = self.object.api
+            obj = obj or self.object
+            refnr = obj.refnr
+            api_name = obj.api
         if refnr and api_name:
             return registry.get_details_url(api_name, refnr)
 
@@ -223,6 +226,33 @@ class StellenangebotView(InlineFormsetMixin, BaseMixin, UpdateView):
         else:
             url = reverse("stellenangebot_edit", kwargs={"id": self.object.pk})
         return add_search_filters(context={"preserved_search_filters": self.get_search_filters(self.request)}, url=url)
+
+    def check_if_expired(self, request):
+        """Check whether the view's Stellenangebot is still available."""
+        if not self.object.expired and self.is_expired():
+            # The Stellenangebot has expired. Update the instance.
+            self.object.expired = True
+            self.object.save()
+        if self.object.expired:
+            messages.add_message(
+                request,
+                level=messages.ERROR,
+                message="Dieses Stellenangebot ist nicht mehr verfügbar.",
+            )
+        return self.object.expired
+
+    def is_expired(self):
+        """
+        Return whether a request against the external job details url returns
+        a 404 response.
+
+        If the page can not be found, this implies that the Stellenangebot has
+        expired.
+        """
+        try:
+            return requests.get(self.get_details_url()).status_code == 404
+        except Exception:  # noqa
+            return False
 
 
 ################################################################################
