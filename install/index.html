@@ -35,13 +35,25 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                             <li class="nav-item">
-                                <a href=".." class="nav-link">jobby - Hilfe</a>
+                                <a href=".." class="nav-link">Index</a>
                             </li>
                             <li class="nav-item">
                                 <a href="./" class="nav-link active" aria-current="page">Installation</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../suche/" class="nav-link">Die Suche</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../detail/" class="nav-link">Detailansicht</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../merkliste/" class="nav-link">Die Merkliste</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../papierkorb/" class="nav-link">Papierkorb</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../support/" class="nav-link">Support</a>
                             </li>
                         </ul>
 
@@ -85,15 +97,15 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#als-archiv-herunterladen" class="nav-link">Als Archiv herunterladen</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#als-git-repository-herunterladen" class="nav-link">Als git Repository herunterladen</a>
+            <li class="nav-item" data-bs-level="2"><a href="#linux" class="nav-link">Linux</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             <li class="nav-item" data-bs-level="2"><a href="#erzeugte-ordner-und-dateien" class="nav-link">Erzeugte Ordner und Dateien</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#deinstallation" class="nav-link">Deinstallation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -107,30 +119,37 @@
 <h1 id="installation">Installation</h1>
 <h2 id="voraussetzungen">Voraussetzungen</h2>
 <ul>
-<li>python</li>
-<li>docker (mit post install)</li>
+<li><a href="https://www.python.org/">Python</a></li>
+<li>Docker<ul>
+<li>Linux: https://docs.docker.com/engine/install/ (oder mit Dockers <a href="https://get.docker.com/">convenience script</a>)</li>
 </ul>
-<h2 id="als-archiv-herunterladen">Als Archiv herunterladen</h2>
-<p>Herunterladen: https://github.com/Actionb/jobby/archive/refs/heads/main.tar.gz
-Entpacken: <code>mkdir jobby &amp;&amp; tar -xf jobby-main.tar.gz -C ./jobby</code>
-In das Jobby Verzeichnis wechseln: <code>cd jobby/jobby-main</code>
-Installationsskript ausführen: <code>python3 install.py --uid=$(id -u) --gid=$(id -g) --password=supersecret</code>
-Die Seite sollte nun unter http://localhost:8787/jobby verfügbar sein.</p>
-<p>All-in-one, kopieren und in das Terminal kopieren</p>
+</li>
+</ul>
+<h2 id="linux">Linux</h2>
+<p>Diese Befehle kopieren und in ein Terminal einfügen:</p>
 <pre><code class="language-shell">curl -fsL https://github.com/Actionb/jobby/archive/refs/heads/main.tar.gz -o /tmp/jobby.tar.gz
 mkdir ~/jobby &amp;&amp; tar -xf /tmp/jobby.tar.gz -C ~/jobby &amp;&amp; cd ~/jobby/jobby-main
 python3 install.py --uid=$(id -u) --gid=$(id -g) --password=supersecret
 rm /tmp/jobby.tar.gz
 </code></pre>
-<h2 id="als-git-repository-herunterladen">Als git Repository herunterladen</h2>
-<p>Alternativ, als git Repository:</p>
-<pre><code>git clone https://github.com/Actionb/jobby &amp;&amp; cd jobby
-python3 install.py --uid=$(id -u) --gid=$(id -g) --password=supersecret
-</code></pre>
+<p>Alternativ, Schritt für Schritt:</p>
+<ol>
+<li>Herunterladen: https://github.com/Actionb/jobby/archive/refs/heads/main.tar.gz</li>
+<li>Entpacken: <code>mkdir jobby &amp;&amp; tar -xf jobby-main.tar.gz -C ./jobby</code></li>
+<li>In das Jobby Verzeichnis wechseln: <code>cd jobby/jobby-main</code></li>
+<li>Installationsskript ausführen: <code>python3 install.py --uid=$(id -u) --gid=$(id -g) --password=supersecret</code></li>
+</ol>
+<p>Die Seite sollte nun unter http://localhost:8787/jobby verfügbar sein.</p>
 <h2 id="erzeugte-ordner-und-dateien">Erzeugte Ordner und Dateien</h2>
-<p>Die folgenden Ordner werden bei der Installation erstellt:
-* ein Datenordner (unter Linux standardmäßig <code>~/.local/share/jobby</code>), welcher die Daten der Datenbank und die hochgeladenen Dateien enthält
-* ein Ordner für die Konfiguration (unter Linux standardmäßig <code>~/.config/jobby</code>), welcher Dinge wie Datenbankpasswort und Umgebungsvariable für die Docker Container enthalten </p></div>
+<p>Die folgenden Ordner werden bei der Installation erstellt:</p>
+<ul>
+<li>ein Datenordner (unter Linux standardmäßig <code>~/.local/share/jobby</code>), welcher die Daten der Datenbank und die
+  hochgeladenen Dateien enthält</li>
+<li>ein Ordner für die Konfiguration (unter Linux standardmäßig <code>~/.config/jobby</code>), welcher Dinge wie Datenbankpasswort
+  und Umgebungsvariable für die Docker Container enthalten</li>
+</ul>
+<h2 id="deinstallation">Deinstallation</h2>
+<p>Wie man jobby wieder deinstalliert, findest du hier: <a href="../deinstall/">Deinstallation</a>.</p></div>
             </div>
         </div>
 
