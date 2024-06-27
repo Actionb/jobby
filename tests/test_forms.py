@@ -3,7 +3,10 @@ from unittest.mock import PropertyMock, patch
 
 import pytest
 from django.core.exceptions import BadRequest
-from jobby.forms import StellenangebotForm, SucheForm
+from jobby.forms import StellenangebotForm, SucheForm, WatchlistSearchForm
+from jobby.models import Stellenangebot
+
+pytestmark = [pytest.mark.django_db]
 
 
 @pytest.fixture
@@ -67,6 +70,19 @@ class TestStellenangebotForm:
         with patch("jobby.views._get_beschreibung") as m:
             m.return_value = beschreibung
             yield m
+
+    def test_existing_instance(self, form_class, get_beschreibung_mock, stellenangebot):
+        """Assert that the form can be instantiated with a Stellenangebot."""
+        form = form_class(instance=stellenangebot)
+        assert form.initial["titel"] == stellenangebot.titel
+
+    @pytest.mark.parametrize("form_data", [{"titel": "Software Tester", "refnr": "1234"}])
+    def test_new_instance(self, form, get_beschreibung_mock, form_data):
+        """Assert that the form can be saved to create a new Stellenangebot."""
+        assert form.is_valid()
+        saved = form.save()
+        assert saved.titel == form_data["titel"]
+        assert saved.refnr == form_data["refnr"]
 
     @pytest.mark.parametrize(
         "initial_data",
@@ -138,3 +154,19 @@ class TestStellenangebotForm:
         form.cleaned_data = cleaned_data
         form.clean_beschreibung()
         get_beschreibung_mock.assert_not_called()
+
+
+class TestWatchlistSearchForm:
+
+    @pytest.fixture
+    def form_class(self):
+        return WatchlistSearchForm
+
+    def test_get_filter_params(self, form):
+        cleaned_data = {"q": "Foo", "bewerbungsstatus": Stellenangebot.BewerbungChoices.BEWORBEN}
+        assert form.get_filter_params(cleaned_data) == cleaned_data
+
+    def test_get_filter_params_empty_value(self, form):
+        """Assert that ``get_filter_params`` excludes fields with empty values."""
+        cleaned_data = {"q": "", "bewerbungsstatus": ""}
+        assert not form.get_filter_params(cleaned_data)

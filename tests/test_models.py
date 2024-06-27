@@ -1,14 +1,16 @@
 from datetime import datetime
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, create_autospec, patch
 
 # noinspection PyPackageRequirements
 import pytest
 from django.contrib.postgres.search import TrigramWordSimilarity
+from django.core.files import File
 from django.db import models
 from django.db.models.functions import Greatest
 from django.urls import path
 from django.utils.timezone import make_aware
-from jobby.models import Stellenangebot, _as_dict, _update_stellenangebot
+from jobby.forms import StellenangebotForm
+from jobby.models import Stellenangebot, StellenangebotKontakt, _as_dict, _update_stellenangebot
 
 from tests.factories import StellenangebotFactory
 
@@ -107,6 +109,14 @@ urlpatterns = [
 @pytest.mark.urls(__name__)
 class TestStellenangebot:
 
+    def test_str(self, stellenangebot):
+        assert stellenangebot.__str__() == stellenangebot.titel
+
+    def test_search_result_form(self, stellenangebot):
+        form = stellenangebot.as_search_result_form()
+        assert isinstance(form, StellenangebotForm)
+        assert form.instance == stellenangebot
+
     def test_as_url_saved_instance(self, stellenangebot):
         """
         Assert that ``as_url`` returns the URL to the instance's edit page if
@@ -130,20 +140,38 @@ class TestStellenangebot:
         """
         assert not stellenangebot.has_user_data()
 
-    def test_has_user_data_local_fields(self, stellenangebot):
+    def test_has_user_data_has_notizen(self, stellenangebot):
         """
         Assert that ``has_user_data`` returns True if the instance has values
-        in any of the fields that the user controls.
+        in the 'notizen' field.
         """
         stellenangebot.notizen = "Foo"
         assert stellenangebot.has_user_data()
 
     def test_has_user_data_has_url(self, stellenangebot):
         """
-        Assert that ``has_user_data`` returns True if the instance has items in
-        the related sets that the user controls.
+        Assert that ``has_user_data`` returns True if the instance has any
+        user-defined urls associated with it.
         """
         stellenangebot.urls.create(url="www.foobar.com")
+        assert stellenangebot.has_user_data()
+
+    def test_has_user_data_has_kontakte(self, stellenangebot):
+        """
+        Assert that ``has_user_data`` returns True if the instance has any
+        user-defined contact data associated with it.
+        """
+        stellenangebot.kontakte.create(kontakt_typ=StellenangebotKontakt.TypChoices.TELEFON, kontakt_daten="1234")
+        assert stellenangebot.has_user_data()
+
+    def test_has_user_data_has_files(self, stellenangebot):
+        """
+        Assert that ``has_user_data`` returns True if the instance has any
+        user-defined files associated with it.
+        """
+        file = create_autospec(File)
+        file.name = "test_file"
+        stellenangebot.files.create(file=file)
         assert stellenangebot.has_user_data()
 
 
@@ -191,6 +219,12 @@ class TestStellenangebotQuerySet:
 
 
 class TestWatchlist:
+
+    def test_on_watchlist(self, watchlist, watchlist_item, stellenangebot):
+        assert watchlist.on_watchlist(stellenangebot)
+
+    def test_on_watchlist_not_on_watchlist(self, watchlist, stellenangebot):
+        assert not watchlist.on_watchlist(stellenangebot)
 
     def test_add_watchlist_item(self, watchlist, stellenangebot):
         """
@@ -244,11 +278,14 @@ class TestWatchlist:
         Assert that ``get_stellenangebote`` returns the Stellenangebot
         instances that are on the watchlist.
         """
+        not_on_watchlist = StellenangebotFactory()
         with django_assert_num_queries(1):
-            assert stellenangebot in watchlist.get_stellenangebote()
+            watchlist_stellenangebot = watchlist.get_stellenangebote()
+            assert stellenangebot in watchlist_stellenangebot
+            assert not_on_watchlist not in watchlist_stellenangebot
 
 
-class TestTextSearch:
+class TestTextSearch:  # TODO: remove - TestStellenangebotQuerySet already does this
 
     @pytest.fixture
     def titel_obj(self):

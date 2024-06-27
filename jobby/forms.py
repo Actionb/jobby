@@ -103,7 +103,9 @@ class WatchlistSearchForm(forms.Form):
                 isinstance(formfield, forms.BooleanField)
                 and not isinstance(formfield, forms.NullBooleanField)
                 and not value
-            ):
+            ):  # pragma: no cover
+                # NOTE: Currently, there the search form does not use any
+                #  BooleanFields, so this branch is never entered.
                 # value is False on a simple BooleanField; don't include it.
                 continue
             elif value in formfield.empty_values or isinstance(value, QuerySet) and not value.exists():

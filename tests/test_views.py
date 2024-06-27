@@ -20,6 +20,7 @@ from jobby.views import (
     SucheView,
     WatchlistView,
     get_beschreibung,
+    papierkorb_delete,
     stellenangebot_remove,
     watchlist_remove,
     watchlist_remove_all,
@@ -32,9 +33,9 @@ pytestmark = [pytest.mark.django_db]
 
 
 @pytest.fixture
-def search_results():
+def search_results(stellenangebot):
     """Return a list of integers to act as search results."""
-    return list(range(1, 11))
+    return [stellenangebot, StellenangebotFactory()]
 
 
 @pytest.fixture
@@ -54,7 +55,7 @@ def registry_mock():
 
 @pytest.fixture
 def search_mock(registry_mock, search_response_mock):
-    """Mock the ``search`` function to return a mocked response."""
+    """Mock the registry's ``search`` function to return a mocked response."""
     search_mock = Mock(return_value=search_response_mock)
     registry_mock.search = search_mock
     yield search_mock
@@ -113,6 +114,15 @@ class TestSucheView:
         with patch.object(view, "form_class") as m:
             m.return_value.is_valid.return_value = form_is_valid
             yield m
+
+    def test(self, client):
+        response = client.get(reverse("suche"))
+        assert response.status_code == 200
+
+    def test_search(self, client, search_mock, stellenangebot, search_results, watchlist_item):
+        response = client.get(reverse("suche"), data={"was": "Software", "wo": "Dortmund", "suche": ""})
+        assert response.status_code == 200
+        assert response.context["results"] == [(stellenangebot, True), (search_results[-1], False)]
 
     @pytest.mark.parametrize("request_data", [{"suche": ""}])
     @pytest.mark.parametrize("form_is_valid", [True])
@@ -254,6 +264,10 @@ class TestWatchlistView:
         with patch.object(view, "get_watchlist_names") as m:
             yield m
 
+    def test(self, client):
+        response = client.get(reverse("watchlist"))
+        assert response.status_code == 200
+
     @pytest.mark.parametrize("request_data", [{"watchlist_name": "foo"}])
     def test_current_watchlist_name(self, view, get_request, request_data):
         """Assert that ``current_watchlist_name`` returns the expected data."""
@@ -263,11 +277,26 @@ class TestWatchlistView:
         """Assert that ``get_watchlist`` returns the expected Watchlist instance."""
         assert view.get_watchlist(get_request) == watchlist
 
-    def test_get_queryset(self, view, watchlist, watchlist_item, stellenangebot):
+    def test_get_queryset(self, view, watchlist_item, stellenangebot):
         """Assert that ``get_queryset`` returns the expected queryset."""
         queryset = view.get_queryset()
         assert isinstance(queryset, QuerySet)
         assert stellenangebot in queryset
+
+    @pytest.mark.parametrize("request_data", [{"q": "Foo"}])
+    def test_get_queryset_search(self, view, watchlist_item, request_data):
+        """
+        Assert that ``get_queryset`` calls the search method of the queryset if
+        the request contains a search term.
+        """
+        search_mock = Mock()
+        search_mock.name = "my search mock"
+        queryset_mock = Mock(search=search_mock)
+        queryset_mock.filter.return_value = queryset_mock
+        with patch.object(view, "get_watchlist") as m:
+            m.return_value.get_stellenangebote.return_value = queryset_mock
+            view.get_queryset()
+            search_mock.assert_called_with("Foo")
 
     def test_get_watchlist_names(self, view, watchlist, watchlist_name):
         """Assert that ``get_watchlist_names`` returns the expected list of names."""
@@ -310,6 +339,16 @@ class TestWatchlistToggle:
         with patch("jobby.views._get_beschreibung") as m:
             m.return_value = beschreibung
             yield m
+
+    def test_not_on_watchlist(self, client, watchlist, stellenangebot):
+        response = client.post(reverse("watchlist_toggle"), data={"refnr": stellenangebot.refnr})
+        assert response.status_code == 200
+        assert watchlist.items.filter(stellenangebot=stellenangebot).exists()
+
+    def test_already_on_watchlist(self, client, watchlist, watchlist_item, stellenangebot):
+        response = client.post(reverse("watchlist_toggle"), data={"refnr": stellenangebot.refnr})
+        assert response.status_code == 200
+        assert not watchlist.items.filter(stellenangebot=stellenangebot).exists()
 
     def test_watchlist_toggle_not_on_watchlist(self, post_request, watchlist, stellenangebot):
         """
@@ -436,9 +475,9 @@ class TestStellenangebotView:
         return response_mock
 
     @pytest.fixture
-    def is_expired_mock(self, view):
+    def is_expired_mock(self):
         """Mock out the view's is_expired method."""
-        with patch.object(view, "is_expired") as m:
+        with patch("jobby.views.StellenangebotView.is_expired") as m:
             m.return_value = False
             yield m
 
@@ -447,6 +486,47 @@ class TestStellenangebotView:
         """Mock out the django messages package."""
         with patch("jobby.views.messages") as m:
             yield m
+
+    @pytest.fixture
+    def formset_mock(self):
+        """
+        Mock out the formsets of the StellenangebotView, so we don't have to
+        supply their management data in the request data.
+        """
+        with patch("jobby.views.StellenangebotView.formset_classes", new=[]) as m:
+            yield m
+
+    def test_add(self, client):
+        response = client.get(reverse("stellenangebot_add"))
+        assert response.status_code == 200
+
+    def test_add_save(self, client, formset_mock):
+        request_data = {"notizen": "foo", "titel": "Software Tester", "refnr": "1234", "beschreibung": "Text"}
+        response = client.post(reverse("stellenangebot_add"), request_data, follow=True)
+        assert response.status_code == 200
+        assert Stellenangebot.objects.filter(**request_data).exists()
+
+    def test_edit(self, client, stellenangebot):
+        response = client.get(reverse("stellenangebot_edit", kwargs={"id": stellenangebot.pk}))
+        assert response.status_code == 200
+
+    def test_edit_save(self, client, stellenangebot, formset_mock, is_expired_mock):
+        stellenangebot.notizen = "foo"
+        stellenangebot.save()
+        request_data = {
+            "notizen": "bar",
+            "titel": stellenangebot.titel,
+            "refnr": stellenangebot.refnr,
+            "beschreibung": "Text",
+        }
+        response = client.post(
+            reverse("stellenangebot_edit", kwargs={"id": stellenangebot.pk}),
+            data=request_data,
+            follow=True,
+        )
+        assert response.status_code == 200
+        stellenangebot.refresh_from_db()
+        assert stellenangebot.notizen == "bar"
 
     @pytest.mark.parametrize("view_extra_context", [{"add": True}])
     def test_get_object_add(self, view, view_extra_context):
@@ -691,6 +771,11 @@ class TestWatchlistRemove:
     def request_data(self, refnr, watchlist_name):
         return {"refnr": refnr, "watchlist_name": watchlist_name}
 
+    def test(self, client, watchlist, watchlist_item, stellenangebot):
+        response = client.post(reverse("watchlist_remove"), data={"refnr": stellenangebot.refnr})
+        assert response.status_code == 200
+        assert not watchlist.items.filter(stellenangebot=stellenangebot).exists()
+
     def test_watchlist_remove(self, post_request, stellenangebot, watchlist_item, watchlist):
         """Assert that ``watchlist_remove`` removes the item from the watchlist."""
         response = watchlist_remove(post_request)
@@ -751,6 +836,11 @@ class TestWatchlistRemoveAll:
     @pytest.fixture
     def request_data(self, refnr, watchlist_name):
         return {"refnr": refnr, "watchlist_name": watchlist_name}
+
+    def test(self, client, watchlist, watchlist_item):
+        response = client.post(reverse("watchlist_remove_all"))
+        assert response.status_code == 200
+        assert not watchlist.items.exists()
 
     def test_watchlist_remove_all(self, post_request, watchlist_item, watchlist):
         """
@@ -815,15 +905,23 @@ class TestGetBeschreibung:
         return requests.codes["ok"]
 
     @pytest.fixture
-    def get_request(self, get_request, requests_mock, details_url, details_html, status_code):
-        """Create a mocked response for the job details request call."""
+    def jobdetails_request_mock(self, requests_mock, details_url, details_html, status_code):
         requests_mock.get(details_url, text=details_html, status_code=status_code)
+
+    @pytest.fixture
+    def get_request(self, jobdetails_request_mock, get_request):
+        """Create a mocked response for the job details request call."""
         return get_request
 
     @pytest.fixture
     def get_beschreibung_response(self, get_request, refnr):
         """Call ``get_beschreibung`` and return the response."""
         return get_beschreibung(get_request, refnr=refnr)
+
+    def test(self, jobdetails_request_mock, client, refnr, beschreibung_html):
+        response = client.post(reverse("get_angebot_beschreibung", kwargs={"refnr": refnr}))
+        assert response.status_code == 200
+        assert response.content.decode("utf-8") == beschreibung_html
 
     def test_get_beschreibung(self, get_beschreibung_response, beschreibung_html):
         """Assert that ``get_beschreibung`` returns the expected HTML."""
@@ -855,8 +953,8 @@ class TestGetBeschreibung:
         [
             (
                 """<div id="detail-beschreibung-extern">
-                                <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a>
-                                </div>""",
+                        <a id="detail-beschreibung-externe-url-btn" href="www.foobar.com">www.foobar.com</a>
+                        </div>""",
                 """Beschreibung auf externer Seite: <a href="www.foobar.com">www.foobar.com</a>""",
             )
         ],
@@ -876,18 +974,22 @@ class TestPapierkorbView:
         return PapierkorbView
 
     @pytest.fixture
-    def watchlist_item(self, watchlist):
+    def other_watchlist_item(self, watchlist):
         # Add a 'control' item that should not appear in the view's queryset.
         return WatchlistItemFactory(watchlist=watchlist, stellenangebot=StellenangebotFactory())
 
-    def test_get_queryset(self, view, watchlist, watchlist_item, stellenangebot):
+    def test(self, client):
+        response = client.get(reverse("papierkorb"))
+        assert response.status_code == 200
+
+    def test_get_queryset(self, view, watchlist, stellenangebot, other_watchlist_item):
         """
         Assert that PapierkorbView.get_queryset returns all Stellenangebot
         instances that are not on any watchlist.
         """
         queryset = view.get_queryset()
         assert stellenangebot in queryset
-        assert watchlist_item.stellenangebot not in queryset
+        assert other_watchlist_item.stellenangebot not in queryset
 
 
 urlpatterns = [
@@ -922,6 +1024,11 @@ class TestBaseMixin:
 @pytest.mark.usefixtures("ignore_csrf_protection")
 class TestStellenangebotRemove:
 
+    def test(self, client, stellenangebot, watchlist_item, watchlist):
+        response = client.post(reverse("stellenangebot_remove", kwargs={"id": stellenangebot.pk}), follow=True)
+        assert response.status_code == 200
+        assert not watchlist.on_watchlist(stellenangebot)
+
     @pytest.fixture
     def request_data(self, watchlist_name):
         return {"watchlist_name": watchlist_name}
@@ -947,3 +1054,21 @@ class TestStellenangebotRemove:
         """
         response = stellenangebot_remove(post_request, 0)
         assert response.status_code == 302
+
+
+@pytest.mark.usefixtures("ignore_csrf_protection")
+class TestPapierkorbDelete:
+
+    @pytest.fixture
+    def request_data(self, stellenangebot):
+        return {"pk": stellenangebot.pk}
+
+    def test(self, client, request_data, stellenangebot):
+        pk = stellenangebot.pk
+        response = client.post(reverse("papierkorb_delete"), data=request_data)
+        assert response.status_code == 200
+        assert not Stellenangebot.objects.filter(pk=pk).exists()
+
+    @pytest.mark.parametrize("request_data", [{}])
+    def test_no_pk(self, post_request, request_data):
+        assert papierkorb_delete(post_request).status_code == 400
