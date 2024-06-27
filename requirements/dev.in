@@ -13,3 +13,4 @@ requests-mock
 pip-audit
 playwright
 pytest-playwright
+mkdocs
