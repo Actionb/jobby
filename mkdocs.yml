@@ -1,4 +1,4 @@
-site_name: jobby - Hilfe
+site_name: Hilfe - jobby
 nav:
   - Index: index.md
   - Installation: install.md
@@ -7,3 +7,7 @@ nav:
   - Die Merkliste: merkliste.md
   - Papierkorb: papierkorb.md
   - Support: support.md
+plugins:
+  - search
+  - print-site:
+      add_table_of_contents: false
