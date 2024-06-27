@@ -1,0 +1,9 @@
+site_name: jobby - Hilfe
+nav:
+  - Index: index.md
+  - Installation: install.md
+  - Die Suche: suche.md
+  - Detailansicht: detail.md
+  - Die Merkliste: merkliste.md
+  - Papierkorb: papierkorb.md
+  - Support: support.md
