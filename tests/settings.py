@@ -90,7 +90,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -140,3 +139,12 @@ BOOTSTRAP5 = {
 # silence this warning, or set the FORMS_URLFIELD_ASSUME_HTTPS transitional
 # setting to True to opt into using 'https' as the new default scheme.
 FORMS_URLFIELD_ASSUME_HTTPS = True
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.InMemoryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
