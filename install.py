@@ -183,8 +183,8 @@ def install(password: str, allowedhosts: str, uid: int | None = None, gid: int |
     print("This sets up directories for persistent storage and config files.")
     print(f"Persistent data directory: {get_data_directory()}")
     print(f"Config directory: {get_config_directory()}")
-    print(f"Database password: {password}\n")
-    if input("Continue? [y/n]: ").lower().strip() not in ("y", "yes", "j", "ja", "ok"):
+    print(f"Database password: {password}")
+    if input("\nContinue? [y/n]: ").lower().strip() not in ("y", "yes", "j", "ja", "ok"):
         print("Aborted.")
         return
 
@@ -214,7 +214,7 @@ def uninstall():
     print("This will delete the following directories and *everything* in it:")
     print(data_dir)
     print(app_config_dir)
-    if input("Continue? [y/n]: ").lower().strip() not in ("y", "yes", "j", "ja", "ok"):
+    if input("\nContinue? [y/n]: ").lower().strip() not in ("y", "yes", "j", "ja", "ok"):
         print("Aborted.")
         return
 
@@ -222,11 +222,20 @@ def uninstall():
     subprocess.run(["docker", "compose", "down"])
 
     print("Deleting directories...")
-    shutil.rmtree(data_dir)
-    shutil.rmtree(app_config_dir)
+    if data_dir.exists():
+        shutil.rmtree(data_dir)
+    if app_config_dir.exists():
+        shutil.rmtree(app_config_dir)
+
+    print("Done!")
 
     # TODO: remove docker image?
     # subprocess.run(["docker", "image", "rm", "jobby-web", "postgres:alpine"])
+    print("To delete the docker images try: docker image prune -a")
+
+    # TODO: is deleting the source directory itself a safe thing to do?
+    # shutil.rmtree(Path(__file__).parent)
+    print("You can now delete this jobby directory.")
 
 
 if __name__ == "__main__":
