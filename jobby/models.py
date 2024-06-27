@@ -112,7 +112,6 @@ class StellenangebotQuerySet(QuerySet):
 
 
 class Stellenangebot(models.Model):
-    # TODO: set editable = False on all fields?
     class BewerbungChoices(models.TextChoices):
         NICHT_BEWORBEN = "nicht beworben"
         GEPLANT = "geplant"
@@ -130,7 +129,6 @@ class Stellenangebot(models.Model):
         error_messages={"unique": "Stellenangebot mit dieser Referenz-Nummer existiert bereits"},
     )
     beruf = models.CharField(max_length=CHARFIELD_MAX, blank=True, verbose_name="Beruf")
-    # TODO: arbeitgeber could be a relation?
     arbeitgeber = models.CharField(max_length=CHARFIELD_MAX, blank=True, verbose_name="Arbeitgeber")
     arbeitsort = models.CharField(max_length=CHARFIELD_MAX, blank=True, verbose_name="Arbeitsort")
     eintrittsdatum = models.DateField(blank=True, null=True, verbose_name="Eintrittsdatum")
@@ -160,12 +158,20 @@ class Stellenangebot(models.Model):
     def __str__(self):
         return self.titel
 
-    def as_search_result_form(self):
+    def as_search_result_form(self):  # TODO: rename to as_stellenangebot_form?
+        """Return a StellenangebotForm of this instance."""
         from jobby.forms import StellenangebotForm
 
         return StellenangebotForm(instance=self)
 
     def as_url(self):
+        """
+        Return the URL to the StellenangebotView page for this instance.
+
+        If the instance is saved, return the URL for the edit view.
+        If the instance is not saved, return the URL for the add view, with
+        the instance's data attached to the query string.
+        """
         if self.pk:
             return reverse("stellenangebot_edit", kwargs={"id": self.pk})
         else:
@@ -174,6 +180,8 @@ class Stellenangebot(models.Model):
 
     def has_user_data(self):
         """Return whether a user has added additional data to this instance."""
+        # This is indicated by any of the 'user data' fields or relations
+        # having non-default values.
         local_user_data_fields = ["notizen"]
         for local_field_name in local_user_data_fields:
             field = self._meta.get_field(local_field_name)
