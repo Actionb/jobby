@@ -7,6 +7,7 @@ nav:
   - Die Merkliste: merkliste.md
   - Papierkorb: papierkorb.md
   - Support: support.md
+  - Deinstallation: deinstall.md
 plugins:
   - search
   - print-site:

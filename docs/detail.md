@@ -29,12 +29,12 @@ In dem folgenden Formular kannst du nun deine Notizen (2) und ähnliches eintrag
 Um zum Beispiel Bewerbungsunterlagen hochzuladen, klicke unten auf den Reiter "Bewerbungsunterlagen" (3). In dem
 optionalen Feld "Beschreibung" (4) kannst du eine kurze Beschreibung der Datei angeben. Mit "Datei" (5) kannst du die
 Datei auswählen, die du hochladen möchtest. Um weitere Dateien hochzuladen, klick auf den Knopf "Bewerbungsunterlagen
-hinzufügen" (6). Der "Löschen" Knopf (7) markiert eine Zeile zum Entfernen; wenn du dir das Stellenangebot merkst oder
-abspeicherst, wird diese Zeile gelöscht.
+hinzufügen" (6). Der "Löschen" Knopf (7) markiert eine Zeile zum Entfernen; wenn du das Stellenangebot abspeicherst,
+wird daraufhin diese eine Zeile gelöscht.
 
 ## Stellenangebot nicht mehr verfügbar
 
 Wenn das Stellenangebot nicht mehr verfügbar ist, sind die Speichern-Knöpfe gesperrt und eine Warnung wird angezeigt.
-Das abgelaufenes Stellenangebot kannst du nicht zu der Merkliste hinzufügen:
+Ein abgelaufenes Stellenangebot kannst du nicht zu der Merkliste hinzufügen:
 
 ![Stellenangebot nicht mehr verfügbar](img/detail_abgelaufen.png)

@@ -7,5 +7,5 @@ Das ist Hilfe für die jobby Anwendung. Hier findest Informationen zu den folgen
 * [Detailansicht](detail.md)
 * [Merkliste](merkliste.md)
 * [Papierkorb](papierkorb.md)
-* [Support](suche.md)
+* [Support](support.md)
 * [Deinstallation](deinstall.md)
