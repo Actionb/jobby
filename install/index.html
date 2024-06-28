@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Installation - jobby - Hilfe</title>
+        <title>Installation - Hilfe - jobby</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -17,6 +17,14 @@
         <link href="../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../css/print-site-enum-headings1.css" rel="stylesheet">
+        <link href="../css/print-site-enum-headings2.css" rel="stylesheet">
+        <link href="../css/print-site-enum-headings3.css" rel="stylesheet">
+        <link href="../css/print-site-enum-headings4.css" rel="stylesheet">
+        <link href="../css/print-site-enum-headings5.css" rel="stylesheet">
+        <link href="../css/print-site-enum-headings6.css" rel="stylesheet">
+        <link href="../css/print-site.css" rel="stylesheet">
+        <link href="../css/print-site-mkdocs.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script> 
     </head>
@@ -24,7 +32,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">jobby - Hilfe</a>
+                <a class="navbar-brand" href="..">Hilfe - jobby</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -54,6 +62,9 @@
                             </li>
                             <li class="nav-item">
                                 <a href="../support/" class="nav-link">Support</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../deinstall/" class="nav-link">Deinstallation</a>
                             </li>
                         </ul>
 
@@ -121,25 +132,29 @@
 <ul>
 <li><a href="https://www.python.org/">Python</a></li>
 <li>Docker<ul>
-<li>Linux: <a href="https://docs.docker.com/engine/install/">https://docs.docker.com/engine/install/</a> (oder mit Dockers <a href="https://get.docker.com/">convenience script</a>)</li>
+<li>Linux: <a href="https://docs.docker.com/engine/install/">https://docs.docker.com/engine/install/</a> (oder mit
+  Dockers <a href="https://get.docker.com/">convenience script</a>)</li>
 </ul>
 </li>
 </ul>
 <h2 id="linux">Linux</h2>
-<p>Diese Befehle kopieren und in ein Terminal einfügen:</p>
+<p>Schritt für Schritt Anweisungen:</p>
+<ol>
+<li>Archiv von github herunterladen: <a href="https://github.com/Actionb/jobby/archive/refs/heads/main.tar.gz">Download</a></li>
+<li>Archiv entpacken:<br />
+<code>mkdir jobby &amp;&amp; tar -xf jobby-main.tar.gz -C ./jobby &amp;&amp; cd jobby/jobby-main</code></li>
+<li>Installationsskript ausführen:<br />
+<code>python3 install.py --uid=$(id -u) --gid=$(id -g) --password=supersecret</code>  </li>
+</ol>
+<p>Es wird <strong>dringend</strong> empfohlen, die UID und GID zu setzen, damit die von den Docker Containern erzeugten Dateien
+(wie z.B. hochgeladene Unterlagen) dem ausführenden Benutzer gehören und nicht etwa dem root-Benutzer.  </p>
+<p>Alternativ dazu, hier alle Befehle zusammen. Befehle kopieren und in ein Terminal einfügen:</p>
 <pre><code class="language-shell">curl -fsL https://github.com/Actionb/jobby/archive/refs/heads/main.tar.gz -o /tmp/jobby.tar.gz
 mkdir ~/jobby &amp;&amp; tar -xf /tmp/jobby.tar.gz -C ~/jobby &amp;&amp; cd ~/jobby/jobby-main
 python3 install.py --uid=$(id -u) --gid=$(id -g) --password=supersecret
 rm /tmp/jobby.tar.gz
 </code></pre>
-<p>Alternativ, Schritt für Schritt:</p>
-<ol>
-<li>Herunterladen: https://github.com/Actionb/jobby/archive/refs/heads/main.tar.gz</li>
-<li>Entpacken: <code>mkdir jobby &amp;&amp; tar -xf jobby-main.tar.gz -C ./jobby</code></li>
-<li>In das Jobby Verzeichnis wechseln: <code>cd jobby/jobby-main</code></li>
-<li>Installationsskript ausführen: <code>python3 install.py --uid=$(id -u) --gid=$(id -g) --password=supersecret</code></li>
-</ol>
-<p>Die Seite sollte nun unter http://localhost:8787/jobby verfügbar sein.</p>
+<p>Die Seite sollte nun unter <a href="http://localhost:8787/jobby">http://localhost:8787/jobby</a> verfügbar sein.</p>
 <h2 id="erzeugte-ordner-und-dateien">Erzeugte Ordner und Dateien</h2>
 <p>Die folgenden Ordner werden bei der Installation erstellt:</p>
 <ul>
@@ -163,6 +178,7 @@ rm /tmp/jobby.tar.gz
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../js/base.js"></script>
+        <script src="../js/print-site.js"></script>
         <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">

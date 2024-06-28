@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Detailansicht - Hilfe - jobby</title>
+        <title>Print Site - Hilfe - jobby</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -27,7 +27,13 @@
         <link href="../css/print-site-mkdocs.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script> 
-    </head>
+    
+        <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            remove_material_navigation();remove_mkdocs_theme_navigation();
+        })
+        </script>
+        </head>
 
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
@@ -52,7 +58,7 @@
                                 <a href="../suche/" class="nav-link">Die Suche</a>
                             </li>
                             <li class="nav-item">
-                                <a href="./" class="nav-link active" aria-current="page">Detailansicht</a>
+                                <a href="../detail/" class="nav-link">Detailansicht</a>
                             </li>
                             <li class="nav-item">
                                 <a href="../merkliste/" class="nav-link">Die Merkliste</a>
@@ -74,16 +80,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../suche/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../merkliste/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -102,16 +98,43 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#detailansicht" class="nav-link">Detailansicht</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#eigene-daten-hinzufugen" class="nav-link">Eigene Daten hinzufügen</a>
+            <li class="nav-item" data-bs-level="0"><a href="#" class="nav-link">1. Index</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#stellenangebot-nicht-mehr-verfugbar" class="nav-link">Stellenangebot nicht mehr verfügbar</a>
+            
+            <li class="nav-item" data-bs-level="0"><a href="#install" class="nav-link">2. Installation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
+            <li class="nav-item" data-bs-level="0"><a href="#suche" class="nav-link">3. Die Suche</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="0"><a href="#detail" class="nav-link">4. Detailansicht</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="0"><a href="#merkliste" class="nav-link">5. Die Merkliste</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="0"><a href="#papierkorb" class="nav-link">6. Papierkorb</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="0"><a href="#support" class="nav-link">7. Support</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="0"><a href="#deinstall" class="nav-link">8. Deinstallation</a>
+              <ul class="nav flex-column">
               </ul>
             </li>
         </ul>
@@ -119,9 +142,72 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="detailansicht">Detailansicht</h1>
-<p>Klickst du auf den Link eines Ergebnisses der <a href="../suche/">Suche</a>, oder auf ein Stellenangebot in
-deiner <a href="../merkliste/">Merkliste</a>, so gelangst du zu der Detailansicht dieses Angebots.</p>
+<div id="print-site-page" class="print-site-enumerate-headings print-site-enumerate-figures"><section class="print-page" id="index"><h1 id="index-index">Index</h1>
+<p>Das ist Hilfe für die jobby Anwendung. Hier findest Informationen zu den folgenden Punkten:</p>
+<ul>
+<li><a href="#install">Installation</a></li>
+<li><a href="#suche">Suchen</a></li>
+<li><a href="#detail">Detailansicht</a></li>
+<li><a href="#merkliste">Merkliste</a></li>
+<li><a href="#papierkorb">Papierkorb</a></li>
+<li><a href="#support">Support</a></li>
+<li><a href="#deinstall">Deinstallation</a></li>
+</ul></section><section class="print-page" id="install"><h1 id="install-installation">Installation</h1>
+<h2 id="install-voraussetzungen">Voraussetzungen</h2>
+<ul>
+<li><a href="https://www.python.org/">Python</a></li>
+<li>Docker<ul>
+<li>Linux: <a href="https://docs.docker.com/engine/install/">https://docs.docker.com/engine/install/</a> (oder mit
+  Dockers <a href="https://get.docker.com/">convenience script</a>)</li>
+</ul>
+</li>
+</ul>
+<h2 id="install-linux">Linux</h2>
+<p>Schritt für Schritt Anweisungen:</p>
+<ol>
+<li>Archiv von github herunterladen: <a href="https://github.com/Actionb/jobby/archive/refs/heads/main.tar.gz">Download</a></li>
+<li>Archiv entpacken:<br />
+<code>mkdir jobby &amp;&amp; tar -xf jobby-main.tar.gz -C ./jobby &amp;&amp; cd jobby/jobby-main</code></li>
+<li>Installationsskript ausführen:<br />
+<code>python3 install.py --uid=$(id -u) --gid=$(id -g) --password=supersecret</code>  </li>
+</ol>
+<p>Es wird <strong>dringend</strong> empfohlen, die UID und GID zu setzen, damit die von den Docker Containern erzeugten Dateien
+(wie z.B. hochgeladene Unterlagen) dem ausführenden Benutzer gehören und nicht etwa dem root-Benutzer.  </p>
+<p>Alternativ dazu, hier alle Befehle zusammen. Befehle kopieren und in ein Terminal einfügen:</p>
+<pre><code class="language-shell">curl -fsL https://github.com/Actionb/jobby/archive/refs/heads/main.tar.gz -o /tmp/jobby.tar.gz
+mkdir ~/jobby &amp;&amp; tar -xf /tmp/jobby.tar.gz -C ~/jobby &amp;&amp; cd ~/jobby/jobby-main
+python3 install.py --uid=$(id -u) --gid=$(id -g) --password=supersecret
+rm /tmp/jobby.tar.gz
+</code></pre>
+<p>Die Seite sollte nun unter <a href="http://localhost:8787/jobby">http://localhost:8787/jobby</a> verfügbar sein.</p>
+<h2 id="install-erzeugte-ordner-und-dateien">Erzeugte Ordner und Dateien</h2>
+<p>Die folgenden Ordner werden bei der Installation erstellt:</p>
+<ul>
+<li>ein Datenordner (unter Linux standardmäßig <code>~/.local/share/jobby</code>), welcher die Daten der Datenbank und die
+  hochgeladenen Dateien enthält</li>
+<li>ein Ordner für die Konfiguration (unter Linux standardmäßig <code>~/.config/jobby</code>), welcher Dinge wie Datenbankpasswort
+  und Umgebungsvariable für die Docker Container enthalten</li>
+</ul>
+<h2 id="install-deinstallation">Deinstallation</h2>
+<p>Wie man jobby wieder deinstalliert, findest du hier: <a href="#deinstall">Deinstallation</a>.</p></section><section class="print-page" id="suche"><h1 id="suche-die-suche">Die Suche</h1>
+<p>Auf der <a href="http://localhost:8787/jobby/suche/">Suchseite</a> kannst du nach Stellenangeboten suchen. Dazu gebe im Suchfeld "
+was" (1) den Beruf oder ein Schlagwort ein. Im Feld "wo" (2) gibst du deinen gewünschten Arbeitsort ein. Mit einem Klick
+auf "Suchen" (3) startest du die Suche.</p>
+<p><img alt="Die Suche" src="../img/suche.png" /></p>
+<p>Jedes Ergebnis präsentiert einen Link und die wichtigsten Daten zu dem Stellenangebot (4). Der Link führt dich zu
+der <a href="#detail">Detailansicht</a> des Stellenangebots führt. In der Detailansicht findest du unter anderem die Beschreibung
+des Stellenangebots und kannst deine eigenen Informationen hinzufügen.</p>
+<p>Neben den Ergebnissen findest du außerdem noch zwei Knöpfe. Der erste Knopf mit dem Lesezeichen Symbol (5) fügt das
+Ergebnis zu deiner Merkliste
+hinzu. Mit dem zweiten Knopf (6) kannst du Ergebnisse für zukünftige Suchen etwas verstecken lassen.</p>
+<p>Über der Ergebnisliste findest du Links (7) zu den Seiten, die die weiteren Suchergebnisse beinhalten.</p>
+<p>Du kannst zu der Suchseite zurückgelangen, wenn du im Kopf der Seite auf "jobby" klickst.</p>
+<h2 id="suche-links">Links</h2>
+<ul>
+<li>Die Suchseite: <a href="http://localhost:8787/jobby/suche/?was=Software&amp;wo=Dortmund&amp;umkreis=25&amp;page=1&amp;size=50&amp;suche=Suchen">http://localhost:8787/jobby/suche/</a></li>
+</ul></section><section class="print-page" id="detail"><h1 id="detail-detailansicht">Detailansicht</h1>
+<p>Klickst du auf den Link eines Ergebnisses der <a href="#suche">Suche</a>, oder auf ein Stellenangebot in
+deiner <a href="#merkliste">Merkliste</a>, so gelangst du zu der Detailansicht dieses Angebots.</p>
 <p><img alt="Detailansicht" src="../img/detail_beschreibung.png" /></p>
 <p>Hier kannst du dir alle verfügbaren Informationen zun dem Stellenangebot anschauen.
 Dazu gehört die detaillierte Job-Beschreibung (1) (falls vorhanden) und eventuell Daten, die du selbst hinzugefügt
@@ -135,7 +221,7 @@ hast (2).</p>
 </ul>
 <p>Befindet sich das Stellenangebot auf der Merkliste, kannst du den Knopf "Von der Merkliste entfernen" (4) benutzen, um
 das Angebot von der Merkliste zu entfernen.</p>
-<h2 id="eigene-daten-hinzufugen">Eigene Daten hinzufügen</h2>
+<h2 id="detail-eigene-daten-hinzufugen">Eigene Daten hinzufügen</h2>
 <p>Du kannst eigene Daten zu dem Stellenangebot hinzufügen. Klicke dazu auf den Reiter "Eigene Daten" (1).
 In dem folgenden Formular kannst du nun deine Notizen (2) und ähnliches eintragen.</p>
 <p><img alt="Detailansicht Formular" src="../img/detail_formular.png" /></p>
@@ -144,10 +230,36 @@ optionalen Feld "Beschreibung" (4) kannst du eine kurze Beschreibung der Datei a
 Datei auswählen, die du hochladen möchtest. Um weitere Dateien hochzuladen, klick auf den Knopf "Bewerbungsunterlagen
 hinzufügen" (6). Der "Löschen" Knopf (7) markiert eine Zeile zum Entfernen; wenn du das Stellenangebot abspeicherst,
 wird daraufhin diese eine Zeile gelöscht.</p>
-<h2 id="stellenangebot-nicht-mehr-verfugbar">Stellenangebot nicht mehr verfügbar</h2>
+<h2 id="detail-stellenangebot-nicht-mehr-verfugbar">Stellenangebot nicht mehr verfügbar</h2>
 <p>Wenn das Stellenangebot nicht mehr verfügbar ist, sind die Speichern-Knöpfe gesperrt und eine Warnung wird angezeigt.
 Ein abgelaufenes Stellenangebot kannst du nicht zu der Merkliste hinzufügen:</p>
-<p><img alt="Stellenangebot nicht mehr verfügbar" src="../img/detail_abgelaufen.png" /></p></div>
+<p><img alt="Stellenangebot nicht mehr verfügbar" src="../img/detail_abgelaufen.png" /></p></section><section class="print-page" id="merkliste"><h1 id="merkliste-die-merkliste">Die Merkliste</h1>
+<p>Die Merkliste erreichst du, unter anderem, über den "Merkliste" Knopf (1) oben auf der Seite.</p>
+<p>Hier findest du alle Stellenangebote, die du vorgemerkt hast. Du kannst auf ein gemerktes Stellenangebot klicken, um zu
+dessen <a href="#detail">Detailansicht</a> zu gelangen.</p>
+<p><img alt="Die Merkliste" src="../img/merkliste.png" /></p>
+<p>Über der Merkliste findest du ein kleines Suchformular (2). Gebe in dem Feld "Textsuche" deinen Suchbegriff ein und
+klicke dann auf "Suche".
+Die gemerkten Angebote werden daraufhin nach dem Begriff durchsucht. Um wieder die vollständige Merkliste anzuzeigen,
+klicke auf den Knopf "Alle Anzeigen" (3).</p>
+<p>Mit einem Klick auf den "Entfernen" Knopf, dem roten X, (4) kannst du ein Stellenangebot von der Merkliste entfernen.</p>
+<p>Entfernst du ein Stellenangebot wird dieses direkt von der Datenbank gelöscht, es sei denn, du hast eigene Daten zu dem
+Angebot hinzugefügt. In dem Fall findest du das Stellenangebot im <a href="#papierkorb">Papierkorb</a> (5) wieder, um deine Daten
+zu erhalten.</p></section><section class="print-page" id="papierkorb"><h1 id="papierkorb-der-papierkorb">Der Papierkorb</h1>
+<p>Den Papierkorb erreichst du, wenn du im Kopf der Seite auf den Knopf "Papierkorb" klickst.</p>
+<p>Im Papierkorb befinden sich Stellenangebote, die nicht mehr auf einer Merkliste sind, aber nicht automatisch gelöscht
+wurden, weil sie noch Benutzerdaten beinhalten.</p>
+<p>Um ein Stellenangebot endgültig zu löschen, drücke auf den "Löschen" Knopf mit dem roten X.</p>
+<p><strong>ACHTUNG</strong>: die Daten, die du bei dem Stellenangebot hinzugefügt hast, gehen dabei verloren. Die hochgeladenen Dateien
+werden allerdings nicht von der Festplatte gelöscht. Diese sind weiterhin im Upload Ordner zu finden 
+(unter Linux standardmäßig <code>~/.local/share/jobby/media/uploads</code>).</p></section><section class="print-page" id="support"><h1 id="support-support">Support</h1>
+<p>Fehlermeldungen, Fragen oder Vorschläge können auf Github eingereicht werden: <a href="https://github.com/Actionb/jobby/issues">https://github.com/Actionb/jobby/issues</a></p></section><section class="print-page" id="deinstall"><h1 id="deinstall-deinstallation">Deinstallation</h1>
+<p>In das jobby Source Verzeichnis wechseln und <code>python3 install.py --uninstall</code> ausführen.</p>
+<p><strong>ACHTUNG</strong>: Es wird ausgegeben, welche Ordner gelöscht werden - stelle sicher, dass diese nichts enthalten, das du
+unbedingt behalten möchtest! So werden zum Beispiel die Daten der Datenbank aber auch alle hochgeladenen Dateien
+gelöscht.</p>
+<p>Optional: Docker Images löschen: <code>docker image rm jobby-web:latest postgres:alpine</code></p>
+<p>Danach kann das jobby Source Verzeichnis gelöscht werden.</p></section></div></div>
             </div>
         </div>
 
@@ -157,7 +269,7 @@ Ein abgelaufenes Stellenangebot kannst du nicht zu der Merkliste hinzufügen:</p
         </footer>
         <script src="../js/bootstrap.bundle.min.js"></script>
         <script>
-            var base_url = "..",
+            var base_url = "/",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
         <script src="../js/base.js"></script>
